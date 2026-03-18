@@ -33,6 +33,7 @@ class ClientController extends Controller
             'adresse' => 'nullable|string',
             'ville' => 'nullable|string',
             'code_postal' => 'nullable|string',
+            'telephone' => 'nullable|string',
         ]);
 
         Client::create($validated);
@@ -47,7 +48,7 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
 
-        return view('#', compact('client')); // a rediriger
+        return view('clients.show', compact('client')); // a rediriger
     }
 
     /**
@@ -74,6 +75,7 @@ class ClientController extends Controller
             'adresse' => 'nullable|string',
             'ville' => 'nullable|string',
             'code_postal' => 'nullable|string',
+            'telephone' => 'nullable|string',
         ]);
 
         $client->update($validated);

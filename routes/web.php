@@ -3,10 +3,13 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClientController;
 use App\Http\Controllers\TicketController;
+use App\Http\Controllers\InteractionController;
+
 
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/interactions/create/{client_id}', [InteractionController::class, 'create'])->name('interactions.create');
 Route::resource('clients', ClientController::class);
 Route::resource('tickets', TicketController::class);
+Route::resource('interactions', InteractionController::class);
