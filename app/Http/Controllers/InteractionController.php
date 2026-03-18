@@ -23,11 +23,17 @@ class InteractionController extends Controller
 
         return back()->with('success', 'Interaction ajoutée');
     }
-    public function index()
+    public function index($client_id = null)
     {
-        $interactions = Interaction::all();
-        $client = Client::all();
-        return view('interactions.index', compact('interactions'));
+        if ($client_id) {
+            $interactions = Interaction::where('client_id', $client_id)->get();
+            $client = Client::findOrFail($client_id);
+        } else {
+            $interactions = Interaction::all();
+            $client = null;
+        }
+
+        return view('interactions.index', compact('interactions', 'client'));
     }
 
     public function create($client_id)
@@ -40,5 +46,13 @@ class InteractionController extends Controller
     {
         $interaction = Interaction::with('client')->findOrFail($id);
         return view('interactions.show', compact('interaction'));
+    }
+
+    public function byClient($client_id)
+    {
+        $client = Client::findOrFail($client_id);
+        $interactions = Interaction::where('client_id', $client_id)->get();
+
+        return view('interactions.index', compact('interactions', 'client'));
     }
 }

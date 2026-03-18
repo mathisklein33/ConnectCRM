@@ -48,7 +48,7 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
 
-        return view('clients.show', compact('client')); // a rediriger
+        return view('clients.show', compact('client'));
     }
 
     /**
