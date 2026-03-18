@@ -15,6 +15,12 @@ class Client extends Model
         'genre',
         'adresse',
         'ville',
-        'code_postal'
+        'code_postal',
+        'telephone',
     ];
+    public function interactions()
+    {
+        return $this->hasMany(Interaction::class);
+    }
+
 }
