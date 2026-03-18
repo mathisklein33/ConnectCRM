@@ -1,6 +1,4 @@
-
-@section('content')
-    <div class="container">
+<div class="container">
         <h1>Détails du client</h1>
 
         <p><strong>Nom :</strong> {{ $client->nom ?? 'Non renseigné' }}</p>
@@ -10,4 +8,3 @@
 
         <a href="{{ route('clients.index') }}">← Retour à la liste des clients</a>
     </div>
-@endsection

@@ -9,7 +9,8 @@ use App\Http\Controllers\InteractionController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/interactions/create/{client_id}', [InteractionController::class, 'create'])->name('interactions.create');
+Route::get('/interactions/client/{client_id}', [InteractionController::class, 'byClient'])->name('interactions.byClient');
+Route::get('/interactions/create/{client_id}', [InteractionController::class, 'create']);
 Route::resource('clients', ClientController::class);
 Route::resource('tickets', TicketController::class);
 Route::resource('interactions', InteractionController::class);
