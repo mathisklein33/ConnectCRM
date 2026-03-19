@@ -13,7 +13,7 @@ class ClientFactory extends Factory
     {
 
         return [
-            'nom' => $this->faker->name(),
+            'name' => $this->faker->name(),
             'email' => $this->faker->unique()->safeEmail(),
             'telephone' => $this->faker->phoneNumber(),
             'adresse' => $this->faker->address(),

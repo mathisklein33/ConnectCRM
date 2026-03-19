@@ -9,7 +9,7 @@
         <div class="interaction-card form-card">
             <div class="form-header">
                 <h1 class="form-title">Nouvelle interaction</h1>
-                <p class="form-subtitle">Enregistrement d'un échange avec <strong>{{ $client->nom }}</strong></p>
+                <p class="form-subtitle">Enregistrement d'un échange avec <strong>{{ $client->name }}</strong></p>
             </div>
 
             <form method="POST" action="{{ route('interactions.store') }}" class="modern-form">
