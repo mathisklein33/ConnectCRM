@@ -1,0 +1,230 @@
+/* Container et Header */
+.client-header-actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.client-btn-secondary {
+    text-decoration: none;
+    background: #f1f5f9;
+    color: #475569;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: 0.2s;
+}
+
+/* La Table (identique à la liste des interactions) */
+.client-table {
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.client-row {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    border-bottom: 1px solid #f1f5f9;
+    transition: background 0.2s;
+}
+
+.client-row:hover {
+    background-color: #f8fafc;
+}
+
+/* Colonnes */
+.col-avatar { width: 50px; }
+.avatar-circle {
+    width: 35px;
+    height: 35px;
+    background: #edf2f7;
+    color: #4a5568;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+.col-client-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.client-name {
+    font-weight: 600;
+    color: #1a202c;
+    font-size: 1rem;
+}
+
+.client-email {
+    font-size: 0.85rem;
+    color: #718096;
+}
+
+.col-company {
+    width: 20%;
+    font-weight: 500;
+    color: #4a5568;
+}
+
+/* Boutons d'actions */
+.col-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.action-btn {
+    text-decoration: none;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+    border-radius: 6px;
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    color: #4a5568;
+    transition: 0.2s;
+}
+
+.action-btn:hover {
+    background: #edf2f7;
+    border-color: #cbd5e0;
+}
+
+.btn-add {
+    background: #1976d2; /* Le vert de ta capture */
+    color: white;
+    border: none;
+    border: #1976d2 solid 1px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    font-weight: 500;
+    font-size: 0.9rem;
+    transition: 0.2s;
+    text-decoration: none;
+}
+
+.btn-add:hover {
+    background: white;
+    color: #1976d2;
+    border: #1976d2 solid 1px;
+}
+
+/* Layout en deux colonnes */
+.profile-grid {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 30px;
+    align-items: start;
+}
+
+/* Sidebar Client */
+.client-sidebar {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    border: 1px solid #edf2f7;
+}
+
+.client-card-header {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.big-avatar {
+    width: 80px; height: 80px;
+    background: #1976d2; color: white;
+    font-size: 2rem; font-weight: bold;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%; margin: 0 auto 15px;
+}
+
+.detail-group {
+    margin-bottom: 20px;
+}
+
+.detail-group label {
+    font-size: 0.7rem; text-transform: uppercase;
+    color: #a0aec0; letter-spacing: 1px; display: block;
+}
+
+.detail-group p {
+    margin: 5px 0 0; color: #2d3748; font-weight: 500;
+}
+
+/* Timeline des Interactions */
+.interaction-history {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    border: 1px solid #edf2f7;
+}
+
+.timeline {
+    position: relative;
+    padding-left: 30px;
+    border-left: 2px solid #edf2f7;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 30px;
+}
+
+.timeline-item::before {
+    content: "";
+    position: absolute;
+    left: -37px; top: 5px;
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: white;
+    border: 3px solid #489bee;
+}
+
+.timeline-date {
+    font-size: 0.8rem; color: #a0aec0; font-weight: bold; margin-bottom: 5px;
+}
+
+.timeline-content {
+    background: #f8fafc;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.timeline-header {
+    display: flex; justify-content: space-between; align-items: center;
+    margin-bottom: 10px;
+}
+
+.timeline-subject {
+    margin: 0; color: #1a202c; font-size: 1.1rem;
+}
+
+.timeline-excerpt {
+    font-size: 0.9rem; color: #4a5568; margin-top: 5px;
+}
+
+.view-link {
+    font-size: 0.8rem; color: #489bee; text-decoration: none; font-weight: bold;
+}
+
+/* Rendre toute la ligne cliquable sans casser le design */
+.row-link {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: 1;
+}
+
+/* Style des inputs checkbox */
+input[type="checkbox"] {
+    accent-color: #333;
+    cursor: pointer;
+}
+

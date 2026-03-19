@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use App\Models\Interaction;
+
 
 class ClientController extends Controller
 {
@@ -11,6 +13,7 @@ class ClientController extends Controller
     {
         $clients = Client::all();
         return view('clients.index', compact('clients'));//vue clients.index
+
     }
 
     /**
@@ -33,6 +36,7 @@ class ClientController extends Controller
             'adresse' => 'nullable|string',
             'ville' => 'nullable|string',
             'code_postal' => 'nullable|string',
+            'entreprise' => 'nullable|string',
             'telephone' => 'nullable|string',
         ]);
 
@@ -47,8 +51,8 @@ class ClientController extends Controller
     public function show(string $id)
     {
         $client = Client::findOrFail($id);
-
-        return view('clients.show', compact('client'));
+        $interactions = $client->interactions; // récupère toutes les interactions de ce client
+        return view('clients.show', compact('client',  'interactions'));
     }
 
     /**
