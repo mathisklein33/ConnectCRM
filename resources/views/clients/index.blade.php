@@ -1,4 +1,5 @@
-﻿
+﻿@extends('layouts.app')
+@section('content')
 <h1>Clients</h1>
 <ul>
     @foreach($clients as $client)
@@ -11,4 +12,4 @@
 </ul>
 
 <a href="/interactions"> Voir les interactions</a>
-
+@endsection
