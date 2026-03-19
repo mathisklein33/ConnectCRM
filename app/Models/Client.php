@@ -16,6 +16,7 @@ class Client extends Model
         'adresse',
         'ville',
         'code_postal',
+        'entreprise',
         'telephone',
     ];
     public function interactions()

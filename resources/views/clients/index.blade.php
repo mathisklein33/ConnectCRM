@@ -16,6 +16,7 @@
             </div>
         @endif
 
+
         <div class="card border-0 shadow-sm">
             <div class="list-group list-group-flush">
                 @forelse($clients as $client)
@@ -36,7 +37,7 @@
 
                             <div class="col-12 col-md text-md-center">
                             <span class="badge bg-light text-dark border">
-                                {{ $client->entreprise ?? 'Particulier' }}
+                                {{ $client->entreprise ?: 'Particulier' }}
                             </span>
                             </div>
 

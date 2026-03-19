@@ -13,6 +13,7 @@ class ClientController extends Controller
     {
         $clients = Client::all();
         return view('clients.index', compact('clients'));//vue clients.index
+
     }
 
     /**
@@ -35,6 +36,7 @@ class ClientController extends Controller
             'adresse' => 'nullable|string',
             'ville' => 'nullable|string',
             'code_postal' => 'nullable|string',
+            'entreprise' => 'nullable|string',
             'telephone' => 'nullable|string',
         ]);
 
