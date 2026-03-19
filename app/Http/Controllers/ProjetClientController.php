@@ -29,7 +29,7 @@ class ProjetClientController extends Controller
     {
         $validated = $request->validate([
             'client_id' => 'required|exists:clients,id',
-            'nom_projet' => 'required|string|max:255',
+            'name_projet' => 'required|string|max:255',
             'description' => 'nullable|string',
             'date' => 'required|date',
             'status' => 'required|in:en_attente,en_cours,termine',
@@ -65,7 +65,7 @@ class ProjetClientController extends Controller
 
         $validated = $request->validate([
             'client_id' => 'required|exists:clients,id',
-            'nom_projet' => 'required|string|max:255',
+            'name_projet' => 'required|string|max:255',
             'description' => 'nullable|string',
             'date' => 'required|date',
             'status' => 'required|in:en_attente,en_cours,termine',

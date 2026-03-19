@@ -27,7 +27,7 @@ class ClientController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nom' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:clients,email',
             'genre' => 'nullable|in:homme,femme,autre',
             'adresse' => 'nullable|string',
@@ -69,7 +69,7 @@ class ClientController extends Controller
         $client = Client::findOrFail($id);
 
         $validated = $request->validate([
-            'nom' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
             'email' => 'required|email|unique:clients,email,' . $id,
             'genre' => 'nullable|in:homme,femme,autre',
             'adresse' => 'nullable|string',

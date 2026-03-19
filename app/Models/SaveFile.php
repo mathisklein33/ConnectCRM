@@ -10,9 +10,15 @@ class SaveFile extends Model
     use HasFactory;
 
     protected $fillable = [
-        'nom',
+        'user_id',
+        'name',
         'path',
         'mime_type',
         'size',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

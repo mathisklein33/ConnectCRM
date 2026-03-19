@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('client_id')->constrained('clients')->cascadeOnDelete();
             $table->string('client_email')->nullable();
             $table->string('client_telephone')->nullable();
-            $table->string('nom_ticket');
+            $table->string('name_ticket');
             $table->text('description');
             $table->dateTime('date_ticket');
             $table->enum('statut', ['ouvert', 'en_cours', 'ferme'])->default('ouvert');
