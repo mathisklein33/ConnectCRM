@@ -31,7 +31,7 @@ class TeamController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'nom' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
         ]);
 
         Team::create($validated);
@@ -67,7 +67,7 @@ class TeamController extends Controller
         $team = Team::findOrFail($id);
 
         $validated = $request->validate([
-            'nom' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
         ]);
 
         $team->update($validated);

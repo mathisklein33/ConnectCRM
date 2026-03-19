@@ -31,7 +31,7 @@ class SaveFileController extends Controller
        $path = $file->store('uploads', 'public');
 
         $saveFile = SaveFile::create([
-            'nom' => $file->getClientOriginalName(),
+            'name' => $file->getClientOriginalName(),
             'path' => $path,
             'mime_type' => $file->getClientMimeType(),
             'size' => $file->getSize(),
@@ -60,7 +60,7 @@ class SaveFileController extends Controller
         $saveFile = SaveFile::findOrFail($id);
 
         $validated = $request->validate([
-            'nom' => 'required|string|max:255',
+            'name' => 'required|string|max:255',
         ]);
 
         $saveFile->update($validated);

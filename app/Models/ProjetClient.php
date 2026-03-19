@@ -11,7 +11,7 @@ class ProjetClient extends Model
 
     protected $fillable = [
         'client_id',
-        'nom_projet',
+        'name_projet',
         'description',
         'date',
         'status',

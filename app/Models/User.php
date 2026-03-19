@@ -46,4 +46,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+    public function saveFiles()
+    {
+        return $this->hasMany(SaveFile::class);
+    }
 }
