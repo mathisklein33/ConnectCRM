@@ -2,20 +2,20 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Contracts;
+use App\Models\Quotes;
 use App\Models\Client;
 use Illuminate\Http\Request;
 
-class ContractsController extends Controller
+class QuotesController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $contracts = Contracts::with('client')->get();
+        $quotes = Quotes::with('client')->get();
 
-        return view('#', compact('contracts')); // a rediriger
+        return view('#', compact('quotes')); // a rediriger
     }
 
     /**
@@ -35,16 +35,15 @@ class ContractsController extends Controller
     {
         $validated = $request->validate([
             'client_id' => 'required|exists:clients,id',
-            'number' => 'required|string|max:255|unique:contracts,number',
+            'number' => 'required|string|max:255|unique:quotes,number',
             'title' => 'required|string|max:255',
-            'content' => 'nullable|string',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
+            'total' => 'required|numeric',
+            'status' => 'nullable|string|max:255',
         ]);
 
-        $contract = Contracts::create($validated);
+        $quote = Quotes::create($validated);
 
-        return redirect()->route('#', $contract->id); // a rediriger
+        return redirect()->route('#', $quote->id); // a rediriger
     }
 
     /**
@@ -52,9 +51,9 @@ class ContractsController extends Controller
      */
     public function show(string $id)
     {
-        $contract = Contracts::with('client')->findOrFail($id);
+        $quote = Quotes::with('client')->findOrFail($id);
 
-        return view('#', compact('contract')); // a rediriger
+        return view('#', compact('quote')); // a rediriger
     }
 
     /**
@@ -62,10 +61,10 @@ class ContractsController extends Controller
      */
     public function edit(string $id)
     {
-        $contract = Contracts::findOrFail($id);
+        $quote = Quotes::findOrFail($id);
         $clients = Client::all();
 
-        return view('#', compact('contract', 'clients')); // a rediriger
+        return view('#', compact('quote', 'clients')); // a rediriger
     }
 
     /**
@@ -73,20 +72,19 @@ class ContractsController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $contract = Contracts::findOrFail($id);
+        $quote = Quotes::findOrFail($id);
 
         $validated = $request->validate([
             'client_id' => 'required|exists:clients,id',
-            'number' => 'required|string|max:255|unique:contracts,number,' . $id,
+            'number' => 'required|string|max:255|unique:quotes,number,' . $id,
             'title' => 'required|string|max:255',
-            'content' => 'nullable|string',
-            'start_date' => 'nullable|date',
-            'end_date' => 'nullable|date',
+            'total' => 'required|numeric',
+            'status' => 'nullable|string|max:255',
         ]);
 
-        $contract->update($validated);
+        $quote->update($validated);
 
-        return redirect()->route('#', $contract->id); // a rediriger
+        return redirect()->route('#', $quote->id); // a rediriger
     }
 
     /**
@@ -94,9 +92,9 @@ class ContractsController extends Controller
      */
     public function destroy(string $id)
     {
-        $contract = Contracts::findOrFail($id);
+        $quote = Quotes::findOrFail($id);
 
-        $contract->delete();
+        $quote->delete();
 
         return redirect()->route('#'); // a rediriger
     }
