@@ -20,7 +20,7 @@ class SaveFileController extends Controller
         return view('#'); // a rediriger
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $request->validate([
             'document' => 'required|file|max:2048|mimes:jpg,png,pdf,doc,docx',
@@ -28,7 +28,7 @@ class SaveFileController extends Controller
 
         $file = $request->file('document');
 
-        $path = $file->create('uploads', 'public');
+       $path = $file->store('uploads', 'public');
 
         $saveFile = SaveFile::create([
             'nom' => $file->getClientOriginalName(),
