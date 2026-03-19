@@ -3,7 +3,7 @@
 @section('content')
     <div class="interaction-container small-container">
         <div class="interaction-header-actions">
-            <a href="{{ '/interaction'}}" class="back-link">← Annuler</a>
+            <a href="{{ '/interactions'}}" class="back-link">← Annuler</a>
         </div>
 
         <div class="interaction-card form-card">
