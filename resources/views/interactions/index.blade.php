@@ -58,7 +58,7 @@
                                 <input type="checkbox" class="form-check-input" onclick="event.stopPropagation();">
                             </td>
                             <td>
-                                <div class="fw-bold text-dark">{{ $interaction->client->nom }}</div>
+                                <div class="fw-bold text-dark">{{ $interaction->client->name }}</div>
                             </td>
                             <td class="text-center">
                                 @php

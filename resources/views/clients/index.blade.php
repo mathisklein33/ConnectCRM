@@ -26,12 +26,12 @@
                             <div class="col-auto d-flex align-items-center">
                                 <input type="checkbox" class="form-check-input me-3">
                                 <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center" style="width: 45px; height: 45px;">
-                                    <strong>{{ strtoupper(substr($client->nom, 0, 1)) }}</strong>
+                                    <strong>{{ strtoupper(substr($client->name, 0, 1)) }}</strong>
                                 </div>
                             </div>
 
                             <div class="col-12 col-md">
-                                <h6 class="mb-0 text-dark">{{ $client->nom }}</h6>
+                                <h6 class="mb-0 text-dark">{{ $client->name }}</h6>
                                 <small class="text-muted">{{ $client->email }}</small>
                             </div>
 

@@ -11,7 +11,7 @@
             <div class="card-header">
                 <div class="client-info">
                     <span class="label">Client</span>
-                    <h2 class="client-name">{{ $interaction->client->nom }}</h2>
+                    <h2 class="client-name">{{ $interaction->client->name }}</h2>
                 </div>
                 <div class="interaction-badge">
                  <span class="badge-type type-{{ Str::slug($interaction->type) }}">

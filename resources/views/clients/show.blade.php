@@ -17,10 +17,10 @@
                     <div class="card-body text-center p-4">
                         <div class="mx-auto bg-primary text-white rounded-circle d-flex align-items-center justify-content-center mb-3"
                              style="width: 80px; height: 80px; font-size: 2rem; font-weight: bold;">
-                            {{ strtoupper(substr($client->nom, 0, 1)) }}
+                            {{ strtoupper(substr($client->name, 0, 1)) }}
                         </div>
 
-                        <h2 class="h4 mb-1">{{ $client->nom }}</h2>
+                        <h2 class="h4 mb-1">{{ $client->name }}</h2>
                         <span class="badge rounded-pill bg-soft-info text-primary mb-4 px-3 py-2 border border-primary">
                         {{ $client->status ?? 'Client' }}
                     </span>
