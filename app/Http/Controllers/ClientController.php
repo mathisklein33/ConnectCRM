@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Client;
 use Illuminate\Http\Request;
+use App\Models\Interaction;
+
 
 class ClientController extends Controller
 {
@@ -47,8 +49,8 @@ class ClientController extends Controller
     public function show(string $id)
     {
         $client = Client::findOrFail($id);
-
-        return view('clients.show', compact('client'));
+        $interactions = $client->interactions; // récupère toutes les interactions de ce client
+        return view('clients.show', compact('client',  'interactions'));
     }
 
     /**

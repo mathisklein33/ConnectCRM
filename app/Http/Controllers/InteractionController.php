@@ -13,7 +13,7 @@ class InteractionController extends Controller
     {
         $validated = $request->validate([
             'client_id' => 'required|exists:clients,id',
-            'type' => 'required|in:appel,email,rdv',
+            'type' => 'required|in:appel,email,rendez-vous',
             'date' => 'required|date',
             'sujet' => 'nullable|string',
             'contenu' => 'nullable|string',
@@ -23,17 +23,30 @@ class InteractionController extends Controller
 
         return back()->with('success', 'Interaction ajoutée');
     }
-    public function index($client_id = null)
+    public function index(Request $request, $client_id = null)
     {
+        // 1. On initialise la requête avec la relation client pour éviter les lenteurs (Eager Loading)
+        $query = Interaction::with('client');
+
+        // 2. Filtre par Client (si l'ID est dans l'URL)
+        $client = null;
         if ($client_id) {
-            $interactions = Interaction::where('client_id', $client_id)->get();
+            $query->where('client_id', $client_id);
             $client = Client::findOrFail($client_id);
-        } else {
-            $interactions = Interaction::all();
-            $client = null;
         }
 
-        return view('interactions.index', compact('interactions', 'client'));
+        // 3. Filtre par Type (si le select du formulaire est utilisé)
+        if ($request->filled('type')) {
+            $query->where('type', $request->type);
+        }
+
+        // 4. On récupère les résultats triés par date
+        $interactions = $query->orderBy('date', 'desc')->get();
+
+        // 5. On récupère la liste unique des types pour le menu déroulant
+        $types = Interaction::distinct()->pluck('type');
+
+        return view('interactions.index', compact('interactions', 'client', 'types'));
     }
 
     public function create($client_id)
