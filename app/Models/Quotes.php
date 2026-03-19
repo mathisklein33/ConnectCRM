@@ -4,16 +4,14 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class contracts extends Model
+class Quotes extends Model
 {
     protected $fillable = [
         'client_id',
         'number',
         'title',
         'total',
-        'content',
-        'start_date',
-        'end_date',
+        'status',
     ];
 
     public function client()
