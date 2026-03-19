@@ -8,18 +8,19 @@
     <link href="{{ asset('css/interaction.css') }}" rel="stylesheet">
     <link href="{{ asset('css/client.css') }}" rel="stylesheet">
 
+    <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
 
-<header class="py-3">
-    <div class="container d-flex justify-content-between align-items-center">
-        <div class="d-flex align-items-center gap-2 h-40">
-<img src="" alt="logo du site">
+<header>
+    <div class="d-flex align-items-center justify-content-between">
+        <div class="d-flex align-items-center gap-2">
+<img src="{{ asset('img/crm-logo.png') }}" alt="logo du site">
         </div>
 
 
-        <nav class="gap-4">
-        <ul class="d-flex align-items-center gap-3 list-unstyled mb-0">
+        <nav class="gap-4 ">
+        <ul class="d-flex align-items-center gap-3 list-unstyled mb-0 p-4 header-footer-link">
            <li>
             <a href="#"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bell" viewBox="0 0 16 16">
                     <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4 4 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4 4 0 0 0-3.203-3.92zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5 5 0 0 1 13 6c0 .88.32 4.2 1.22 6"/>
@@ -48,7 +49,7 @@
 <footer class="py-4 mt-5">
     <div class="container text-center">
     <nav>
-        <ul class="d-flex justify-content-center list-unstyled gap-3 mb-2">
+        <ul class="d-flex justify-content-center list-unstyled gap-3 mb-2 header-footer-link">
             <li>
                 <a href="#">Mentions légales</a>
             </li>
