@@ -21,6 +21,5 @@ Route::resource('tickets', TicketController::class);
 Route::resource('interactions', InteractionController::class);
 Route::resource('schedules', WorkSchedulesController::class);
 
-Route::get('/schedules', [WorkSchedulesController::class, 'index'])->name('schedules.index');
-Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);
-Route::post('/schedules/store', [WorkSchedulesController::class, 'store']);
+Route::resource('schedules', WorkSchedulesController::class);
+Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);

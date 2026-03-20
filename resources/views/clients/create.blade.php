@@ -1,5 +1,4 @@
 @extends('layouts.app')
-
 @section('content')
     <div class="client-form-container">
         <h1>Ajouter un nouveau client</h1>
