@@ -30,3 +30,72 @@ footer a:hover {
     color: #b8c9e9;
     transition: color 0.3s ease;
 }
+
+.sidebar {
+    width: 260px;
+    background-color: #3c4a5d;
+    color: #ffffff;
+    min-height: calc(100vh - 120px);
+}
+
+.section-title {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: #aeb8c4;
+    margin-left: 10px;
+}
+
+.sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.95rem;
+    padding: 10px;
+    border-radius: 6px;
+    color: #ffffff;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.sidebar .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.btn-create {
+    display: block;
+    text-align: center;
+    background-color: #2f80ed;
+    color: #ffffff;
+    padding: 10px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s;
+}
+
+.btn-create:hover {
+    background-color: #1c6ed5;
+}
+
+.avatar {
+    width: 35px;
+    height: 35px;
+    background-color: #cfd8e3;
+    border-radius: 50%;
+}
+
+.user-info span {
+    font-size: 0.9rem;
+}
+
+.logout {
+    color: #ffffff;
+}
+
+.logout:hover {
+    color: #ff6b6b;
+}
+
+.sidebar i {
+    font-size: 1.1rem;
+}

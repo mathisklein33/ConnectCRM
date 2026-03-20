@@ -41,12 +41,15 @@
     </div>
 </header>
 
-<hr>
+<div class="d-flex main-layout">
 
-<main>
+    @include('layouts.sidebar')
+
+    <main class="content flex-grow-1 p-4">
     @yield('content')
 </main>
-<footer class="py-4 mt-5">
+</div>
+<footer class="py-4">
     <div class="container text-center">
     <nav>
         <ul class="d-flex justify-content-center list-unstyled gap-3 mb-2 header-footer-link">
