@@ -22,9 +22,9 @@
             <div class="form-group">
                 <label class="form-label">Genre</label>
                 <div class="radio-group">
-                    <label class="radio-label"><input type="radio" name="genre" value="Homme"> Homme</label>
-                    <label class="radio-label"><input type="radio" name="genre" value="Femme"> Femme</label>
-                    <label class="radio-label"><input type="radio" name="genre" value="Autre"> Autre</label>
+                    <label class="radio-label"><input type="radio" name="genre" value="homme"> Homme</label>
+                    <label class="radio-label"><input type="radio" name="genre" value="femme"> Femme</label>
+                    <label class="radio-label"><input type="radio" name="genre" value="autre"> Autre</label>
                 </div>
                 @error('genre') <div class="error-msg">{{ $message }}</div> @enderror
             </div>
