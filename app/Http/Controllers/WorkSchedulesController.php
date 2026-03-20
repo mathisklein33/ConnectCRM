@@ -12,7 +12,7 @@ class WorkSchedulesController extends Controller
     public function index()
     {
         $teams = Team::all();
-        $users = User::all();
+        $users = User::with('teams')->get();
 
         // On renvoie juste la vue. C'est le JS qui chargera les données après.
         return view('schedules.index', compact('teams', 'users'));
@@ -54,7 +54,7 @@ class WorkSchedulesController extends Controller
     {
         try {
             // On crée l'enregistrement
-            $schedule = \App\Models\Work_schedules::create([
+            $schedule = Work_schedules::create([
                 'title'       => $request->title,
                 'description' => $request->description,
                 'date'        => $request->date,

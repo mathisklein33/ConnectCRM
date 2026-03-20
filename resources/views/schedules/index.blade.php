@@ -30,7 +30,32 @@
                         <label class="schedule-label">Description (optionnelle)</label>
                         <textarea name="description" class="schedule-input" rows="2" placeholder="Détails supplémentaires..."></textarea>
                     </div>
+                    <div class="form-group">
+                        <label class="schedule-label">Équipe</label>
+                        <select name="team_id" id="team_select" class="schedule-input" required>
+                            <option value="">Choisir une équipe...</option>
+                            @foreach($teams as $team)
+                                <option value="{{ $team->id }}">{{ $team->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
 
+                    <div class="form-group">
+                        <label class="schedule-label">Utilisateur</label>
+                        <select name="user_id" id="user_select" class="schedule-input" required disabled>
+                            <option value="">Sélectionnez d'abord une équipe</option>
+                        </select>
+                    </div>
+
+                    <template id="user_template">
+                        @foreach($users as $user)
+                            @foreach($user->teams as $team) {{-- On boucle sur les équipes de l'utilisateur --}}
+                            <option value="{{ $user->id }}" data-team="{{ $team->id }}">
+                                {{ $user->name }}
+                            </option>
+                            @endforeach
+                        @endforeach
+                    </template>
                     <div class="form-row">
                         <div class="form-group full">
                             <label class="schedule-label">Date</label>
