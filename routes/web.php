@@ -5,6 +5,8 @@ use App\Http\Controllers\ClientController;
 use App\Http\Controllers\TicketController;
 use App\Http\Controllers\InteractionController;
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\WorkSchedulesController;
+use App\Http\Controllers\EventController;
 
 
 Route::get('/pdf/download', [PdfController::class, 'download']);
@@ -17,3 +19,8 @@ Route::get('/interactions/create/{client_id}', [InteractionController::class, 'c
 Route::resource('clients', ClientController::class);
 Route::resource('tickets', TicketController::class);
 Route::resource('interactions', InteractionController::class);
+Route::resource('schedules', WorkSchedulesController::class);
+
+Route::get('/schedules', [WorkSchedulesController::class, 'index'])->name('schedules.index');
+Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);
+Route::post('/schedules/store', [WorkSchedulesController::class, 'store']);

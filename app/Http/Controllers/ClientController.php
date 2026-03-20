@@ -79,6 +79,8 @@ class ClientController extends Controller
             'adresse' => 'nullable|string',
             'ville' => 'nullable|string',
             'code_postal' => 'nullable|string',
+            'entreprise' => 'nullable|string',
+
             'telephone' => 'nullable|string',
         ]);
 
