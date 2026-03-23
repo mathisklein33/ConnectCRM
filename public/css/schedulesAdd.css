@@ -45,6 +45,9 @@
 
 .schedule-page #eventModal.flex {
     display: flex; /* Utilisé par le JS pour afficher */
+    justify-content: center;
+    align-items: center;
+
 }
 
 .schedule-page .modal-content {
