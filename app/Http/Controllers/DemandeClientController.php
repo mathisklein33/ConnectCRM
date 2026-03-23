@@ -11,20 +11,29 @@ class DemandeClientController extends Controller
 {
     public function index(Request $request)
     {
-        // On charge aussi la relation avec l'utilisateur assigné
+        $user = auth()->user(); // Récupère l'utilisateur connecté
         $query = DemandeClient::with(['client', 'user']);
 
-        $client_id = $request->query('client_id');
-        $client = null;
+        // --- LOGIQUE DE VISIBILITÉ ---
+        // Si l'utilisateur n'est PAS un chef d'équipe (on suppose que tu as un champ 'role' ou une méthode isAdmin())
+        // Ici, j'utilise une vérification de rôle fictive : $user->role !== 'chef'
+        if ($user->role !== 'chef') {
+            $query->where('user_id', $user->id);
+        }
+        // Si c'est un chef, on lui permet d'utiliser le filtre par membre
+        elseif ($request->filled('user_id')) {
+            $query->where('user_id', $request->user_id);
+        }
 
-        if ($client_id) {
-            $query->where('client_id', $client_id);
-            $client = Client::findOrFail($client_id);
+        // Filtre par Statut (accessible à tous pour leurs dossiers respectifs)
+        if ($request->filled('statut')) {
+            $query->where('statut', $request->statut);
         }
 
         $demandes = $query->latest()->get();
+        $users = User::all();
 
-        return view('demandes.index', compact('demandes', 'client'));
+        return view('demandes.index', compact('demandes', 'users'));
     }
 
     public function create()

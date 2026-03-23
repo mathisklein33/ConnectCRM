@@ -13,7 +13,46 @@
         @if(session('success'))
             <div class="dmd-alert dmd-alert-success">{{ session('success') }}</div>
         @endif
+        <div class="dmd-filter-bar">
+            <form action="{{ route('demandes.index') }}" method="GET" class="dmd-filter-form">
 
+                {{-- Afficher le choix du membre SEULEMENT si l'utilisateur est chef --}}
+                @if(auth()->user()->role === 'chef')
+                    <div class="dmd-filter-group">
+                        <label>Chef d'équipe :</label>
+                        <select name="user_id" onchange="this.form.submit()">
+                            <option value="">Tous les membres</option>
+                            @foreach($users as $user)
+                                <option value="{{ $user->id }}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
+                                    {{ $user->name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                @else
+                    {{-- Optionnel : Afficher un simple texte pour l'employé --}}
+                    <div class="dmd-filter-group">
+                        <span class="dmd-badge">Mes dossiers uniquement</span>
+                    </div>
+                @endif
+
+                <div class="dmd-filter-group">
+                    <label>Étape du cycle :</label>
+                    <select name="statut" onchange="this.form.submit()">
+                        <option value="">Toutes les étapes</option>
+                        <option value="en attente" {{ request('statut') == 'en attente' ? 'selected' : '' }}>En attente</option>
+                        <option value="traitée" {{ request('statut') == 'traitée' ? 'selected' : '' }}>Traitée</option>
+                        <option value="refusée" {{ request('statut') == 'refusée' ? 'selected' : '' }}>Refusée</option>
+                    </select>
+                </div>
+            </form>
+        </div>
+
+                @if(request()->anyFilled(['user_id', 'statut']))
+                    <a href="{{ route('demandes.index') }}" class="dmd-reset-link">Réinitialiser</a>
+                @endif
+            </form>
+        </div>
         <div class="dmd-card">
             <div class="dmd-table-responsive">
                 <table class="dmd-table">
@@ -45,10 +84,14 @@
                                 </div>
                             </td>
                             <td>
-                                {{-- Génération dynamique de badge selon le statut --}}
-                                <span class="dmd-badge dmd-badge-{{ Str::slug($demande->statut) }}">
-                                {{ $demande->statut }}
-                            </span>
+                                <div class="dmd-status-wrapper">
+                                     <span class="dmd-badge dmd-badge-{{ Str::slug($demande->statut) }}">
+                                            {{ ucfirst($demande->statut) }}
+                                     </span>
+                                    <div class="dmd-progress-track">
+                                        <div class="dmd-progress-bar progress-{{ Str::slug($demande->statut) }}"></div>
+                                    </div>
+                                </div>
                             </td>
                             <td class="dmd-date">{{ $demande->created_at->format('d/m/Y') }} <small>{{ $demande->created_at->format('H:i') }}</small></td>
                             <td>

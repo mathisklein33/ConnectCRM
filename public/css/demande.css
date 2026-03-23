@@ -428,3 +428,40 @@
 }
 
 .dmd-edit-btn-cancel:hover { color: var(--dmd-slate-800); }
+ .dmd-filter-bar {
+     background: white;
+     padding: 1.25rem;
+     border-radius: 0.75rem;
+     margin-bottom: 1.5rem;
+     border: 1px solid #e2e8f0;
+ }
+
+.dmd-filter-form { display: flex; gap: 2rem; align-items: center; }
+
+.dmd-filter-group { display: flex; align-items: center; gap: 0.75rem; }
+
+.dmd-filter-group label { font-size: 0.85rem; font-weight: 700; color: #64748b; text-transform: uppercase; }
+
+.dmd-filter-group select {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    border: 1px solid #cbd5e1;
+    background-color: #f8fafc;
+    outline: none;
+}
+
+/* Indicateur visuel de progression dans le tableau */
+.dmd-progress-track {
+    width: 100px;
+    height: 6px;
+    background: #e2e8f0;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-top: 5px;
+}
+
+.dmd-progress-bar { height: 100%; border-radius: 10px; }
+.progress-en-attente { width: 50%; background: #3b82f6; } /* Bleu */
+.progress-traitee { width: 100%; background: #10b981; } /* Vert */
+
+.dmd-reset-link { font-size: 0.85rem; color: #ef4444; text-decoration: none; font-weight: 600; }
