@@ -10,7 +10,7 @@ use App\Http\Controllers\PdfController;
 Route::get('/pdf/download', [PdfController::class, 'download']);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 Route::get('/interactions/client/{client_id}', [InteractionController::class, 'byClient'])->name('interactions.byClient');
 Route::get('/interactions/create/{client_id}', [InteractionController::class, 'create']);
