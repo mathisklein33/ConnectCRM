@@ -15,7 +15,7 @@ class ContractsController extends Controller
     {
         $contracts = Contracts::with('client')->get();
 
-        return view('#', compact('contracts')); // a rediriger
+        return view('contracts.index', compact('contracts'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ContractsController extends Controller
     {
         $clients = Client::all();
 
-        return view('#', compact('clients')); // a rediriger
+        return view('contracts.create', compact('clients')); // a rediriger
     }
 
     /**
