@@ -8,6 +8,8 @@
     <link href="{{ asset('css/interaction.css') }}" rel="stylesheet">
     <link href="{{ asset('css/client.css') }}" rel="stylesheet">
     <link href="{{ asset('css/calendrier.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/demande.css') }}" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
