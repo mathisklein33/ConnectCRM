@@ -15,7 +15,7 @@ class QuotesController extends Controller
     {
         $quotes = Quotes::with('client')->get();
 
-        return view('quotes.index', compact('quotes')); // a rediriger
+        return view('quotes.index', compact('quotes'));
     }
 
     /**
@@ -25,7 +25,7 @@ class QuotesController extends Controller
     {
         $clients = Client::all();
 
-        return view('quotes.create', compact('clients')); // a rediriger
+        return view('quotes.create', compact('clients'));
     }
 
     /**
@@ -53,7 +53,7 @@ class QuotesController extends Controller
     {
         $quote = Quotes::with('client')->findOrFail($id);
 
-        return view('#', compact('quote')); // a rediriger
+        return view('quotes.show', compact('quote'));
     }
 
     /**
@@ -64,7 +64,7 @@ class QuotesController extends Controller
         $quote = Quotes::findOrFail($id);
         $clients = Client::all();
 
-        return view('#', compact('quote', 'clients')); // a rediriger
+        return view('quotes.edit', compact('quote', 'clients'));
     }
 
     /**

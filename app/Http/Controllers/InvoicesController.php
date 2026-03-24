@@ -25,7 +25,7 @@ class InvoicesController extends Controller
     {
         $clients = Client::all();
 
-        return view('invoices.create', compact('clients')); // a rediriger
+        return view('invoices.create', compact('clients'));
     }
 
     /**
@@ -52,7 +52,7 @@ class InvoicesController extends Controller
     {
         $invoice = Invoices::with('client')->findOrFail($id);
 
-        return view('#', compact('invoice')); // a rediriger
+        return view('invoices.show', compact('invoice'));
     }
 
     /**
@@ -63,7 +63,7 @@ class InvoicesController extends Controller
         $invoice = Invoices::findOrFail($id);
         $clients = Client::all();
 
-        return view('#', compact('invoice', 'clients')); // a rediriger
+        return view('invoices.edit', compact('invoice', 'clients'));
     }
 
     /**
@@ -82,7 +82,7 @@ class InvoicesController extends Controller
 
         $invoice->update($validated);
 
-        return redirect()->route('#', $invoice->id); // a rediriger
+        return redirect()->route('invoices.show', $invoice->id);
     }
 
     /**
