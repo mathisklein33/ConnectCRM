@@ -35,7 +35,7 @@ Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->nam
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', function () {
-        return view('dashboard');
+        return view('welcome');
     })->name('dashboard');
 });
 // Les routes de Breeze (login/register) sont ajoutées automatiquement ici :
