@@ -66,7 +66,7 @@ class ContractsController extends Controller
         $contract = Contracts::findOrFail($id);
         $clients = Client::all();
 
-        return view('#', compact('contract', 'clients')); // a rediriger
+        return view('contracts.edit', compact('contract', 'clients'));
     }
 
     /**
