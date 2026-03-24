@@ -1,0 +1,104 @@
+/* On change les couleurs principales */
+:root {
+    --fc-border-color: #e2e8f0;
+    --fc-daygrid-event-dot-width: 10px;
+    --fc-event-bg-color: #6366f1; /* Un bel Indigo moderne */
+    --fc-event-border-color: #4f46e5;
+    --fc-today-bg-color: #f8fafc;
+}
+/* ----------------------------------------------------------- */
+/* 1. NETTOYAGE GLOBAL (Enlever soulignements et bleus par défaut) */
+/* ----------------------------------------------------------- */
+
+/* Cible tous les liens dans le calendrier (numéros, noms des jours) */
+#calendar a {
+    text-decoration: none !important; /* Enlève le soulignement */
+    color: #1e293b !important;       /* Remplace le bleu par un gris ardoise très foncé */
+    font-weight: 500;                /* Un peu plus épais pour la lisibilité */
+}
+
+/* Gère spécifiquement les en-têtes de jours (lun., mar., etc.) */
+.fc-col-header-cell-cushion {
+    padding: 8px 0 !important;       /* Un peu d'air */
+    text-transform: capitalize;       /* Majuscule sur la première lettre */
+    color: #64748b !important;       /* Gris moyen pour les noms */
+}
+
+/* ----------------------------------------------------------- */
+/* 2. ENLEVER LE SURLIGNAGE / SURBRILLANCE AU SURVOL (Hover)   */
+/* ----------------------------------------------------------- */
+
+/* Enlève le fond gris/bleu quand on passe la souris sur une case vide */
+.fc .fc-daygrid-day:hover {
+    background-color: transparent !important;
+}
+
+/* Enlève aussi la surbrillance sur la vue Semaine (si tu l'utilises) */
+.fc .fc-timegrid-slot:hover {
+    background-color: transparent !important;
+}
+
+/* ----------------------------------------------------------- */
+/* 3. STYLISER TES ÉVÉNEMENTS (Les "RDV" - Garder ton thème)   */
+/* ----------------------------------------------------------- */
+
+/* On applique ton style aux blocs d'événements */
+.fc-event {
+    background-color: #6366f1 !important; /* Ton bel Indigo */
+    border: none !important;
+    border-radius: 6px !important;       /* Angles arrondis pro */
+    padding: 2px 5px !important;
+    font-size: 0.85rem !important;
+    color: white !important;              /* Texte blanc impératif */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: transform 0.1s ease-in-out;
+}
+
+/* Style spécifique au survol d'un ÉVÉNEMENT (là c'est utile) */
+.fc-event:hover {
+    transform: scale(1.03);               /* Léger zoom */
+    filter: brightness(95%);
+    cursor: pointer;
+}
+
+/* Supprime le point bleu par défaut si tu utilises le mode 'list' */
+.fc-daygrid-event-dot {
+    display: none !important;
+}
+/* Arrondir les événements */
+.fc-event {
+    border-radius: 6px !important;
+    padding: 2px 5px !important;
+    font-size: 0.85rem !important;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    border: none !important;
+    transition: transform 0.2s ease;
+}
+
+.fc-event:hover {
+    transform: scale(1.02);
+    filter: brightness(90%);
+    cursor: pointer;
+}
+
+/* Styliser les boutons du header */
+.fc .fc-button-primary {
+    background-color: #6366f1 !important;
+    border: none !important;
+    text-transform: capitalize;
+}
+
+.fc .fc-button-primary:hover {
+    background-color: #4f46e5 !important;
+}
+
+/* Le titre du calendrier */
+.fc-toolbar-title {
+    font-size: 1.5rem !important;
+    font-weight: 700 !important;
+    color: #1e293b;
+}
+
+.btn-add {
+    margin-top: 250px;
+}

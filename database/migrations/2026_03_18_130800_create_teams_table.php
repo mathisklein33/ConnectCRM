@@ -11,6 +11,11 @@ return new class extends Migration
         Schema::create('teams', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+
+            // Add these two lines if they are missing!
+            $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+            $table->string('role')->default('member');
+
             $table->timestamps();
         });
     }

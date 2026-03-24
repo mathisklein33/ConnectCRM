@@ -1,0 +1,110 @@
+/* Importation reste globale car c'est une police */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap');
+
+/* On limite tout le design à la classe .schedule-page */
+.schedule-page {
+    --schedule-primary: #4f46e5;
+    --schedule-primary-hover: #4338ca;
+    --schedule-bg: #f8fafc;
+    --schedule-text: #1e293b;
+    --schedule-border: #e2e8f0;
+
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    color: var(--schedule-text);
+}
+
+/* --- Calendrier --- */
+.schedule-page #calendar {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    margin: 20px;
+}
+
+/* Boutons du calendrier */
+.schedule-page .fc-button {
+    background-color: #ffffff !important;
+    color: var(--schedule-primary) !important;
+    border: 1px solid var(--schedule-border) !important;
+    font-weight: 500 !important;
+    box-shadow: none !important;
+}
+
+.schedule-page .fc-button-active {
+    background-color: var(--schedule-primary) !important;
+    color: white !important;
+}
+
+/* --- Modale Spécifique --- */
+.schedule-page #eventModal {
+    background-color: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(4px);
+    display: none; /* Caché par défaut */
+}
+
+.schedule-page #eventModal.flex {
+    display: flex; /* Utilisé par le JS pour afficher */
+    justify-content: center;
+    align-items: center;
+
+}
+
+.schedule-page .modal-content {
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+/* --- Formulaire et Inputs --- */
+.schedule-page .schedule-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.schedule-page .schedule-input {
+    width: 100%;
+    border: 1px solid var(--schedule-border);
+    border-radius: 10px;
+    padding: 12px;
+    font-size: 0.95rem;
+    transition: all 0.2s ease;
+    box-sizing: border-box;
+}
+
+.schedule-page .schedule-input:focus {
+    border-color: var(--schedule-primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+    outline: none;
+}
+
+/* --- Boutons Spécifiques --- */
+.schedule-page .btn-schedule-primary {
+    padding: 12px 24px;
+    background-color: var(--schedule-primary);
+    color: #ffffff;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.schedule-page .btn-schedule-primary:hover {
+    background-color: var(--schedule-primary-hover);
+}
+
+.schedule-page .btn-schedule-secondary {
+    padding: 12px 20px;
+    background-color: #ffffff;
+    color: var(--schedule-text);
+    border: 1px solid var(--schedule-border);
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+}

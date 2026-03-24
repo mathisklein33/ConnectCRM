@@ -50,4 +50,10 @@ class User extends Authenticatable
     {
         return $this->hasMany(SaveFile::class);
     }
+    public function teams()
+    {
+        // On utilise belongsToMany car c'est une table pivot (team_user)
+        return $this->belongsToMany(Team::class);
+    }
 }
+

@@ -110,13 +110,6 @@
     top: 0; left: 0; right: 0; bottom: 0;
     z-index: 1;
 }
-
-/* Style des inputs checkbox */
-input[type="checkbox"] {
-    accent-color: #333;
-    cursor: pointer;
-}
-
 /* Container & Header */
 .interaction-header-actions {
     padding-left: 0px;
@@ -278,3 +271,10 @@ input[type="checkbox"] {
     background: #1976d2;
     transform: translateY(-1px);
 }
+
+/* Style des inputs checkbox */
+input[type="checkbox"] {
+    accent-color: #333;
+    cursor: pointer;
+}
+

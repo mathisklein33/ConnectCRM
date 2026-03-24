@@ -21,7 +21,8 @@ class ClientController extends Controller
      */
     public function create()
     {
-        return view('#');// a rediriger
+
+        return view('clients.create');// a rediriger
     }
 
     /**
@@ -42,7 +43,7 @@ class ClientController extends Controller
 
         Client::create($validated);
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('clients.index'); // a rediriger
     }
 
     /**
@@ -80,6 +81,7 @@ class ClientController extends Controller
             'ville' => 'nullable|string',
             'code_postal' => 'nullable|string',
             'entreprise' => 'nullable|string',
+
             'telephone' => 'nullable|string',
         ]);
 
