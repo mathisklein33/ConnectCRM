@@ -11,6 +11,9 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\QuotesController;
 use App\Http\Controllers\ContractsController;
 use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OpportunityController;
+
 use App\Http\Controllers\InvoiceController;
 
 // On groupe toutes les routes de demandes sous le middleware 'auth'
@@ -38,6 +41,8 @@ Route::resource('contracts', ContractsController::class);
 Route::resource('invoices', InvoicesController::class);
 Route::resource('schedules', WorkSchedulesController::class);
 Route::resource('demandes', DemandeClientController::class);
+Route::resource('produits', ProductController::class);
+
 Route::get('/demandes/show/{id}', [DemandeClientController::class, 'show'])->name('demandes.show');
 Route::get('/demandes/assignation/{id}', [DemandeClientController::class, 'assignation'])->name('demandes.assignation');
 Route::patch('/demandes/assignation/{id}', [DemandeClientController::class, 'storeAssignation'])->name('demandes.storeAssignation');
@@ -45,6 +50,16 @@ Route::get('/schedules', [WorkSchedulesController::class, 'index'])->name('sched
 Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);
 Route::post('/schedules/store', [WorkSchedulesController::class, 'store']);
 Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->name('demandes.edit');
+        Route::resource('products', ProductController::class);
+        Route::get('/products/show/{id}', [ProductController::class, 'show'])->name('product.show');
+    Route::get('/products/edit/{id}', [ProductController::class, 'show'])->name('product.show');
+
+        // Actions du Commercial
+        Route::patch('/opportunity/stage/{id}', [OpportunityController::class, 'updateStage']); // Faire progresser le cycle
+        Route::get('/opportunity/show/{id}', [OpportunityController::class, 'show'])->name('opportunity.show');
+
+        // Actions spécifiques pour le Chef d'Équipe
+        Route::get('/team-tracking', [OpportunityController::class, 'teamIndex']); // Suivre toute son équipe
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
