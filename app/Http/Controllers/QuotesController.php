@@ -15,7 +15,7 @@ class QuotesController extends Controller
     {
         $quotes = Quotes::with('client')->get();
 
-        return view('#', compact('quotes')); // a rediriger
+        return view('quotes.index', compact('quotes')); // a rediriger
     }
 
     /**
@@ -25,7 +25,7 @@ class QuotesController extends Controller
     {
         $clients = Client::all();
 
-        return view('#', compact('clients')); // a rediriger
+        return view('quotes.create', compact('clients')); // a rediriger
     }
 
     /**
@@ -43,7 +43,7 @@ class QuotesController extends Controller
 
         $quote = Quotes::create($validated);
 
-        return redirect()->route('#', $quote->id); // a rediriger
+        return redirect()->route('quotes.index', $quote->id); // a rediriger
     }
 
     /**
