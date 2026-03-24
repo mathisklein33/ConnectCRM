@@ -6,14 +6,14 @@ use App\Http\Controllers\TicketController;
 use App\Http\Controllers\InteractionController;
 use App\Http\Controllers\PdfController;
 use App\Http\Controllers\WorkSchedulesController;
-
+use App\Http\Controllers\DemandeClientController;
+use App\Http\Controllers\EventController;
 use App\Http\Controllers\QuotesController;
 use App\Http\Controllers\ContractsController;
 use App\Http\Controllers\InvoicesController;
+// On groupe toutes les routes de demandes sous le middleware 'auth'
+Route::middleware('auth')->group(function () {
 
-Route::resource('quotes', QuotesController::class);
-Route::resource('contracts', ContractsController::class);
-Route::resource('invoices', InvoicesController::class);
 
 Route::get('/pdf/download', [PdfController::class, 'download']);
 
@@ -29,7 +29,26 @@ Route::resource('interactions', InteractionController::class);
 Route::get('/quotes/{id}/pdf', [PdfController::class, 'quote'])->name('quotes.pdf');
 Route::get('/contracts/{id}/pdf', [PdfController::class, 'contract'])->name('contracts.pdf');
 Route::get('/invoices/{id}/pdf', [PdfController::class, 'invoice'])->name('invoices.pdf');
+  Route::resource('quotes', QuotesController::class);
+Route::resource('contracts', ContractsController::class);
+Route::resource('invoices', InvoicesController::class);
 Route::resource('schedules', WorkSchedulesController::class);
+Route::resource('demandes', DemandeClientController::class);
+Route::get('/demandes/show/{id}', [DemandeClientController::class, 'show'])->name('demandes.show');
+Route::get('/demandes/assignation/{id}', [DemandeClientController::class, 'assignation'])->name('demandes.assignation');
+Route::patch('/demandes/assignation/{id}', [DemandeClientController::class, 'storeAssignation'])->name('demandes.storeAssignation');
+Route::get('/schedules', [WorkSchedulesController::class, 'index'])->name('schedules.index');
+Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);
+Route::post('/schedules/store', [WorkSchedulesController::class, 'store']);
+Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->name('demandes.edit');
 
-Route::resource('schedules', WorkSchedulesController::class);
-Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+    Route::get('/dashboard', function () {
+        return view('welcome');
+    })->name('dashboard');
+});
+// Les routes de Breeze (login/register) sont ajoutées automatiquement ici :
+require __DIR__.'/auth.php';

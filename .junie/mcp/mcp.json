@@ -1,0 +1,11 @@
+{
+    "mcpServers": {
+        "laravel-boost": {
+            "command": "/Users/coolmathieu/.config/herd-lite/bin/php",
+            "args": [
+                "/Users/coolmathieu/Documents/Need for school/1er anne\u0301e/ConnectCRM/artisan",
+                "boost:mcp"
+            ]
+        }
+    }
+}
