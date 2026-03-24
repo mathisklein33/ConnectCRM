@@ -8,18 +8,30 @@ use App\Http\Controllers\PdfController;
 use App\Http\Controllers\WorkSchedulesController;
 use App\Http\Controllers\DemandeClientController;
 use App\Http\Controllers\EventController;
+use App\Http\Controllers\QuotesController;
+use App\Http\Controllers\ContractsController;
+use App\Http\Controllers\InvoicesController;
 // On groupe toutes les routes de demandes sous le middleware 'auth'
 Route::middleware('auth')->group(function () {
+
+
 Route::get('/pdf/download', [PdfController::class, 'download']);
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 Route::get('/interactions/client/{client_id}', [InteractionController::class, 'byClient'])->name('interactions.byClient');
 Route::get('/interactions/create/{client_id}', [InteractionController::class, 'create']);
 Route::resource('clients', ClientController::class);
+Route::post('/clients/store', [ClientController::class, 'store']);
 Route::resource('tickets', TicketController::class);
 Route::resource('interactions', InteractionController::class);
+Route::get('/quotes/{id}/pdf', [PdfController::class, 'quote'])->name('quotes.pdf');
+Route::get('/contracts/{id}/pdf', [PdfController::class, 'contract'])->name('contracts.pdf');
+Route::get('/invoices/{id}/pdf', [PdfController::class, 'invoice'])->name('invoices.pdf');
+  Route::resource('quotes', QuotesController::class);
+Route::resource('contracts', ContractsController::class);
+Route::resource('invoices', InvoicesController::class);
 Route::resource('schedules', WorkSchedulesController::class);
 Route::resource('demandes', DemandeClientController::class);
 Route::get('/demandes/show/{id}', [DemandeClientController::class, 'show'])->name('demandes.show');

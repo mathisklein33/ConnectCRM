@@ -15,7 +15,7 @@ class ContractsController extends Controller
     {
         $contracts = Contracts::with('client')->get();
 
-        return view('#', compact('contracts')); // a rediriger
+        return view('contracts.index', compact('contracts'));
     }
 
     /**
@@ -25,7 +25,7 @@ class ContractsController extends Controller
     {
         $clients = Client::all();
 
-        return view('#', compact('clients')); // a rediriger
+        return view('contracts.create', compact('clients')); // a rediriger
     }
 
     /**
@@ -40,11 +40,12 @@ class ContractsController extends Controller
             'content' => 'nullable|string',
             'start_date' => 'nullable|date',
             'end_date' => 'nullable|date',
+            'total' => 'required|numeric',
         ]);
 
         $contract = Contracts::create($validated);
 
-        return redirect()->route('#', $contract->id); // a rediriger
+        return redirect()->route('contracts.show', $contract->id);
     }
 
     /**
@@ -54,7 +55,7 @@ class ContractsController extends Controller
     {
         $contract = Contracts::with('client')->findOrFail($id);
 
-        return view('#', compact('contract')); // a rediriger
+        return view('contracts.show', compact('contract'));
     }
 
     /**
@@ -98,6 +99,6 @@ class ContractsController extends Controller
 
         $contract->delete();
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('contracts.index');
     }
 }

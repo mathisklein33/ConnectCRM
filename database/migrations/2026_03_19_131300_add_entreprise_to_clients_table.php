@@ -12,13 +12,13 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('clients', function (Blueprint $table) {
-                $table->string('entreprise');
-                $table->string('telephone');
+                $table->string('entreprise')->nullable();
+                $table->string('telephone')->nullable();
             });
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrati ons.
      */
     public function down(): void
     {

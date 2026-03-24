@@ -10,6 +10,7 @@
     <link href="{{ asset('css/calendrier.css') }}" rel="stylesheet">
     <link href="{{ asset('css/demande.css') }}" rel="stylesheet">
 
+    <link href="{{ asset('css/schedulesAdd.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/style.css') }}">
 </head>
 <body>
