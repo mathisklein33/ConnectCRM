@@ -15,7 +15,7 @@ class TicketController extends Controller
     {
         $tickets = Ticket::with('client')->get();
 
-        return view('#', compact('tickets')); // a rediriger
+        return view('tickets.index', compact('tickets')); // a rediriger
     }
 
     /**
@@ -25,7 +25,7 @@ class TicketController extends Controller
     {
         $clients = Client::all();
 
-        return view('#', compact('clients')); // a rediriger
+        return view('tickets.create', compact('clients')); // a rediriger
     }
 
     /**
@@ -39,15 +39,15 @@ class TicketController extends Controller
             'client_telephone' => 'nullable|string|max:20',
             'name_ticket' => 'required|string|max:255',
             'description' => 'required|string',
-            'date' => 'required|date',
-            'valide' => 'nullable|boolean',
+            'date_ticket' => 'required|date',
+            'statut' => 'nullable|boolean',
         ]);
 
         $validated['valide'] = $request->has('valide');
 
         Ticket::create($validated);
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('tickets.store'); // a rediriger
     }
 
     /**
@@ -68,7 +68,7 @@ class TicketController extends Controller
         $ticket = Ticket::findOrFail($id);
         $clients = Client::all();
 
-        return view('#', compact('ticket', 'clients')); // a rediriger
+        return view('tickets.edit', compact('ticket', 'clients')); // a rediriger
     }
 
     /**
@@ -84,7 +84,7 @@ class TicketController extends Controller
             'client_telephone' => 'nullable|string|max:20',
             'name_ticket' => 'required|string|max:255',
             'description' => 'required|string',
-            'date' => 'required|date',
+            'date_ticket' => 'required|date',
             'valide' => 'nullable|boolean',
         ]);
 
@@ -92,7 +92,7 @@ class TicketController extends Controller
 
         $ticket->update($validated);
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('tickets.index'); // a rediriger
     }
 
     /**

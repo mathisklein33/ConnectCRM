@@ -61,9 +61,9 @@ Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->nam
         // Actions spécifiques pour le Chef d'Équipe
         Route::get('/team-tracking', [OpportunityController::class, 'teamIndex']); // Suivre toute son équipe
 
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        //Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', function () {
         return view('home');
