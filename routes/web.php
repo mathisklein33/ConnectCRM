@@ -14,10 +14,13 @@ use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OpportunityController;
 
+use App\Http\Controllers\InvoiceController;
 
 // On groupe toutes les routes de demandes sous le middleware 'auth'
 Route::middleware('auth')->group(function () {
 
+    Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
+    Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
 
 Route::get('/pdf/download', [PdfController::class, 'download']);
 
@@ -63,7 +66,7 @@ Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->nam
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', function () {
-        return view('welcome');
+        return view('home');
     })->name('dashboard');
 });
 // Les routes de Breeze (login/register) sont ajoutées automatiquement ici :
