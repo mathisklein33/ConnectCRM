@@ -11,11 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('demande_clients', function (Blueprint $table) {
+        if (!Schema::hasTable('demande_clients')) {
+            Schema::create('demande_clients', function (Blueprint $table) {
+                $table->id();
             // On ajoute user_id, il peut être NULL (si pas encore assigné)
             // On le place après client_id pour garder une table propre
             $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null')->after('client_id');
         });
+        }
+
     }
 
     public function down(): void

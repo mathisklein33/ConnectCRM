@@ -42,12 +42,12 @@ Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);
 Route::post('/schedules/store', [WorkSchedulesController::class, 'store']);
 Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->name('demandes.edit');
 
-        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        //Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', function () {
-        return view('welcome');
+        return view('home');
     })->name('dashboard');
 });
 // Les routes de Breeze (login/register) sont ajoutées automatiquement ici :

@@ -12,10 +12,10 @@ class Ticket extends Model
         'client_id',
         'client_email',
         'client_telephone',
-        'nom_ticket',
+        'name_ticket',
         'description',
-        'date',
-        'valide',
+        'date_ticket',
+        'statut',
     ];
 
     public function client()
