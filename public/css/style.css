@@ -100,26 +100,22 @@ footer a:hover {
     font-size: 1.1rem;
 }
 
-/* DASHBOARD GLOBAL */
 .dashboard {
     background-color: #f5f6fa;
 }
 
-/* CARD GENERALE */
 .dashboard-card {
     padding: 20px;
     border: none;
     box-shadow: 0 2px 6px rgba(0,0,0,0.05);
 }
 
-/* TITRES */
 .card-title {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 15px;
 }
 
-/* STATS */
 .stat-card {
     color: white;
     padding: 20px;
@@ -179,4 +175,120 @@ footer a:hover {
 
 .dashboard-icon {
     opacity: 0.3;
+}
+
+.page-title {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.card-custom {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.ticket-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.ticket-table th {
+    text-align: left;
+    font-size: 14px;
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.ticket-table td {
+    padding: 12px;
+    border-bottom: 1px solid #f3f3f3;
+}
+
+.status {
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+.status-valid {
+    background-color: #33A984;
+    color: white;
+}
+
+.status-open {
+    background-color: #FFA200;
+    color: white;
+}
+
+.btn-primary-custom {
+    background: #007AD7;
+    color: white;
+    padding: 8px 14px;
+    border-radius: 6px;
+    text-decoration: none;
+}
+.btn-primary-custom:hover {
+    background-color: #415aa5;
+}
+
+.btn-info-custom {
+    background: #007AD7;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+  text-decoration: none;
+}
+.btn-info-custom:hover {
+    background-color: #415aa5;
+}
+
+.btn-warning-custom {
+    background: white;
+    color: #007AD7;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #007AD7;
+    text-decoration: none;
+}
+.btn-warning-custom:hover {
+    background-color: #007AD7;
+    color: white;
+    opacity: 0.67;
+}
+
+.btn-danger-custom {
+    background-color: white;
+    color: #e74c3c;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #e74c3c;
+}
+.btn-danger-custom:hover {
+    background-color: #e74c3c;
+    color: white;
+    opacity: 0.67;
+}
+
+.form-label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 4px;
+}
+
+.form-input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+}
+
+.textarea {
+    min-height: 100px;
+}
+
+.btn-submit {
+    margin-top: 15px;
 }
