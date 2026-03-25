@@ -11,27 +11,31 @@ class DemandeClientController extends Controller
 {
     public function index(Request $request)
     {
-        $user = auth()->user(); // Récupère l'utilisateur connecté
-        $query = DemandeClient::with(['client', 'user']);
+        $user = auth()->user();
+        // On charge les relations pour éviter le problème N+1 (client et role de l'user lié)
+        $query = DemandeClient::with(['client', 'user.role']);
 
         // --- LOGIQUE DE VISIBILITÉ ---
-        // Si l'utilisateur n'est PAS un chef d'équipe (on suppose que tu as un champ 'role' ou une méthode isAdmin())
-        // Ici, j'utilise une vérification de rôle fictive : $user->role !== 'chef'
-        if ($user->role !== 'chef') {
+
+        // 1. Si ce n'est PAS un admin (ou 'chef' selon vos slugs en BDD)
+        if (!$user->hasRole('admin')) {
+            // L'utilisateur simple ne voit que ses propres dossiers
             $query->where('user_id', $user->id);
         }
-        // Si c'est un chef, on lui permet d'utiliser le filtre par membre
+        // 2. Si c'est un admin ET qu'il a sélectionné un membre spécifique dans le filtre
         elseif ($request->filled('user_id')) {
             $query->where('user_id', $request->user_id);
         }
 
-        // Filtre par Statut (accessible à tous pour leurs dossiers respectifs)
+        // Filtre par Statut (accessible à tous)
         if ($request->filled('statut')) {
             $query->where('statut', $request->statut);
         }
 
         $demandes = $query->latest()->get();
-        $users = User::all();
+
+        // On ne récupère tous les utilisateurs que si c'est un admin (gain de performance)
+        $users = $user->hasRole('admin') ? User::all() : collect();
 
         return view('demandes.index', compact('demandes', 'users'));
     }

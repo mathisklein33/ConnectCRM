@@ -17,7 +17,7 @@
             <form action="{{ route('demandes.index') }}" method="GET" class="dmd-filter-form">
 
                 {{-- Afficher le choix du membre SEULEMENT si l'utilisateur est chef --}}
-                @if(auth()->user()->role === 'chef')
+                @if(auth()->user()->hasRole('admin'))
                     <div class="dmd-filter-group">
                         <label>Chef d'équipe :</label>
                         <select name="user_id" onchange="this.form.submit()">
