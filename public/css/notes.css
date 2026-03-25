@@ -1,0 +1,124 @@
+/* Container Principal */
+.ic-wrapper {
+    max-width: 900px;
+    margin: 2rem auto;
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    color: #333;
+    line-height: 1.6;
+}
+
+.ic-title {
+    font-size: 1.8rem;
+    color: #2c3e50;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Section Formulaire */
+.ic-form-card {
+    background: #ffffff;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+    border: 1px solid #e1e8ed;
+    margin-bottom: 3rem;
+}
+
+.ic-user-badge {
+    display: inline-block;
+    background: #edf2f7;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 1rem;
+}
+
+.ic-label {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #4a5568;
+}
+
+.ic-select, .ic-textarea {
+    width: 100%;
+    border: 2px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 0.75rem;
+    margin-bottom: 1.25rem;
+    transition: border-color 0.2s;
+    font-size: 1rem;
+}
+
+.ic-select:focus, .ic-textarea:focus {
+    outline: none;
+    border-color: #3498db;
+}
+
+.ic-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.ic-btn-submit {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.8rem 2rem;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s, background 0.2s;
+}
+
+.ic-btn-submit:hover {
+    background-color: #2980b9;
+}
+
+.ic-btn-submit:active {
+    transform: scale(0.98);
+}
+
+/* Listes de messages */
+.ic-section-subtitle {
+    font-size: 1.2rem;
+    color: #7f8c8d;
+    margin: 2rem 0 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.ic-section-subtitle::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: #ddd;
+    margin-left: 15px;
+}
+
+.ic-message-list {
+    list-style: none;
+    padding: 0;
+}
+
+.ic-message-item {
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid #cbd5e0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+}
+
+/* Couleur spécifique pour l'équipe */
+.ic-team-section .ic-message-item {
+    border-left-color: #27ae60;
+    background: #f0fff4;
+}
+
+.ic-message-author {
+    color: #2c3e50;
+    margin-right: 10px;
+}

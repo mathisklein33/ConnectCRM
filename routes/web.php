@@ -13,6 +13,7 @@ use App\Http\Controllers\ContractsController;
 use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OpportunityController;
+use App\Http\Controllers\InternalCollaborationController;
 
 use App\Http\Controllers\InvoiceController;
 
@@ -50,6 +51,7 @@ Route::middleware('auth')->group(function () {
     //Route::middleware('role:,marketing')->group(function () {
 
     //});
+    Route::resource('InternalCollaboration', InternalCollaborationController::class);
 
     Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');

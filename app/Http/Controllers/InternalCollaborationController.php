@@ -13,8 +13,10 @@ class InternalCollaborationController extends Controller
     public function index()
     {
         $internalCollaborations = InternalCollaboration::with(['team', 'user'])->get();
+        $teams = Team::all();
+        $users = User::all();
 
-        return view('#', compact('internalCollaborations')); // a rediriger
+        return view('InternalCollaboration.index', compact('internalCollaborations', 'teams', 'users')); // a rediriger
     }
 
     public function create()
@@ -22,27 +24,54 @@ class InternalCollaborationController extends Controller
         $teams = Team::all();
         $users = User::all();
 
-        return view('#', compact('teams', 'users')); // a rediriger
+        return view('InternalCollaboration.index', compact('teams', 'users')); // a rediriger
     }
 
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'team_id' => 'required|exists:teams,id',
+            'team_id' => 'nullable|exists:teams,id',
             'user_id' => 'required|exists:users,id',
             'message' => 'required|string',
+            'type' => 'required|in:global,team,both',
         ]);
 
-        InternalCollaboration::create($validated);
+        if ($request->type === 'global') {
+            InternalCollaboration::create([
+                'team_id' => null,
+                'user_id' => $request->user_id,
+                'message' => $request->message,
+            ]);
+        } elseif ($request->type === 'team') {
+            InternalCollaboration::create([
+                'team_id' => $request->team_id,
+                'user_id' => $request->user_id,
+                'message' => $request->message,
+            ]);
+        } elseif ($request->type === 'both') {
+            // message global
+            InternalCollaboration::create([
+                'team_id' => null,
+                'user_id' => $request->user_id,
+                'message' => $request->message,
+            ]);
 
-        return redirect()->route('#'); // a rediriger
+            // message équipe
+            InternalCollaboration::create([
+                'team_id' => $request->team_id,
+                'user_id' => $request->user_id,
+                'message' => $request->message,
+            ]);
+        }
+
+        return redirect()->route('InternalCollaboration.index'); // a rediriger
     }
 
     public function show(string $id)
     {
         $internalCollaboration = InternalCollaboration::with(['team', 'user'])->findOrFail($id);
 
-        return view('#', compact('internalCollaboration')); // a rediriger
+        return view('InternalCollaboration.show', compact('internalCollaboration')); // a rediriger
     }
 
     public function edit(string $id)
@@ -51,7 +80,7 @@ class InternalCollaborationController extends Controller
         $teams = Team::all();
         $users = User::all();
 
-        return view('#', compact('internalCollaboration', 'teams', 'users')); // a rediriger
+        return view('InternalCollaboration.edit', compact('internalCollaboration', 'teams', 'users')); // a rediriger
     }
 
     public function update(Request $request, string $id)
