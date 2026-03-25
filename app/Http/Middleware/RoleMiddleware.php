@@ -9,25 +9,15 @@ use Illuminate\Support\Str;
 
 class RoleMiddleware
 {
-    /**
-     * Handle an incoming request.
-     */
-        public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, string $role): Response
     {
         if (!auth()->check()) {
             return redirect('/login');
         }
 
-        // 💡 MODIFICATION ICI : On récupère le 'slug' de l'objet role
-       $request->user()->role->slug;
+        $userRoleSlug = Str::lower(trim($request->user()->role->slug));
 
-        $userRoleData = $request->user()->role;
-
-        // On extrait le slug (en gérant le cas où c'est un objet ou un tableau)
-        $userRoleSlug = is_array($userRoleData) ? $userRoleData['slug'] : $userRoleData->slug;
-        $userRoleSlug = Str::lower($userRoleSlug);
-
-        // 👑 L'admin passe toujours
+        // admin accès total
         if ($userRoleSlug === 'admin') {
             return $next($request);
         }
