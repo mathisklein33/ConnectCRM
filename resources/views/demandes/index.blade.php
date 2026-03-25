@@ -51,8 +51,6 @@
                 @if(request()->anyFilled(['user_id', 'statut']))
                     <a href="{{ route('demandes.index') }}" class="dmd-reset-link">Réinitialiser</a>
                 @endif
-            </form>
-        </div>
         <div class="dmd-card">
             <div class="dmd-table-responsive">
                 <table class="dmd-table">
