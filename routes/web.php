@@ -11,11 +11,21 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\QuotesController;
 use App\Http\Controllers\ContractsController;
 use App\Http\Controllers\InvoicesController;
-use App\Http\Controllers\ProductController;
-use App\Http\Controllers\OpportunityController;
-
 use App\Http\Controllers\InvoiceController;
 
+Route::get('/tickets/historique', [TicketController::class, 'historique'])
+    ->name('tickets.historique');
+
+Route::resource('tickets', TicketController::class);
+
+Route::post('/tickets/{ticket}/take', [TicketController::class, 'take'])->name('tickets.take');
+
+Route::get('/mes-tickets', [TicketController::class, 'mesTickets'])->name('tickets.mine');
+Route::post('/tickets/{ticket}/resolve', [TicketController::class, 'resolve'])->name('tickets.resolve');
+Route::post('/tickets/{ticket}/transfer', [TicketController::class, 'transfer'])->name('tickets.transfer');
+
+Route::post('/tickets/{ticket}/take', [TicketController::class, 'take'])
+    ->name('tickets.take');
 // On groupe toutes les routes de demandes sous le middleware 'auth'
 Route::middleware('auth')->group(function () {
 
@@ -41,8 +51,6 @@ Route::resource('contracts', ContractsController::class);
 Route::resource('invoices', InvoicesController::class);
 Route::resource('schedules', WorkSchedulesController::class);
 Route::resource('demandes', DemandeClientController::class);
-Route::resource('produits', ProductController::class);
-
 Route::get('/demandes/show/{id}', [DemandeClientController::class, 'show'])->name('demandes.show');
 Route::get('/demandes/assignation/{id}', [DemandeClientController::class, 'assignation'])->name('demandes.assignation');
 Route::patch('/demandes/assignation/{id}', [DemandeClientController::class, 'storeAssignation'])->name('demandes.storeAssignation');
@@ -50,20 +58,13 @@ Route::get('/schedules', [WorkSchedulesController::class, 'index'])->name('sched
 Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);
 Route::post('/schedules/store', [WorkSchedulesController::class, 'store']);
 Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->name('demandes.edit');
-        Route::resource('products', ProductController::class);
-        Route::get('/products/show/{id}', [ProductController::class, 'show'])->name('product.show');
-    Route::get('/products/edit/{id}', [ProductController::class, 'show'])->name('product.show');
+    Route::post('/tickets/{ticket}/resolve', [TicketController::class, 'resolve'])->name('tickets.resolve');
+    Route::post('/tickets/{ticket}/transfer', [TicketController::class, 'transfer'])->name('tickets.transfer');
 
-        // Actions du Commercial
-        Route::patch('/opportunity/stage/{id}', [OpportunityController::class, 'updateStage']); // Faire progresser le cycle
-        Route::get('/opportunity/show/{id}', [OpportunityController::class, 'show'])->name('opportunity.show');
 
-        // Actions spécifiques pour le Chef d'Équipe
-        Route::get('/team-tracking', [OpportunityController::class, 'teamIndex']); // Suivre toute son équipe
-
-        //Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-        //Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-        //Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+        Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+        Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+        Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/dashboard', function () {
         return view('home');

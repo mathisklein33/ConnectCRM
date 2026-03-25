@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Ticket;
 use App\Models\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\Models\User;
 
 class TicketController extends Controller
 {
@@ -13,9 +15,11 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $tickets = Ticket::with('client')->get();
+        $tickets = Ticket::with(['client', 'user'])
+            ->where('statut', 'ouvert')
+            ->get();
 
-        return view('tickets.index', compact('tickets')); // a rediriger
+        return view('tickets.index', compact('tickets'));
     }
 
     /**
@@ -104,6 +108,71 @@ class TicketController extends Controller
 
         $ticket->delete();
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('tickets.index');
+    }
+
+
+
+    public function take(Ticket $ticket)
+    {
+        if ($ticket->statut !== 'ouvert') {
+            return redirect()->back()->with('error', 'Ce ticket n’est plus disponible.');
+        }
+
+        $ticket->statut = 'en_cours';
+        $ticket->user_id = Auth::id();
+        $ticket->save();
+
+        return redirect()->route('tickets.mine')->with('success', 'Ticket pris en charge.');
+    }
+    public function resolve(Ticket $ticket)
+    {
+        // Vérifie que l'utilisateur est bien assigné
+        if ($ticket->user_id !== Auth::id()) {
+            return back()->with('error', 'Vous ne pouvez pas fermer ce ticket.');
+        }
+
+        $ticket->update([
+            'statut' => 'ferme'
+        ]);
+
+        return back()->with('success', 'Ticket résolu.');
+    }
+
+
+    public function mesTickets()
+    {
+        $tickets = Ticket::with(['client', 'user'])
+            ->where('user_id', Auth::id())
+            ->where('statut', 'en_cours')
+            ->get();
+
+        return view('tickets.mes_tickets', compact('tickets'));
+    }
+
+    public function transfer(Request $request, Ticket $ticket)
+    {
+        if ($ticket->user_id !== Auth::id()) {
+            return redirect()->back()->with('error', 'Vous ne pouvez pas transférer ce ticket.');
+        }
+
+        $request->validate([
+            'user_id' => 'required|exists:users,id',
+        ]);
+
+        $ticket->update([
+            'user_id' => $request->user_id,
+        ]);
+
+        return redirect()->back()->with('success', 'Le ticket a été transféré avec succès.');
+    }
+
+    public function historique()
+    {
+        $tickets = Ticket::with(['client', 'user'])
+            ->where('statut', 'ferme')
+            ->get();
+
+        return view('tickets.historique', compact('tickets'));
     }
 }
