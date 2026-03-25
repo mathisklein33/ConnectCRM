@@ -3,6 +3,7 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+use App\Models\Role;
 use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -22,7 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role',
+        'role_id',
     ];
 
     /**
@@ -47,14 +48,31 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
     public function saveFiles()
     {
         return $this->hasMany(SaveFile::class);
     }
+
     public function teams()
     {
         // On utilise belongsToMany car c'est une table pivot (team_user)
         return $this->belongsToMany(Team::class);
+    }
+
+// Méthode utilitaire pour vérifier le rôle
+    // 1. La RELATION (pour récupérer l'objet Role)
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+// 2. La VÉRIFICATION (pour tester le slug)
+// On la nomme différemment, par exemple 'hasRole'
+    public function hasRole($slug)
+    {
+        // On vérifie si l'utilisateur a un rôle et si son slug correspond
+        return $this->role && $this->role->slug === $slug;
     }
 }
 
