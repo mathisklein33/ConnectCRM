@@ -11,6 +11,10 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\QuotesController;
 use App\Http\Controllers\ContractsController;
 use App\Http\Controllers\InvoicesController;
+use App\Http\Controllers\ProductController;
+use App\Http\Controllers\OpportunityController;
+use App\Http\Controllers\InternalCollaborationController;
+
 use App\Http\Controllers\InvoiceController;
 
 Route::get('/tickets/historique', [TicketController::class, 'historique'])
@@ -52,6 +56,12 @@ Route::middleware('auth')->group(function () {
         Route::resource('demandes', DemandeClientController::class);
         Route::resource('products', ProductController::class);
     });
+
+    // 📣 MARKETING
+    //Route::middleware('role:,marketing')->group(function () {
+
+    //});
+    Route::resource('InternalCollaboration', InternalCollaborationController::class);
 
     Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
