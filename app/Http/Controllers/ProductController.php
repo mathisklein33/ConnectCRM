@@ -12,31 +12,38 @@ class ProductController extends Controller
     // Liste des produits pour le catalogue du commercial
     public function index(Request $request)
     {
-        $user = auth()->user(); // Récupère l'utilisateur connecté
-        $query = product::with(['client', 'user']);
-        $opportunities = Opportunity::with('client')->get();
-        // --- LOGIQUE DE VISIBILITÉ ---
-        // Si l'utilisateur n'est PAS un chef d'équipe (on suppose que tu as un champ 'role' ou une méthode isAdmin())
-        // Ici, j'utilise une vérification de rôle fictive : $user->role !== 'chef'
-        if ($user->role !== 'chef') {
-            $query->where('user_id', $user->id);
-        }
-        // Si c'est un chef, on lui permet d'utiliser le filtre par membre
-        elseif ($request->filled('user_id')) {
-            $query->where('user_id', $request->user_id);
-        }
-
-        // Filtre par Statut (accessible à tous pour leurs dossiers respectifs)
-        if ($request->filled('categorie')) {
-            $query->where('categorie', $request->statut);
-        }
-
-        $products = $query->latest()->get();
+        $user = auth()->user();
         $users = User::all();
+
+        // --- LOGIQUE POUR LES OPPORTUNITÉS (Elles ont un user_id) ---
+        $oppQuery = Opportunity::with('client');
+
+        if ($user->role !== 'chef') {
+            $oppQuery->where('user_id', $user->id);
+        } elseif ($request->filled('user_id')) {
+            $oppQuery->where('user_id', $request->user_id);
+        }
+
+        // Filtre par étape (stage) pour les opportunités si présent dans la requête
+        if ($request->filled('stage')) {
+            $oppQuery->where('stage', $request->stage);
+        }
+
+        $opportunities = $oppQuery->latest()->get();
+
+        // --- LOGIQUE POUR LES PRODUITS (Ils n'ont PAS de user_id) ---
+        // On retire le ->with('user') et les filtres user_id qui causaient l'erreur
+        $prodQuery = Product::query();
+
+        if ($request->filled('categorie')) {
+            // Note : attention, vous utilisiez $request->statut pour filtrer la catégorie
+            $prodQuery->where('categorie', $request->categorie);
+        }
+
+        $products = $prodQuery->latest()->get();
 
         return view('products.index', compact('products', 'users', 'opportunities'));
     }
-
     // Création d'un nouveau produit (réservé aux admins/chefs)
     public function store(Request $request)
     {

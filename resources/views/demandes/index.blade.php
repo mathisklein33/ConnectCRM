@@ -17,7 +17,7 @@
             <form action="{{ route('demandes.index') }}" method="GET" class="dmd-filter-form">
 
                 {{-- Afficher le choix du membre SEULEMENT si l'utilisateur est chef --}}
-                @if(auth()->user()->role === 'chef')
+                @if(auth()->user()->hasRole('admin'))
                     <div class="dmd-filter-group">
                         <label>Chef d'équipe :</label>
                         <select name="user_id" onchange="this.form.submit()">
@@ -51,8 +51,6 @@
                 @if(request()->anyFilled(['user_id', 'statut']))
                     <a href="{{ route('demandes.index') }}" class="dmd-reset-link">Réinitialiser</a>
                 @endif
-            </form>
-        </div>
         <div class="dmd-card">
             <div class="dmd-table-responsive">
                 <table class="dmd-table">

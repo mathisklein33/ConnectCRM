@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
 
-    <div class="container-fluid dashboard">
+    <div class="container-fluid dashboard p-4">
         <div class="row g-3 mb-4 dashboard-stats">
             <div class="col-md-3">
                 <div class="card stat-card stat-green">
