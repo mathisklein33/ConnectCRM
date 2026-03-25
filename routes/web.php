@@ -17,19 +17,10 @@ use App\Http\Controllers\InternalCollaborationController;
 
 use App\Http\Controllers\InvoiceController;
 
-Route::get('/tickets/historique', [TicketController::class, 'historique'])
-    ->name('tickets.historique');
 
-Route::resource('tickets', TicketController::class);
 
-Route::post('/tickets/{ticket}/take', [TicketController::class, 'take'])->name('tickets.take');
 
-Route::get('/mes-tickets', [TicketController::class, 'mesTickets'])->name('tickets.mine');
-Route::post('/tickets/{ticket}/resolve', [TicketController::class, 'resolve'])->name('tickets.resolve');
-Route::post('/tickets/{ticket}/transfer', [TicketController::class, 'transfer'])->name('tickets.transfer');
 
-Route::post('/tickets/{ticket}/take', [TicketController::class, 'take'])
-    ->name('tickets.take');
 // On groupe toutes les routes de demandes sous le middleware 'auth'
 Route::middleware('auth')->group(function () {
 
@@ -62,6 +53,8 @@ Route::middleware('auth')->group(function () {
 
     //});
     Route::resource('InternalCollaboration', InternalCollaborationController::class);
+    Route::resource('tickets', TicketController::class);
+
 
     Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
@@ -98,6 +91,15 @@ Route::post('/schedules/store', [WorkSchedulesController::class, 'store']);
 Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->name('demandes.edit');
     Route::post('/tickets/{ticket}/resolve', [TicketController::class, 'resolve'])->name('tickets.resolve');
     Route::post('/tickets/{ticket}/transfer', [TicketController::class, 'transfer'])->name('tickets.transfer');
+    Route::post('/tickets/{ticket}/take', [TicketController::class, 'take'])->name('tickets.take');
+
+    Route::get('/mes-tickets', [TicketController::class, 'mesTickets'])->name('tickets.mine');
+    Route::post('/tickets/{ticket}/resolve', [TicketController::class, 'resolve'])->name('tickets.resolve');
+    Route::post('/tickets/{ticket}/transfer', [TicketController::class, 'transfer'])->name('tickets.transfer');
+    Route::get('/tickets/historique', [TicketController::class, 'historique'])
+        ->name('tickets.historique');
+    Route::post('/tickets/{ticket}/take', [TicketController::class, 'take'])
+        ->name('tickets.take');
     Route::get('/', function () {
         return view('home');
     });
