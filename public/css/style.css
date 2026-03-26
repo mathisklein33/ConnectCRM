@@ -291,4 +291,46 @@ footer a:hover {
 
 .btn-submit {
     margin-top: 15px;
+    border: none;
+}
+.btn-retour{
+    text-decoration: none;
+}
+
+
+.team-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.team-table th,
+.team-table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+
+.planning-grid {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 15px;
+}
+
+.planning-day {
+    background: #f8fafc;
+    border-radius: 8px;
+    padding: 10px;
+}
+
+.planning-header {
+    font-weight: 600;
+    margin-bottom: 10px;
+}
+
+.planning-slot {
+    background: white;
+    padding: 8px;
+    border-radius: 6px;
+    margin-bottom: 6px;
+    font-size: 13px;
 }

@@ -14,6 +14,8 @@ use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\InternalCollaborationController;
+use App\Http\Controllers\TeamController;
+
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -21,6 +23,7 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout.get');
 Route::get('/tickets/historique', [TicketController::class, 'historique'])
     ->name('tickets.historique');
+Route::resource('team', TeamController::class);
 
 Route::resource('tickets', TicketController::class);
 
@@ -68,7 +71,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/invoices/create', [InvoiceController::class, 'create'])->name('invoices.create');
     Route::post('/invoices', [InvoiceController::class, 'store'])->name('invoices.store');
 
-    Route::get('/pdf/download', [PdfController::class, 'download']);
+Route::get('/pdf/download', [PdfController::class, 'download']);
 
 Route::get('/', function () {
     return view('home');
@@ -119,4 +122,5 @@ Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->nam
         return view('home');
     })->name('dashboard');
 });
+// Les routes de Breeze (login/register) sont ajoutées automatiquement ici :
 require __DIR__.'/auth.php';
