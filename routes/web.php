@@ -14,9 +14,11 @@ use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\InternalCollaborationController;
-
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
+// This allows you to logout just by visiting /logout in the browser
+Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout.get');
 Route::get('/tickets/historique', [TicketController::class, 'historique'])
     ->name('tickets.historique');
 
