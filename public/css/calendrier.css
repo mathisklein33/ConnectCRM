@@ -102,3 +102,17 @@
 .btn-add {
     margin-top: 250px;
 }
+/* Empêche la sidebar de rétrécir */
+.sidebar {
+    width: 260px !important;
+    min-width: 260px !important;
+    flex-shrink: 0 !important;
+}
+
+/* Le conteneur du calendrier doit être un "flex-item" qui grandit */
+.main-content {
+    flex-grow: 1 !important;
+    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+}

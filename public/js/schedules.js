@@ -10,22 +10,92 @@ document.addEventListener('DOMContentLoaded', function() {
     if (calendarEl) {
         window.calendar = new FullCalendar.Calendar(calendarEl, {
             initialView: 'timeGridWeek',
+            contentHeight: 'auto',
+            height: 'auto',
+            expandRows: true,
+            stickyHeaderDates: true,
+            handleWindowResize: true,
             locale: 'fr',
             selectable: true,
+            slotMinTime: '06:00:00', // Commence à 6h pour gagner de la place visuelle
+            slotMaxTime: '20:00:00',
             events: window.routes.data || '/api/schedules',
 
+            // À l'intérieur de l'initialisation FullCalendar
+// Dans votre fonction select (clic sur calendrier)
             select: function(info) {
-                // Remplit la date automatiquement au clic
                 document.getElementById('date').value = info.startStr.split('T')[0];
+
+                const viewType = document.querySelector('.tab-btn.active').getAttribute('data-view');
+
+                if (viewType === 'global') {
+                    // On force le selecteur sur "Global" (valeur vide)
+                    teamSelect.value = "";
+                    teamSelect.dispatchEvent(new Event('change'));
+                } else {
+                    // On pré-remplit avec l'équipe filtrée
+                    teamSelect.value = filterTeamSelect.value;
+                    teamSelect.dispatchEvent(new Event('change'));
+                }
+
                 openModal();
             },
             eventClick: function(info) {
                 alert('Rendez-vous : ' + info.event.title + (info.event.extendedProps.description ? '\n' + info.event.extendedProps.description : ''));
             }
+
         });
         window.calendar.render();
     }
+// --- Nouveau : Gestionnaire de filtrage du calendrier ---
+    const filterTeamSelect = document.getElementById('filter_team_id'); // Le select dans votre Blade (hors modal)
+    const tabBtns = document.querySelectorAll('.tab-btn');
 
+    if (filterTeamSelect) {
+        filterTeamSelect.addEventListener('change', function() {
+            const teamId = this.value;
+            updateCalendarSource(teamId);
+        });
+    }
+
+    if (tabBtns) {
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                // Gestion visuelle des onglets
+                tabBtns.forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+
+                const viewType = this.getAttribute('data-view');
+                const selectorContainer = document.getElementById('team-selector-container');
+
+                if (viewType === 'global') {
+                    selectorContainer.classList.add('hidden');
+                    updateCalendarSource(null); // Recharge tout
+                } else {
+                    selectorContainer.classList.remove('hidden');
+                    // Si une équipe est déjà sélectionnée, on filtre, sinon on vide le calendrier
+                    updateCalendarSource(filterTeamSelect.value);
+                }
+            });
+        });
+    }
+
+// Fonction utilitaire pour changer la source de données
+    function updateCalendarSource(teamId) {
+        if (!window.calendar) return;
+
+        let newUrl = window.routes.data; // ex: /api/schedules
+
+        // On ajoute le filtre à l'URL
+        if (teamId && teamId !== "") {
+            newUrl += "?team_id=" + teamId;
+        }
+
+        console.log("Nouvelle URL appelée :", newUrl); // Pour déboguer
+
+        window.calendar.removeAllEventSources();
+        window.calendar.addEventSource(newUrl);
+    }
     // 3. Filtrage Dynamique des Utilisateurs par Équipe
     // 3. Filtrage Dynamique des Utilisateurs par Équipe
     if (teamSelect && userSelect) {

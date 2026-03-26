@@ -57,7 +57,7 @@ class User extends Authenticatable
     public function teams()
     {
         // On utilise belongsToMany car c'est une table pivot (team_user)
-        return $this->belongsToMany(Team::class);
+        return $this->belongsToMany(Team::class, 'team_user');
     }
 
 // Méthode utilitaire pour vérifier le rôle

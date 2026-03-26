@@ -17,7 +17,10 @@ use App\Http\Controllers\InternalCollaborationController;
 use App\Http\Controllers\TeamController;
 
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
+// This allows you to logout just by visiting /logout in the browser
+Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout.get');
 Route::get('/tickets/historique', [TicketController::class, 'historique'])
     ->name('tickets.historique');
 Route::resource('team', TeamController::class);
