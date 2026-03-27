@@ -259,6 +259,27 @@ footer a:hover {
     opacity: 0.67;
 }
 
+.btn-success-custom{
+    background: white;
+    color: #33a984;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: 1px solid #33a984;
+    text-decoration: none;
+}
+
+.btn-success-custom:hover {
+    background-color: #33a984;
+    color: white;
+    opacity: 0.67;
+}
+
+.btn-warning-custom:hover {
+    background-color: #007AD7;
+    color: white;
+    opacity: 0.67;
+}
+
 .btn-danger-custom {
     background-color: white;
     color: #e74c3c;
