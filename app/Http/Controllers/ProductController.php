@@ -44,18 +44,28 @@ class ProductController extends Controller
 
         return view('products.index', compact('products', 'users', 'opportunities'));
     }
+    public function create()
+    {
+        $clients = Client::all();
+        $users = User::all();
+        $Products = Product::all();
+
+
+
+        return view('products.create', compact('clients', 'users', 'Products'));
+    }
     // Création d'un nouveau produit (réservé aux admins/chefs)
     public function store(Request $request)
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'sku' => 'required|string|unique:products',
-            'base_price' => 'required|numeric',
+            'price' => 'required|numeric|min:0', // On valide 'price' ici...
             'category' => 'nullable|string'
         ]);
 
         $product = Product::create($validated);
-        return response()->json($product, 201);
+        return redirect()->route('products.index', compact('product')); // a rediriger
     }
     public function show($id) {
         $product = Product::withCount('opportunities')->findOrFail($id);
@@ -81,4 +91,5 @@ class ProductController extends Controller
         $product->update($request->all());
         return redirect()->route('products.index')->with('success', 'Produit mis à jour avec succès !');
     }
+
 }

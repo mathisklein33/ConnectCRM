@@ -54,6 +54,7 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::middleware('role:commercial')->group(function () {
+        Route::resource('opportunity', OpportunityController::class);
         Route::patch('/opportunity/stage/{id}', [OpportunityController::class, 'updateStage']);
         Route::get('/opportunity/show/{id}', [OpportunityController::class, 'show']);
         Route::resource('interactions', InteractionController::class);

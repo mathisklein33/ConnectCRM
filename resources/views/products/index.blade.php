@@ -8,8 +8,8 @@
                 <p class="dmd-subtitle">Gestion des produits et suivi des opportunités de vente</p>
             </div>
             <div class="dmd-actions-top">
-                <a href="/produits/create" class="dmd-btn-create" style="margin-right: 10px;">+ Nouveau Produit</a>
-                <a href="/opportunities/create" class="dmd-btn-create" style="background-color: #6366f1;">+ Nouvelle Opportunité</a>
+                <a href="{{route('products.create')}}" class="dmd-btn-create" style="margin-right: 10px;">+ Nouveau Produit</a>
+                <a href="{{route('opportunity.create')}}" class="dmd-btn-create" style="background-color: #6366f1;">+ Nouvelle Opportunité</a>
             </div>
         </div>
 
