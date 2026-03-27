@@ -21,8 +21,8 @@
 
                 <label class="ic-label" for="type">Type de message :</label>
                 <select name="type" id="type" class="ic-select">
-                    <option value="global">🌍 Global (Tout le monde)</option>
-                    <option value="team">👥 Équipe ({{ $team?->name ?? 'Privé' }})</option>
+                    <option value="global">Global (Tout le monde)</option>
+                    <option value="team">Équipe ({{ $team?->name ?? 'Privé' }})</option>
                 </select>
 
                 <input type="hidden" name="user_id" value="{{ $currentUser->id }}">
