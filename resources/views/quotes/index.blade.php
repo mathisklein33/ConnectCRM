@@ -12,27 +12,27 @@
             @if($quotes->isEmpty())
                 <p class="text-muted">Aucun devis enregistré.</p>
             @else
-                <div class="table-responsive d-flex gap-3 justify-content-between">
-                    <table class="quotes-table">
+                <div class="dmd-card d-flex gap-3 justify-content-between">
+                    <table class="dmd-table">
                         <thead>
                         <tr>
-                            <th class="p-3">ID</th>
-                            <th class="p-3">Numéro</th>
-                            <th class="p-3">Client</th>
-                            <th class="p-3">Titre</th>
-                            <th class="p-3">Total</th>
-                            <th class="p-3">Statut</th>
-                            <th class="text-center p-3">Actions</th>
+                            <th>ID</th>
+                            <th>Numéro</th>
+                            <th>Client</th>
+                            <th>Titre</th>
+                            <th>Total</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($quotes as $quote)
                             <tr>
-                                <td class="py-2 px-3">{{ $quote->id }}</td>
-                                <td class="p-3">{{ $quote->number }}</td>
-                                <td class="p-3">{{ $quote->client->name ?? 'Client supprimé' }}</td>
-                                <td class="p-3" >{{ $quote->title }}</td>
-                                <td class="fw-semibold text-successp-3">
+                                <td>{{ $quote->id }}</td>
+                                <td>{{ $quote->number }}</td>
+                                <td>{{ $quote->client->name ?? 'Client supprimé' }}</td>
+                                <td>{{ $quote->title }}</td>
+                                <td class="fw-semibold text-success">
                                     {{ number_format($quote->total, 2, ',', ' ') }} €
                                 </td>
                                 <td class="p-3">
@@ -40,7 +40,7 @@
                                     {{ $quote->status }}
                                 </span>
                                 </td>
-                                <td class="p-3">
+                                <td>
                                     <div class="d-flex gap-3 justify-content-center">
                                         <a href="{{ route('quotes.show', $quote->id) }}"
                                            class="btn-info-custom">
