@@ -18,4 +18,9 @@ class Quotes extends Model
     {
         return $this->belongsTo(Client::class);
     }
+
+    public function order()
+    {
+        return $this->hasOne(Order::class);
+    }
 }

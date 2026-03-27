@@ -19,6 +19,8 @@ use App\Http\Controllers\SalesStatisticsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrdersController;
+
 
 Route::get('/', function () {
     return view('home');
@@ -69,7 +71,7 @@ Route::middleware('auth')->group(function () {
         Route::resource('interactions', InteractionController::class);
         Route::get('/interactions/client/{client_id}', [InteractionController::class, 'byClient'])->name('interactions.byClient');
         Route::get('/interactions/create/{client_id}', [InteractionController::class, 'create']);
-
+        Route::resource('orders', OrdersController::class);
         Route::resource('demandes', DemandeClientController::class);
         Route::resource('products', ProductController::class);
     });

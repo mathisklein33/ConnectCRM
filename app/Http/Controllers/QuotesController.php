@@ -98,4 +98,21 @@ class QuotesController extends Controller
 
         return redirect()->route('#'); // a rediriger
     }
+    public function convertToOrder($id)
+    {
+        $quote = Quotes::findOrFail($id);
+
+        if ($quote->status !== 'accepted') {
+            return back()->with('error', 'Le devis doit être accepté.');
+        }
+
+        $order = \App\Models\Order::create([
+            'quote_id' => $quote->id,
+            'client_id' => $quote->client_id,
+            'number' => 'CMD-' . time(),
+            'total' => $quote->total,
+        ]);
+
+        return redirect()->route('orders.show', $order->id);
+    }
 }
