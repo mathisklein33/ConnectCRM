@@ -47,5 +47,25 @@ class Opportunity extends Model
     {
         return $this->belongsTo(User::class);
     }
+    // App\Models\Opportunity.php
+
+    public function getExpectedValueAttribute()
+    {
+        $totalBrut = 0;
+
+        // On boucle manuellement sur les produits pour être sûr de ne rien rater
+        foreach ($this->products as $product) {
+            $prix = (float) $product->pivot->unit_price;
+            $quantite = (int) $product->pivot->quantity;
+
+            $totalBrut += ($prix * $quantite);
+        }
+
+        // On applique la probabilité (ex: 80 / 100 = 0.8)
+        $ratio = (float) ($this->probability / 100);
+
+        return $totalBrut * $ratio;
+    }
+
 // Utilisation dans le Controller
 }
