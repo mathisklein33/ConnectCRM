@@ -61,12 +61,12 @@
             </div>
 
             {{-- Boutons --}}
-            <button type="submit" class="btn btn-success-custom">
+            <button type="submit" class="btn btn-primary-custom">
                 Enregistrer
             </button>
 
             <a href="{{ route('orders.show', $order->id) }}"
-               class="btn btn-secondary">
+               class="btn btn-retour">
                 Annuler
             </a>
         </form>

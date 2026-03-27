@@ -12,7 +12,7 @@
         @endif
 
         {{-- Bouton créer --}}
-        <a href="{{ route('orders.create') }}" class="btn btn-primary mb-3">
+        <a href="{{ route('orders.create') }}" class="btn btn-primary-custom mb-3">
             + Nouvelle commande
         </a>
 

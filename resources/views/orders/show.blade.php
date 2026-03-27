@@ -45,7 +45,7 @@
 
         {{-- Actions --}}
         <div class="mt-3">
-            <a href="{{ route('orders.index') }}" class="btn btn-secondary">
+            <a href="{{ route('orders.index') }}" class="btn btn-retour">
                 Retour
             </a>
 
