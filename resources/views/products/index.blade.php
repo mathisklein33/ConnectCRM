@@ -59,6 +59,7 @@
                         <th>Titre du Deal</th>
                         <th>Étape</th>
                         <th>Probabilité</th>
+                        <th class="text-right">Valeur de Prévision</th> {{-- Nouvelle colonne demandée --}}
                         <th>Clôture prévue</th>
                         <th>Client</th>
                         <th class="text-right">Actions</th>
@@ -84,6 +85,10 @@
                                     <small>{{ $opportunity->probability }}%</small>
                                 </div>
                             </td>
+                            {{-- AJOUT : Calcul de la prévision (Total Brut x Probabilité) --}}
+                            <td class="text-right">
+                                {{ number_format($opportunity->expected_value ?? 0, 2, ',', ' ') }} €
+                            </td>
                             <td class="dmd-date">
                                 {{ \Carbon\Carbon::parse($opportunity->expected_closing_date)->format('d/m/Y') }}
                             </td>
@@ -99,6 +104,28 @@
                     @endforelse
                     </tbody>
                 </table>
+                {{-- Résumé des Revenus Prévus (Schedules) --}}
+                <div class="dmd-stats-container">
+
+                    <div class="dmd-card dmd-stat-card dmd-stat-brut">
+                        <span class="dmd-stat-label text-slate">Pipeline Total (Brut)</span>
+                        <h2 class="dmd-stat-value text-dark">
+                            {{ number_format($opportunities->sum(fn($op) => $op->total_amount), 2, ',', ' ') }} €
+                        </h2>
+                        <small class="dmd-stat-footer text-muted">Valeur théorique à 100%</small>
+                    </div>
+
+                    <div class="dmd-card dmd-stat-card dmd-stat-forecast">
+                        <span class="dmd-stat-label text-indigo">Valeur de Prévision Totale</span>
+                        <h2 class="dmd-stat-value text-indigo">
+                            {{ number_format($opportunities->sum(fn($op) => $op->expected_value), 2, ',', ' ') }} €
+                        </h2>
+                        <small class="dmd-stat-footer text-indigo" style="font-weight: 500;">
+                            Basé sur les probabilités de vos <strong>schedules</strong>
+                        </small>
+                    </div>
+
+                </div>
             </div>
         </div>
 
@@ -128,7 +155,8 @@
                                     <p class="dmd-sku" style="font-size: 0.8rem; color: #64748b;">Réf: {{ $product->sku }}</p>
                                 </div>
                             </td>
-                            <td><span class="dmd-price">{{ number_format($product->price, 2, ',', ' ') }} €</span></td>
+                            <td>
+                                <span class="dmd-price">{{ number_format($product->price, 2, ',', ' ') }} €</span></td>
                             <td>
                                 <span class="dmd-badge dmd-badge-info">
                                     {{ $product->categorie ?? 'Standard' }}
