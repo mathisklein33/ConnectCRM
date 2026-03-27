@@ -63,8 +63,6 @@ Route::middleware('auth')->group(function () {
     // Commercial
     Route::middleware('role:commercial')->group(function () {
         Route::resource('opportunity', OpportunityController::class);
-        Route::patch('/opportunity/stage/{id}', [OpportunityController::class, 'updateStage']);
-        Route::get('/opportunity/show/{id}', [OpportunityController::class, 'show']);
         Route::patch('/opportunity/stage/{id}', [OpportunityController::class, 'updateStage'])->name('opportunity.updateStage');
         Route::get('/opportunity/show/{id}', [OpportunityController::class, 'show'])->name('opportunity.show');
 
