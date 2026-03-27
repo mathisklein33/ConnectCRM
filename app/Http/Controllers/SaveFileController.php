@@ -5,54 +5,61 @@ namespace App\Http\Controllers;
 use App\Models\SaveFile;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class SaveFileController extends Controller
 {
     public function index()
     {
-        $files = SaveFile::all();
+        $files = SaveFile::latest()->get();
 
-        return view('#', compact('files')); // a rediriger
+        return view('#', compact('files')); //rediriger
     }
 
     public function form()
     {
-        return view('#'); // a rediriger
+        return view('#'); //rediriger
     }
 
     public function store(Request $request)
     {
         $request->validate([
-            'document' => 'required|file|max:2048|mimes:jpg,png,pdf,doc,docx',
+            'document' => [
+                'required',
+                'file',
+                'min:10',
+                'max:5120',
+                'mimes:jpg,jpeg,png,pdf,doc,docx',
+            ],
         ]);
 
         $file = $request->file('document');
+        $path = $file->store('uploads', 'public');
 
-       $path = $file->store('uploads', 'public');
-
-        $saveFile = SaveFile::create([
+        SaveFile::create([
             'name' => $file->getClientOriginalName(),
             'path' => $path,
             'mime_type' => $file->getClientMimeType(),
             'size' => $file->getSize(),
+            'share_token' => Str::random(40),
+            'is_public' => false,
         ]);
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('#'); //rediriger
     }
 
     public function show(string $id)
     {
         $saveFile = SaveFile::findOrFail($id);
 
-        return view('#', compact('saveFile')); // a rediriger
+        return view('#', compact('saveFile'));//rediriger
     }
-
 
     public function edit(string $id)
     {
         $saveFile = SaveFile::findOrFail($id);
 
-        return view('#', compact('saveFile')); // a rediriger
+        return view('#', compact('saveFile')); //rediriger
     }
 
     public function update(Request $request, string $id)
@@ -65,7 +72,7 @@ class SaveFileController extends Controller
 
         $saveFile->update($validated);
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('#'); //rediriger
     }
 
     public function destroy(string $id)
@@ -78,6 +85,54 @@ class SaveFileController extends Controller
 
         $saveFile->delete();
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('#'); //rediriger
+    }
+
+    public function download(string $id)
+    {
+        $saveFile = SaveFile::findOrFail($id);
+
+        if (!Storage::disk('public')->exists($saveFile->path)) {
+            abort(404, 'Fichier introuvable.');
+        }
+
+        return Storage::disk('public')->download($saveFile->path, $saveFile->name);
+    }
+
+    public function toggleShare(string $id)
+    {
+        $saveFile = SaveFile::findOrFail($id);
+
+        $saveFile->is_public = !$saveFile->is_public;
+
+        if (empty($saveFile->share_token)) {
+            $saveFile->share_token = Str::random(40);
+        }
+
+        $saveFile->save();
+
+        return redirect()->route('#', $saveFile->id);
+    }
+
+    public function shared(string $token)
+    {
+        $saveFile = SaveFile::where('share_token', $token)
+            ->where('is_public', true)
+            ->firstOrFail();
+
+        return view('#', compact('saveFile')); //rediriger
+    }
+
+    public function sharedDownload(string $token)
+    {
+        $saveFile = SaveFile::where('share_token', $token)
+            ->where('is_public', true)
+            ->firstOrFail();
+
+        if (!Storage::disk('public')->exists($saveFile->path)) {
+            abort(404, 'Fichier introuvable.');
+        }
+
+        return Storage::disk('public')->download($saveFile->path, $saveFile->name);
     }
 }
