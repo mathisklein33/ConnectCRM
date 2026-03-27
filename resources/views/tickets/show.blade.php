@@ -16,6 +16,11 @@
                     Ouvert
                 @endif
             </p>
+        <div class=" d-flex justify-content-start align-items-center">
+            <a href="{{ route('tickets.index') }}" class="btn-retour">
+                ← retour
+            </a>
+        </div>
         </div>
     </div>
 

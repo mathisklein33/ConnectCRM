@@ -108,7 +108,7 @@ class TicketController extends Controller
 
         $ticket->delete();
 
-        return redirect()->route('tickets.index');
+        return redirect()->route('tickets.index', compact('ticket'));
     }
 
 

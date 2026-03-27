@@ -27,7 +27,6 @@ return new class extends Migration
             $table->string('title');
             $table->foreignId('client_id')->constrained();
             $table->foreignId('user_id')->constrained(); // Le commercial
-            $table->foreignId('team_leader_id')->constrained('users'); // Le chef d'équipe
             $table->string('stage'); // ex: 'Prospection', 'Négociation', 'Gagné'
             $table->integer('probability'); // 0 à 100
             $table->date('expected_closing_date');

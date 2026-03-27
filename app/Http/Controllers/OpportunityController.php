@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Client;
 use App\Models\Opportunity;
+use App\Models\Product;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -30,45 +33,55 @@ class OpportunityController extends Controller
         $opportunity = Opportunity::with(['client'])->findOrFail($id);
         return view('opportunity.show', compact('opportunity'));
     }
+    public function create()
+    {
+        $clients = Client::all();
+        $users = User::all();
+        $Products = Product::all();
+
+
+
+        return view('opportunity.create', compact('clients', 'users', 'Products'));
+    }
 
 
     /**
      * Créer une vente avec plusieurs produits liés
      */
-    public function store(Request $request)
+// Assurez-vous d'avoir bien importé la classe en haut du fichier :
+// use Illuminate\Http\Request;
+
+    public function store(Request $request) // <-- C'est ici qu'on définit $request
     {
+        // Votre validation
         $validated = $request->validate([
             'title' => 'required|string',
-            'client_id' => 'required|exists:clients,id',
+            'client_id' => 'required|integer',
             'expected_closing_date' => 'required|date',
-            'products' => 'required|array', // Liste d'IDs produits avec quantités
-            'products.*.id' => 'exists:products,id',
-            'products.*.quantity' => 'integer|min:1',
-            'products.*.unit_price' => 'numeric' // Prix négocié
         ]);
 
-        return DB::transaction(function () use ($validated) {
-            // 1. Création de l'opportunité
-            $opportunity = Opportunity::create([
-                'title' => $validated['title'],
-                'client_id' => $validated['client_id'],
-                'user_id' => auth()->id(),
-                'team_leader_id' => auth()->user()->leader_id, // Hiérarchie CRM
-                'stage' => 'Qualification',
-                'probability' => 10,
-                'expected_closing_date' => $validated['expected_closing_date'],
-            ]);
+        // Votre création d'opportunité
+        $opportunity = Opportunity::create([
+            'title' => $request->title,
+            'client_id' => $request->client_id,
+            'user_id' => auth()->id(),
+            'stage' => $request->stage,
+            'probability' => $request->probability,
+            'expected_closing_date' => $request->expected_closing_date,
+        ]);
 
-            // 2. Attacher les produits avec les données pivots (prix au moment de la vente)
-            foreach ($validated['products'] as $item) {
-                $opportunity->products()->attach($item['id'], [
-                    'quantity' => $item['quantity'],
-                    'unit_price' => $item['unit_price'],
+        // 2. Attacher les produits (C'est ici que l'erreur se produit souvent)
+        // On vérifie si $request->products existe bien
+        if ($request->has('products')) {
+            foreach ($request->products as $index => $productId) {
+                $opportunity->products()->attach($productId, [
+                    'quantity'   => $request->quantities[$index],
+                    'unit_price' => $request->prices[$index],
                 ]);
             }
+        }
 
-            return response()->json($opportunity->load('products'), 201);
-        });
+        return redirect()->route('products.index');
     }
 
     /**
