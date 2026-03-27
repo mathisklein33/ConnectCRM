@@ -8,7 +8,7 @@
     </div>
     <div class="col-md-6">
         <label class="form-label">Chef d'équipe</label>
-        <select  name="leader" class="form-control" required
+        <select  name="user_id" class="form-control" required
                  oninvalid="this.setCustomValidity('Veuillez saisir le chef d équipe')"
                  oninput="this.setCustomValidity('')">
             <option value=""> Choisir le chef d'équipe</option>
