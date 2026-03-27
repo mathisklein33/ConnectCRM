@@ -120,7 +120,7 @@
         </li>
 
         <li>
-            <a href="{{ route('InternalCollaboration.index') }}" class="nav-link">
+            <a href="{{ route('internal-collaboration.index') }}" class="nav-link">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-square-text me-2" viewBox="0 0 16 16">
                     <path d="M14 1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4.414L1 15.414V2a1 1 0 0 1 1-1zM2 2v11.586L4.586 11H14V2z"/>
                     <path d="M3 4.5A.5.5 0 0 1 3.5 4h8a.5.5 0 0 1 0 1h-8A.5.5 0 0 1 3 4.5m0 2A.5.5 0 0 1 3.5 6h6a.5.5 0 0 1 0 1h-6A.5.5 0 0 1 3 6.5m0 2A.5.5 0 0 1 3.5 8h5a.5.5 0 0 1 0 1h-5A.5.5 0 0 1 3 8.5"/>
