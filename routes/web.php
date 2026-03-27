@@ -18,6 +18,7 @@ use App\Http\Controllers\SalesStatisticsController;
 use App\Http\Controllers\TeamController;
 use App\Http\Controllers\TestController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\SaveFileController;
 
 Route::get('/', function () {
@@ -83,6 +84,10 @@ Route::middleware('auth')->group(function () {
 
         Route::resource('interactions', InteractionController::class);
         Route::get('/interactions/client/{client_id}', [InteractionController::class, 'byClient'])->name('interactions.byClient');
+        Route::get('/interactions/create/{client_id}', [InteractionController::class, 'create']);
+        Route::resource('orders', OrdersController::class);
+        Route::resource('demandes', DemandeClientController::class);
+        Route::resource('products', ProductController::class);
         Route::get('/interactions/create/{client_id}', [InteractionController::class, 'create'])->name('interactions.create.byClient');
 
         Route::resource('demandes', DemandeClientController::class)->except(['show', 'edit']);
