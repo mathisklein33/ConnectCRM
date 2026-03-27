@@ -9,6 +9,19 @@
             </div>
         </div>
 
+        <div class="calendar-tabs">
+            <button class="tab-btn active" data-view="global" hidden="">Vue Globale</button>
+            <button class="tab-btn" data-view="team" hidden>Vue par Équipe</button>
+        </div>
+
+        <div id="team-selector-container" class="hidden">
+            <select id="filter_team_id"> <option value="">Toutes les équipes</option>
+                @foreach($teams as $team)
+                    <option value="{{ $team->id }}">{{ $team->name }}</option>
+                @endforeach
+            </select>
+        </div>
+
         <div class="calendar-card">
             <div id='calendar'></div>
         </div>
@@ -31,9 +44,10 @@
                         <textarea name="description" class="schedule-input" rows="2" placeholder="Détails supplémentaires..."></textarea>
                     </div>
                     <div class="form-group">
-                        <label class="schedule-label">Équipe</label>
-                        <select name="team_id" id="team_select" class="schedule-input" required>
-                            <option value="">Choisir une équipe...</option>
+                        <label class="schedule-label">Équipe / Type</label>
+                        <select name="team_id" id="team_select" class="schedule-input">
+                            <option value="">-- Événement GLOBAL (Toute l'entreprise) --</option>
+
                             @foreach($teams as $team)
                                 <option value="{{ $team->id }}">{{ $team->name }}</option>
                             @endforeach

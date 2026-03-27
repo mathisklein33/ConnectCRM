@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Team;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class TeamController extends Controller
@@ -14,7 +15,7 @@ class TeamController extends Controller
     {
         $teams = Team::all();
 
-        return view('#', compact('teams')); // a remplacer
+        return view('team.index', compact('teams'));
     }
 
     /**
@@ -22,7 +23,8 @@ class TeamController extends Controller
      */
     public function create()
     {
-        return view('#'); // a remplacer
+        $users = User::all();
+        return view('team.create', compact('users'));
     }
 
     /**
@@ -32,12 +34,13 @@ class TeamController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'user_id' => 'required|integer',
         ]);
 
         Team::create($validated);
 
-        return redirect()->route('#');// a remplacer
-    }
+        return redirect()->route('team.index');
+        }
 
     /**
      * Afficher une équipe.
@@ -46,7 +49,7 @@ class TeamController extends Controller
     {
         $team = Team::findOrFail($id);
 
-        return view('#', compact('team')); // a remplacer
+        return view('team.show', compact('team'));
     }
 
     /**
@@ -54,9 +57,11 @@ class TeamController extends Controller
      */
     public function edit(string $id)
     {
+        $users = User::all();
+
         $team = Team::findOrFail($id);
 
-        return view('#', compact('team')); // a remplacer
+        return view('team.edit', compact('team', 'users'));
     }
 
     /**
@@ -72,7 +77,7 @@ class TeamController extends Controller
 
         $team->update($validated);
 
-        return redirect()->route('#'); // a remplacer
+        return redirect()->route('team.index');
     }
 
     /**
@@ -84,6 +89,6 @@ class TeamController extends Controller
 
         $team->delete();
 
-        return redirect()->route('#'); // a remplacer
-    }
+        return redirect()->route('team.index');
+       }
 }
