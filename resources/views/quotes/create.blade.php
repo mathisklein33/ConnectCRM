@@ -1,69 +1,68 @@
+﻿@extends('layouts.app')
+@section('content')
 
-<h2>Créer un devis</h2>
+    <div class="container-fluid p-4 quotes-page">
+        <div class="page-header">
+            <h2 class="page-title">Créer un devis</h2>
+        </div>
+        <div class="card-custom form-card">
+            <form action="{{ route('quotes.store') }}" method="POST">
+                @csrf
+                <div class="form-group">
+                    <label>Client</label>
+                    <select name="client_id" class="form-control-custom" required>
+                        <option value="">-- Choisir un client --</option>
+                        @foreach($clients as $client)
+                            <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>
+                                {{ $client->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                    @error('client_id')
+                    <div class="error-text">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Numéro du devis</label>
+                    <input type="text" name="number" class="form-control-custom"
+                           value="{{ old('number') }}" required>
+                    @error('number')
+                    <div class="error-text">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Titre</label>
+                    <input type="text" name="title" class="form-control-custom"
+                           value="{{ old('title') }}" required>
+                    @error('title')
+                    <div class="error-text">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Total</label>
+                    <input type="number" step="0.01" name="total"
+                           class="form-control-custom"
+                           value="{{ old('total') }}" required>
+                    @error('total')
+                    <div class="error-text">{{ $message }}</div>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label>Statut</label>
+                    <select name="status" class="form-control-custom">
+                        <option value="draft">Brouillon</option>
+                        <option value="sent">Envoyé</option>
+                        <option value="accepted">Accepté</option>
+                    </select>
+                </div>
+                <div class=" d-flex justify-content-between align-items-center">
+                    <a href="{{ route('quotes.index') }}" class="btn-retour">
+                        ← retour
+                    </a>
+                    <button class="btn-primary-custom">Enregistrer</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-    <form action="{{ route('quotes.store') }}" method="POST">
-@csrf
-
-<div>
-    <label for="client_id">Client</label>
-    <select name="client_id" id="client_id" required>
-        <option value="">-- Choisir un client --</option>
-        @foreach($clients as $client)
-            <option value="{{ $client->id }}" {{ old('client_id') == $client->id ? 'selected' : '' }}>
-                {{ $client->name }}
-            </option>
-        @endforeach
-    </select>
-    @error('client_id')
-    <div>{{ $message }}</div>
-    @enderror
-</div>
-
-<br>
-
-<div>
-    <label for="number">Numéro du devis</label>
-    <input type="text" name="number" id="number" value="{{ old('number') }}" required>
-    @error('number')
-    <div>{{ $message }}</div>
-    @enderror
-</div>
-
-<br>
-
-<div>
-    <label for="title">Titre</label>
-    <input type="text" name="title" id="title" value="{{ old('title') }}" required>
-    @error('title')
-    <div>{{ $message }}</div>
-    @enderror
-</div>
-
-<br>
-
-<div>
-    <label for="total">Total</label>
-    <input type="number" step="0.01" name="total" id="total" value="{{ old('total') }}" required>
-    @error('total')
-    <div>{{ $message }}</div>
-    @enderror
-</div>
-
-<br>
-
-<div>
-    <label for="status">Statut</label>
-    <select name="status" id="status">
-        <option value="draft" {{ old('status') == 'draft' ? 'selected' : '' }}>Brouillon</option>
-        <option value="sent" {{ old('status') == 'sent' ? 'selected' : '' }}>Envoyé</option>
-        <option value="accepted" {{ old('status') == 'accepted' ? 'selected' : '' }}>Accepté</option>
-    </select>
-    @error('status')
-    <div>{{ $message }}</div>
-    @enderror
-</div>
-
-<br>
-
-<button type="submit">Enregistrer</button>
-</form>
+@endsection

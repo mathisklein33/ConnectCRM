@@ -1,59 +1,75 @@
 @extends('layouts.app')
+
 @section('content')
-    <div class="ic-wrapper">
-        <h1 class="ic-title">Notes internes</h1>
+    <div class="dmd-crea-wrapper">
+        <div class="dmd-crea-card">
+            <div class="dmd-crea-header">
+                <h1 class="dmd-crea-title">Notes internes</h1>
+                <p class="dmd-crea-subtitle">Partagez des informations avec votre équipe ou l'ensemble de l'organisation.</p>
+            </div>
 
-        <div class="ic-form-card">
-            <form action="{{ route('InternalCollaboration.store') }}" method="POST">
-                @csrf
+            <div class="dmd-crea-form">
+                <form action="{{ route('internal-collaboration.store') }}" method="POST">
+                    @csrf
 
-                @php
-                    $currentUser = Auth::user();
-                    $team = $currentUser->teams->first();
-                @endphp
+                    @php
+                        $currentUser = Auth::user();
+                        $team = $currentUser->teams->first();
+                    @endphp
 
-                <div class="ic-user-info">
-                    <span class="ic-label">Auteur :</span>
-                    <span class="ic-user-badge">{{ $currentUser->name }}</span>
-                </div>
+                    <div class="asgn-info-box">
+                        <span class="dmd-crea-label">Auteur :</span>
+                        <strong style="color: var(--dmd-slate-800)">{{ $currentUser->name }}</strong>
+                    </div>
 
-                <input type="hidden" name="team_id" id="team_id_input" value="">
+                    <input type="hidden" name="team_id" id="team_id_input" value="">
 
-                <label class="ic-label" for="type">Type de message :</label>
-                <select name="type" id="type" class="ic-select">
-                    <option value="global">🌍 Global (Tout le monde)</option>
-                    <option value="team">👥 Équipe ({{ $team?->name ?? 'Privé' }})</option>
-                </select>
+                    <div class="dmd-crea-group" style="margin-bottom: 1.5rem;">
+                        <label class="dmd-crea-label" for="type">Type de message</label>
+                        <select name="type" id="type" class="dmd-crea-input">
+                            <option value="global">🌍 Global (Tout le monde)</option>
+                            <option value="team">👥 Équipe ({{ $team?->name ?? 'Privé' }})</option>
+                        </select>
+                    </div>
 
-                <input type="hidden" name="user_id" value="{{ $currentUser->id }}">
+                    <input type="hidden" name="user_id" value="{{ $currentUser->id }}">
 
-                <label class="ic-label" for="message">Message :</label>
-                <textarea name="message" id="message" class="ic-textarea" placeholder="Écrivez votre note ici..." required></textarea>
+                    <div class="dmd-crea-group" style="margin-bottom: 1.5rem;">
+                        <label class="dmd-crea-label" for="message">Message</label>
+                        <textarea name="message" id="message" class="dmd-crea-input dmd-crea-textarea" placeholder="Écrivez votre note ici..." required></textarea>
+                    </div>
 
-                <button type="submit" class="ic-btn-submit">Envoyer la note</button>
-            </form>
+                    <div class="dmd-crea-footer">
+                        <button type="submit" class="dmd-crea-btn-submit">Envoyer la note</button>
+                    </div>
+                </form>
+            </div>
         </div>
 
-        <h2 class="ic-section-subtitle">Messages globaux</h2>
-        <ul class="ic-message-list">
-            @foreach($internalCollaborations->whereNull('team_id') as $globalMsg)
-                <li class="ic-message-item">
-                    <strong class="ic-message-author">{{ $globalMsg->user->name }} :</strong>
-                    <span class="ic-message-text">{{ $globalMsg->message }}</span>
-                </li>
-            @endforeach
-        </ul>
+        <div style="max-width: 850px; margin: 2rem auto;">
+            <h2 class="dmd-view-section-title">Messages globaux</h2>
+            <div class="dmd-card" style="padding: 1rem; margin-bottom: 2rem;">
+                <ul style="list-style: none; padding: 0;">
+                    @foreach($internalCollaborations->whereNull('team_id') as $globalMsg)
+                        <li style="padding: 1rem; border-bottom: 1px solid var(--dmd-border);">
+                            <strong class="dmd-client-name">{{ $globalMsg->user->name }} :</strong>
+                            <p class="dmd-excerpt">{{ $globalMsg->message }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
 
-        <div class="ic-team-section">
-            <h2 class="ic-section-subtitle">Équipe : {{ $team?->name ?? 'Aucune équipe' }}</h2>
-            <ul class="ic-message-list">
-                @foreach($internalCollaborations->where('team_id', $team?->id) as $msg)
-                    <li class="ic-message-item">
-                        <strong class="ic-message-author">{{ $msg->user?->name ?? 'Utilisateur inconnu' }} :</strong>
-                        <span class="ic-message-text">{{ $msg->message }}</span>
-                    </li>
-                @endforeach
-            </ul>
+            <h2 class="dmd-view-section-title">Équipe : {{ $team?->name ?? 'Aucune équipe' }}</h2>
+            <div class="dmd-card" style="padding: 1rem;">
+                <ul style="list-style: none; padding: 0;">
+                    @foreach($internalCollaborations->where('team_id', $team?->id) as $msg)
+                        <li style="padding: 1rem; border-bottom: 1px solid var(--dmd-border);">
+                            <strong class="dmd-client-name">{{ $msg->user?->name ?? 'Utilisateur inconnu' }} :</strong>
+                            <p class="dmd-excerpt">{{ $msg->message }}</p>
+                        </li>
+                    @endforeach
+                </ul>
+            </div>
         </div>
     </div>
 
