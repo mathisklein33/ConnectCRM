@@ -64,7 +64,7 @@ class InternalCollaborationController extends Controller
             ]);
         }
 
-        return redirect()->route('InternalCollaboration.index'); // a rediriger
+        return redirect()->route('internal-collaboration.index'); // a rediriger
     }
 
     public function show(string $id)
