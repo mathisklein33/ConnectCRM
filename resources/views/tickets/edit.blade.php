@@ -8,7 +8,12 @@
                 @csrf
                 @method('PUT')
                 @include('tickets._form')
-                <button class="btn mt-3">Mettre à jour</button>
+                <div class=" d-flex justify-content-between align-items-center">
+                    <a href="{{ route('tickets.index') }}" class="btn-retour">
+                        ← retour
+                    </a>
+                <button class="btn btn-primary mt-3">Mettre à jour</button>
+                </div>
             </form>
         </div>
     </div>

@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container-fluid tickets-page">
+    <div class="container-fluid tickets-page p-4">
         <div class="d-flex justify-content-between align-items-center tickets-header">
             <h2 class="page-title">Tickets support</h2>
             <a href="{{ route('tickets.create') }}" class="btn-primary-custom">
@@ -60,14 +60,12 @@
                                     </button>
                                 </form>
                             @endif
-
-                            <form action="{{ route('tickets.destroy', $ticket->id) }}" method="POST" onsubmit="return confirm('Supprimer ce ticket ?')">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn-danger-custom">
-                                    Supprimer
-                                </button>
-                            </form>
+                                <form action="{{ route('tickets.destroy',$ticket->id) }}" method="POST"
+                                      onsubmit="return confirm('Voulez-vous vraiment supprimer ce ticket ?')">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button class="btn-danger-custom">Supprimer</button>
+                                </form>
                         </td>
                     </tr>
                 @endforeach
