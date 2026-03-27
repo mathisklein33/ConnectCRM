@@ -1,4 +1,4 @@
-﻿<h1>Créer une facture</h1>
+<h1>Créer une facture</h1>
 
 <form action="{{ route('invoices.store') }}" method="POST">
     @csrf

@@ -1,4 +1,4 @@
-﻿
+
 <h2>Créer un devis</h2>
 
     <form action="{{ route('quotes.store') }}" method="POST">
