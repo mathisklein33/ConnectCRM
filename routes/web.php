@@ -14,10 +14,18 @@ use App\Http\Controllers\InvoicesController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\InternalCollaborationController;
+use App\Http\Controllers\SalesStatisticsController;
+use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\TestController;
+
+Route::get('/test-erd', [TestController::class, 'erd'])->name('test.erd');
 use App\Http\Controllers\TeamController;
 
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
+// This allows you to logout just by visiting /logout in the browser
+Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout.get');
 Route::get('/tickets/historique', [TicketController::class, 'historique'])
     ->name('tickets.historique');
 Route::resource('team', TeamController::class);
@@ -95,6 +103,9 @@ Route::get('/demandes/assignation/{id}', [DemandeClientController::class, 'assig
 Route::patch('/demandes/assignation/{id}', [DemandeClientController::class, 'storeAssignation'])->name('demandes.storeAssignation');
 Route::get('/schedules', [WorkSchedulesController::class, 'index'])->name('schedules.index');
 
+
+
+    Route::resource('sales_statistics', SalesStatisticsController::class);
 Route::get('/api/schedules/', [WorkSchedulesController::class, 'getEvents']);
 Route::post('/schedules/store', [WorkSchedulesController::class, 'store']);
 Route::get('/demandes/edit/{id}', [DemandeClientController::class, 'edit'])->name('demandes.edit');

@@ -33,6 +33,18 @@
                         <span class="label">Sujet</span>
                         <p class="value">{{ $interaction->sujet ?? 'Sans sujet spécifié' }}</p>
                     </div>
+                    <div class="card-footer bg-white border-0">
+                        @if(\Carbon\Carbon::parse($interaction->date)->isPast() && $interaction->statut == 'planifie')
+                            <div class="alert alert-warning d-flex align-items-center">
+                                <i class="bi bi-info-circle me-2"></i>
+                                Ce rendez-vous est passé. N'oubliez pas d'ajouter un compte-rendu.
+                            </div>
+                        @endif
+
+                            <a href="{{ route('interactions.edit', $interaction->id) }}" class="btn btn-primary">
+                                Modifier le schedule
+                            </a>
+                    </div>
                 </div>
 
                 <div class="content-section">

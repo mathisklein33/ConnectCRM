@@ -11,10 +11,18 @@ class WorkSchedulesController extends Controller
 {
     public function index()
     {
-        $teams = Team::all();
+        $user = auth()->user();
         $users = User::with('teams')->get();
 
-        // On renvoie juste la vue. C'est le JS qui chargera les données après.
+
+        if ($user->hasRole('admin')) {
+            // L'admin voit toutes les équipes pour le sélecteur
+            $teams = Team::all();
+        } else {
+            // Le manager (ou simple user) ne voit QUE ses équipes rattachées
+            $teams = $user->teams;
+        }
+
         return view('schedules.index', compact('teams', 'users'));
     }
     public function create()
@@ -27,29 +35,61 @@ class WorkSchedulesController extends Controller
     /**
      * Fournit les données JSON au calendrier FullCalendar
      */
-    public function getEvents()
+    public function getEvents(Request $request)
     {
-        $schedules = Work_schedules::all();
+        $user = auth()->user();
+        $query = Work_schedules::query();
 
-        $data = $schedules->map(function ($item) {
-            // Nettoyage de la date pour éviter le format 00:00:00T09:00:00
-            $onlyDate = substr($item->date, 0, 10);
+        // 1. On récupère les IDs des équipes auxquelles l'utilisateur appartient via la table pivot
+        // (Fonctionne pour Manager et Simple User si nécessaire)
+        $userTeamIds = $user->teams()->pluck('teams.id')->toArray();
 
+        // --- ÉTAPE A : Restriction selon le ROLE ---
+
+        if ($user->hasRole('admin')) {
+            // L'admin n'a aucune restriction de base.
+        }
+        elseif ($user->hasRole('manager')) {
+            // Le manager peut voir :
+            // - Ce qui est global (team_id null)
+            // - OU ce qui appartient à ses équipes
+            $query->where(function($q) use ($userTeamIds) {
+                $q->whereNull('team_id')
+                    ->orWhereIn('team_id', $userTeamIds);
+            });
+        }
+        else {
+            // L'utilisateur simple : uniquement SES rendez-vous personnels
+            $query->where('user_id', $user->id);
+        }
+
+        // --- ÉTAPE B : Application du FILTRE (Vue Globale vs Équipe) ---
+
+        if ($request->filled('team_id')) {
+            $requestedId = $request->team_id;
+
+            // Sécurité : Si pas admin, on vérifie qu'il appartient bien à l'équipe demandée
+            if (!$user->hasRole('admin') && !in_array($requestedId, $userTeamIds)) {
+                return response()->json([], 403); // Interdit s'il n'est pas dans l'équipe
+            }
+
+            $query->where('team_id', $requestedId);
+        } else {
+            // Si aucun team_id n'est passé, on ne montre que le Global (team_id IS NULL)
+            $query->whereNull('team_id');
+        }
+
+        $schedules = $query->get();
+
+        return response()->json($schedules->map(function ($item) {
             return [
                 'id'    => $item->id,
                 'title' => $item->title,
-                'start' => $onlyDate . 'T' . $item->start_time,
-                'end'   => $onlyDate . 'T' . ($item->end_time ?? $item->start_time),
-                'extendedProps' => [
-                    'description' => $item->description,
-                    'user' => $item->user->name ?? 'N/A'
-                ]
+                'start' => substr($item->date, 0, 10) . 'T' . $item->start_time,
+                // ... reste du mapping
             ];
-        });
-
-        return response()->json($data);
+        }));
     }
-
     public function store(Request $request)
     {
         try {
@@ -60,8 +100,8 @@ class WorkSchedulesController extends Controller
                 'date'        => $request->date,
                 'start_time'  => $request->start_time,
                 'end_time'    => $request->end_time ?? $request->start_time,
-                'user_id'     => auth()->id() ?? 1, // On force l'ID 1 si pas connecté
-                'team_id'     => 1,
+                'user_id'     => auth()->id(), // On force l'ID 1 si pas connecté
+                'team_id'     => $request->team_id,
             ]);
 
             return response()->json([

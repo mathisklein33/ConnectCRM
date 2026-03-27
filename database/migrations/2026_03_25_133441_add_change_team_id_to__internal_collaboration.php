@@ -22,6 +22,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('internal_collaborations', function (Blueprint $table) {
+            DB::statement('UPDATE internal_collaborations SET team_id = 1 WHERE team_id IS NULL');
             $table->unsignedBigInteger('team_id')->nullable(false)->change();
         });
     }

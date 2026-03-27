@@ -2,85 +2,28 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Client;
-use App\Models\SalesStatistics;
-use Illuminate\Http\Request;
+use App\Models\Opportunity;
+use App\Models\Product;
+use Illuminate\Support\Facades\DB;
 
 class SalesStatisticsController extends Controller
 {
     public function index()
     {
-        $salesStatistics = SalesStatistics::with('client')->get();
+        $data = DB::table('opportunity_product')
+            ->join('opportunities', 'opportunities.id', '=', 'opportunity_product.opportunity_id')
+            ->selectRaw("
+            DATE_FORMAT(opportunities.expected_closing_date, '%Y-%m') as month,
+            SUM(opportunity_product.quantity * opportunity_product.unit_price) as total
+        ")
+            ->where('opportunities.stage', 'gagné')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->get();
 
-        return view('#', compact('salesStatistics')); // a rediriger
-    }
+        $labels = $data->pluck('month');
+        $values = $data->pluck('total');
 
-    public function create()
-    {
-        $clients = Client::all();
-
-        return view('#', compact('clients')); // a rediriger
-    }
-
-    public function store(Request $request)
-    {
-        $validated = $request->validate([
-            'client_id' => 'required|exists:clients,id',
-            'amount' => 'required|numeric|min:0',
-            'sales_count' => 'nullable|integer|min:1',
-            'date' => 'required|date',
-        ]);
-
-        if (!isset($validated['sales_count'])) {
-            $validated['sales_count'] = 1;
-        }
-
-        SalesStatistics::create($validated);
-
-        return redirect()->route('#'); // a rediriger
-    }
-
-    public function show(string $id)
-    {
-        $salesStatistic = SalesStatistics::with('client')->findOrFail($id);
-
-        return view('#', compact('salesStatistic')); // a rediriger
-    }
-
-    public function edit(string $id)
-    {
-        $salesStatistic = SalesStatistics::findOrFail($id);
-        $clients = Client::all();
-
-        return view('#', compact('salesStatistic', 'clients')); // a rediriger
-    }
-
-    public function update(Request $request, string $id)
-    {
-        $salesStatistic = SalesStatistics::findOrFail($id);
-
-        $validated = $request->validate([
-            'client_id' => 'required|exists:clients,id',
-            'amount' => 'required|numeric|min:0',
-            'sales_count' => 'nullable|integer|min:1',
-            'date' => 'required|date',
-        ]);
-
-        if (!isset($validated['sales_count'])) {
-            $validated['sales_count'] = 1;
-        }
-
-        $salesStatistic->update($validated);
-
-        return redirect()->route('#'); // a rediriger
-    }
-
-    public function destroy(string $id)
-    {
-        $salesStatistic = SalesStatistics::findOrFail($id);
-
-        $salesStatistic->delete();
-
-        return redirect()->route('#'); // a rediriger
+        return view('sales_statistics.index', compact('labels', 'values'));
     }
 }

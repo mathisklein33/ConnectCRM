@@ -8,7 +8,7 @@ use App\Models\Client;
 class Interaction extends Model
 {
     use HasFactory;
-    protected $fillable = ['client_id', 'type', 'date', 'sujet', 'contenu'];
+    protected $fillable = ['client_id', 'type', 'date', 'sujet', 'contenu', 'statut'];
 
     protected $casts = [
         'date' => 'datetime',

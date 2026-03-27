@@ -31,6 +31,11 @@
 
             @if(request('type'))
                 <div class="col-auto">
+                    <div class="form-check form-switch pt-4">
+                        <input class="form-check-input" type="checkbox" name="en_cours" id="en_cours"
+                               {{ request('en_cours') ? 'checked' : '' }} onchange="this.form.submit()">
+                        <label class="form-check-label small fw-bold text-muted" for="en_cours">Schedules à venir</label>
+                    </div>
                     <a href="{{ route('interactions.index') }}" class="btn btn-link btn-sm text-danger text-decoration-none">
                         <i class="bi bi-x-circle"></i> Effacer le filtre
                     </a>
@@ -47,6 +52,7 @@
                         <th class="text-muted small text-uppercase fw-bold">Client</th>
                         <th class="text-muted small text-uppercase fw-bold text-center">Type</th>
                         <th class="text-muted small text-uppercase fw-bold">Sujet</th>
+                        <th class="text-muted small text-uppercase fw-bold">Statut</th>
                         <th class="text-muted small text-uppercase fw-bold">Date</th>
                         <th class="text-end pe-4">Action</th>
                     </tr>
@@ -76,6 +82,25 @@
                             </td>
                             <td>
                                 <span class="text-muted">{{ Str::limit($interaction->sujet, 40) ?? 'Sans sujet' }}</span>
+                            </td>
+                            <td>
+                                @php
+                                    $statutColor = match($interaction->statut) {
+                                        'planifie' => 'info',
+                                        'realise'  => 'success',
+                                        'annule'   => 'danger',
+                                        default    => 'secondary'
+                                    };
+
+                                    // Alerte si le rdv est passé mais toujours marqué comme "planifié"
+                                    $isOverdue = \Carbon\Carbon::parse($interaction->date)->isPast() && $interaction->statut === 'planifie';
+                                @endphp
+                                <span class="badge bg-{{ $statutColor }} {{ $isOverdue ? 'border border-warning' : '' }}">
+        {{ ucfirst($interaction->statut) }}
+    </span>
+                                @if($isOverdue)
+                                    <i class="bi bi-exclamation-triangle-fill text-warning" title="À mettre à jour"></i>
+                                @endif
                             </td>
                             <td>
                                 <span class="text-dark small fw-medium">
