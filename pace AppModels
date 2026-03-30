@@ -1,0 +1,122 @@
+[90m= [39m[34;4mIlluminate\Database\Eloquent\Collection[39;24m {#6777
+    [34mall[39m: [
+      [34;4mApp\Models\Client[39;24m {#6773
+        [34mname[39m: "[32mGuiseppe Kreiger[39m",
+        [34memail[39m: "[32mgrant.nienow@example.net[39m",
+        [34madresse[39m: """
+          [32m66472 Feil Extension Apt. 088[39m\n
+          [32mBechtelarberg, KS 16328[39m
+          """,
+        [34mentreprise[39m: "[32mPredovic, Brown and Legros[39m",
+        [34mtelephone[39m: "[32m+1-774-302-2888[39m",
+        [34mupdated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mcreated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mid[39m: [35m11[39m,
+      },
+      [34;4mApp\Models\Client[39;24m {#6774
+        [34mname[39m: "[32mAlexander Runte[39m",
+        [34memail[39m: "[32mverna.kilback@example.org[39m",
+        [34madresse[39m: """
+          [32m93524 Becker Port[39m\n
+          [32mLake Al, TX 66480-2760[39m
+          """,
+        [34mentreprise[39m: "[32mDaugherty Ltd[39m",
+        [34mtelephone[39m: "[32m321.319.8840[39m",
+        [34mupdated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mcreated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mid[39m: [35m12[39m,
+      },
+      [34;4mApp\Models\Client[39;24m {#6772
+        [34mname[39m: "[32mMyrtice Schultz Jr.[39m",
+        [34memail[39m: "[32mbarton96@example.net[39m",
+        [34madresse[39m: """
+          [32m15652 Lewis Turnpike[39m\n
+          [32mCrookstown, WA 40961[39m
+          """,
+        [34mentreprise[39m: "[32mHeathcote, Schumm and Ullrich[39m",
+        [34mtelephone[39m: "[32m574-321-4608[39m",
+        [34mupdated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mcreated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mid[39m: [35m13[39m,
+      },
+      [34;4mApp\Models\Client[39;24m {#6771
+        [34mname[39m: "[32mDr. Ryder Kreiger I[39m",
+        [34memail[39m: "[32msherman12@example.org[39m",
+        [34madresse[39m: """
+          [32m5736 Gottlieb Camp Apt. 977[39m\n
+          [32mWest Giuseppe, SD 35965-5250[39m
+          """,
+        [34mentreprise[39m: "[32mGoyette Group[39m",
+        [34mtelephone[39m: "[32m269-234-1542[39m",
+        [34mupdated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mcreated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mid[39m: [35m14[39m,
+      },
+      [34;4mApp\Models\Client[39;24m {#6770
+        [34mname[39m: "[32mThomas Upton[39m",
+        [34memail[39m: "[32mrankunding@example.net[39m",
+        [34madresse[39m: """
+          [32m9861 Cara Mall[39m\n
+          [32mNorth Mckaylaport, MD 89083[39m
+          """,
+        [34mentreprise[39m: "[32mHahn-Fadel[39m",
+        [34mtelephone[39m: "[32m1-629-330-1964[39m",
+        [34mupdated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mcreated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mid[39m: [35m15[39m,
+      },
+      [34;4mApp\Models\Client[39;24m {#6769
+        [34mname[39m: "[32mJerald Terry[39m",
+        [34memail[39m: "[32mhruecker@example.org[39m",
+        [34madresse[39m: """
+          [32m5904 Harvey Curve Suite 239[39m\n
+          [32mWest Justus, SC 11133[39m
+          """,
+        [34mentreprise[39m: "[32mGreenholt, Goodwin and Gutmann[39m",
+        [34mtelephone[39m: "[32m+1 (717) 384-8573[39m",
+        [34mupdated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mcreated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mid[39m: [35m16[39m,
+      },
+      [34;4mApp\Models\Client[39;24m {#6768
+        [34mname[39m: "[32mMr. Otho Christiansen DDS[39m",
+        [34memail[39m: "[32mrussell.oberbrunner@example.com[39m",
+        [34madresse[39m: """
+          [32m89849 Mikayla Vista Apt. 352[39m\n
+          [32mWest Earnest, OH 79701[39m
+          """,
+        [34mentreprise[39m: "[32mRath PLC[39m",
+        [34mtelephone[39m: "[32m+1.341.372.0944[39m",
+        [34mupdated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mcreated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mid[39m: [35m17[39m,
+      },
+      [34;4mApp\Models\Client[39;24m {#6767
+        [34mname[39m: "[32mPeyton Bauch[39m",
+        [34memail[39m: "[32mkarley80@example.com[39m",
+        [34madresse[39m: """
+          [32m131 Maud Haven Apt. 474[39m\n
+          [32mLake Imelda, KS 94395[39m
+          """,
+        [34mentreprise[39m: "[32mSimonis-Dooley[39m",
+        [34mtelephone[39m: "[32m+1 (620) 509-0996[39m",
+        [34mupdated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mcreated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mid[39m: [35m18[39m,
+      },
+      [34;4mApp\Models\Client[39;24m {#6766
+        [34mname[39m: "[32mClaudine Will[39m",
+        [34memail[39m: "[32mabbott.myrl@example.org[39m",
+        [34madresse[39m: """
+          [32m254 Turcotte Hollow[39m\n
+          [32mRennerville, HI 18474[39m
+          """,
+        [34mentreprise[39m: "[32mKuhlman, Senger and Spinka[39m",
+        [34mtelephone[39m: "[32m(458) 714-1297[39m",
+        [34mupdated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mcreated_at[39m: "[32m2026-03-30 07:55:24[39m",
+        [34mid[39m: [35m19[39m,
+      },
+    ],
+  }
+

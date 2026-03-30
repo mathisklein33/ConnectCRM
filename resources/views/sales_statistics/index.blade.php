@@ -184,19 +184,22 @@
         const ctx = document.getElementById('revenueChart').getContext('2d');
 
         new Chart(ctx, {
-            type: 'line',
+            type: 'bar',
             data: {
                 labels: labels,
                 datasets: [{
                     label: 'CA (€)',
                     data: data,
-                    borderWidth: 2,
-                    tension: 0.3,
-                    fill: true
+                    borderWidth: 1
                 }]
             },
             options: {
-                responsive: true
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
             }
         });
     </script>
