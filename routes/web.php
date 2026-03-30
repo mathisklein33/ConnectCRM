@@ -16,7 +16,6 @@ use App\Http\Controllers\OpportunityController;
 use App\Http\Controllers\InternalCollaborationController;
 use App\Http\Controllers\SalesStatisticsController;
 use App\Http\Controllers\TeamController;
-use App\Http\Controllers\TestController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\OrdersController;
 use App\Http\Controllers\SaveFileController;
@@ -29,7 +28,6 @@ Route::get('/dashboard', function () {
     return view('home');
 })->name('dashboard');
 
-Route::get('/test-erd', [TestController::class, 'erd'])->name('test.erd');
 
 // Logout
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout.get');
