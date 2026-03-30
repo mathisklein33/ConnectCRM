@@ -94,8 +94,7 @@
                             </td>
                             <td>👤 {{ $opportunity->client?->name ?? 'Client inconnu' }}</td>
                             <td class="dmd-actions">
-                                <a href="/opportunity/{{$opportunity->id}}" class="dmd-btn-icon">Détails</a>
-                            </td>
+                                <a href="{{ route('opportunity.show', $opportunity->id) }}" class="dmd-btn-icon">Détails</a>                            </td>
                         </tr>
                     @empty
                         <tr>

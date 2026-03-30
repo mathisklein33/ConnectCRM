@@ -4,23 +4,23 @@
     <link rel="stylesheet" href="{{ asset('css/crm-details.css') }}">
 
     <div class="dmd-wrapper">
-        <form action="{{ route('opportunity.store') }}" method="POST">
+        <form action="{{ route('opportunity.update', $opportunity->id) }}" method="POST">
             @csrf
+            @method('PUT')
 
             {{-- Header --}}
             <div class="dmd-header">
                 <div>
                     <a href="{{ route('products.index') }}" class="dmd-back-link">← Annuler et retourner au tableau de bord</a>
-                    <h1 class="dmd-page-title">Nouvelle Opportunité</h1>
-                    <p class="dmd-subtitle">Saisissez les informations pour créer un nouveau deal</p>
+                    <h1 class="dmd-page-title">Modifier l'Opportunité</h1>
+                    <p class="dmd-subtitle">Modifiez les informations du deal <strong>{{ $opportunity->title }}</strong></p>
                 </div>
                 <div class="dmd-actions-top">
-                    <button type="submit" class="dmd-btn-create btn-primary">Enregistrer l'opportunité</button>
+                    <button type="submit" class="dmd-btn-create btn-primary">Enregistrer les modifications</button>
                 </div>
             </div>
 
             <div class="dmd-container">
-
 
                 {{-- GAUCHE : Client & Produits --}}
                 <div class="dmd-main-col">
@@ -29,14 +29,19 @@
                         <div class="dmd-info-grid">
                             <div class="form-group">
                                 <label class="dmd-info-label">Titre du deal</label>
-                                <input type="text" name="title" class="form-control" placeholder="ex: Refonte Site Web" required>
+                                <input type="text" name="title" class="form-control"
+                                       value="{{ old('title', $opportunity->title) }}"
+                                       placeholder="ex: Refonte Site Web" required>
                             </div>
                             <div class="form-group">
                                 <label class="dmd-info-label">Client</label>
                                 <select name="client_id" class="form-control" required>
                                     <option value="">Sélectionner un client...</option>
                                     @foreach($clients as $client)
-                                        <option value="{{ $client->id }}">{{ $client->name }}</option>
+                                        <option value="{{ $client->id }}"
+                                            {{ old('client_id', $opportunity->client_id) == $client->id ? 'selected' : '' }}>
+                                            {{ $client->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                             </div>
@@ -59,6 +64,35 @@
                             </tr>
                             </thead>
                             <tbody>
+                            {{-- Lignes pré-remplies avec les produits existants --}}
+                            @foreach($opportunity->products as $item)
+                                <tr>
+                                    <td>
+                                        <select name="products[]" class="form-control product-select" required>
+                                            <option value="" data-price="0">Choisir...</option>
+                                            @foreach($Products as $p)
+                                                <option value="{{ $p->id }}"
+                                                        data-price="{{ $p->price ?? $p->base_price }}"
+                                                    {{ $item->id == $p->id ? 'selected' : '' }}>
+                                                    {{ $p->name }}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                    </td>
+                                    <td>
+                                        <input type="number" name="quantities[]" class="form-control"
+                                               value="{{ $item->pivot->quantity ?? 1 }}" min="1">
+                                    </td>
+                                    <td>
+                                        <input type="number" name="prices[]" class="form-control price-field"
+                                               step="0.01" value="{{ $item->pivot->unit_price ?? ($item->price ?? $item->base_price) }}">
+                                    </td>
+                                    <td class="text-right">
+                                        <button type="button" class="btn btn-danger btn-sm"
+                                                onclick="this.closest('tr').remove()">✕</button>
+                                    </td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -72,23 +106,27 @@
                         <div class="form-group mb-4">
                             <label class="dmd-info-label">Étape de vente</label>
                             <select name="stage" class="form-control">
-                                <option value="Prospection">Prospection</option>
-                                <option value="Qualification">Qualification</option>
-                                <option value="Proposition">Proposition</option>
-                                <option value="Négociation">Négociation</option>
-                                <option value="Terminée">Terminée</option>
+                                @foreach(['Prospection', 'Qualification', 'Proposition', 'Négociation', 'Terminée'] as $stage)
+                                    <option value="{{ $stage }}"
+                                        {{ old('stage', $opportunity->stage) == $stage ? 'selected' : '' }}>
+                                        {{ $stage }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
 
                         <div class="form-group mb-4">
                             <label class="dmd-info-label">Probabilité de succès (%)</label>
-                            <input type="number" name="probability" class="form-control" min="0" max="100" value="10">
+                            <input type="number" name="probability" class="form-control"
+                                   min="0" max="100"
+                                   value="{{ old('probability', $opportunity->probability) }}">
                         </div>
 
                         <div class="dmd-side-footer">
                             <div class="form-group">
                                 <label class="dmd-info-label">Date de clôture estimée (Schedules)</label>
-                                <input type="date" name="expected_closing_date" class="form-control" required>
+                                <input type="date" name="expected_closing_date" class="form-control"
+                                       value="{{ \Illuminate\Support\Carbon::parse($opportunity->expected_closing_date)->format('Y-m-d') }}"                                       required>
                             </div>
                         </div>
                     </div>
@@ -98,10 +136,9 @@
         </form>
     </div>
 
-    {{-- Petit script pour gérer l'ajout dynamique de lignes --}}
     <script>
-        // 1. Ajouter une ligne
-        document.getElementById('add-product').addEventListener('click', function() {
+        // 1. Ajouter une nouvelle ligne vide
+        document.getElementById('add-product').addEventListener('click', function () {
             const tbody = document.querySelector('#products-table tbody');
             const row = `
                 <tr>
@@ -109,7 +146,6 @@
                         <select name="products[]" class="form-control product-select" required>
                             <option value="" data-price="0">Choisir...</option>
                             @foreach($Products as $p)
-            {{-- On stocke le prix dans l'attribut data-price --}}
             <option value="{{ $p->id }}" data-price="{{ $p->price ?? $p->base_price }}">
                                     {{ $p->name }}
             </option>
@@ -118,7 +154,6 @@
         </td>
         <td><input type="number" name="quantities[]" class="form-control" value="1" min="1"></td>
         <td>
-{{-- On ajoute une classe price-field pour le cibler --}}
             <input type="number" name="prices[]" class="form-control price-field" step="0.01" placeholder="0.00">
         </td>
         <td class="text-right">
@@ -128,23 +163,14 @@
             tbody.insertAdjacentHTML('beforeend', row);
         });
 
-        // 2. Écouter le changement de sélection de produit
-        document.addEventListener('change', function(e) {
-            // Si l'élément modifié est un select de produit
+        // 2. Auto-remplir le prix lors de la sélection d'un produit
+        document.addEventListener('change', function (e) {
             if (e.target && e.target.classList.contains('product-select')) {
                 const select = e.target;
-
-                // On récupère l'option choisie
                 const selectedOption = select.options[select.selectedIndex];
-
-                // On extrait le prix de l'attribut data-price
                 const price = selectedOption.getAttribute('data-price');
-
-                // On trouve l'input "price" de la même ligne
                 const row = select.closest('tr');
                 const priceInput = row.querySelector('.price-field');
-
-                // On met à jour la valeur
                 if (priceInput) {
                     priceInput.value = price;
                 }
