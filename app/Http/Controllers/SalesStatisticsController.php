@@ -80,6 +80,52 @@ class SalesStatisticsController extends Controller
             ->take(5)
             ->get();
 
+        // Rentabilité / performance par commercial (créateur de l'opportunité)
+        $salespeopleProfitability = DB::table('opportunity_product')
+            ->join('opportunities', 'opportunities.id', '=', 'opportunity_product.opportunity_id')
+            ->join('users', 'users.id', '=', 'opportunities.user_id')
+            ->selectRaw("
+                users.id,
+                users.name,
+                COUNT(DISTINCT opportunities.id) as total_opportunities,
+                SUM(CASE WHEN opportunities.stage = 'Terminée' THEN 1 ELSE 0 END) as closed_opportunities,
+                SUM(CASE WHEN opportunities.stage = 'Terminée'
+                    THEN opportunity_product.quantity * opportunity_product.unit_price
+                    ELSE 0 END) as total_revenue,
+                SUM(CASE WHEN opportunities.stage != 'Terminée'
+                    THEN opportunity_product.quantity * opportunity_product.unit_price
+                    ELSE 0 END) as pipeline_revenue
+            ")
+            ->groupBy('users.id', 'users.name')
+            ->orderByDesc('total_revenue')
+            ->get()
+            ->map(function ($item) {
+                $item->conversion_rate = $item->total_opportunities > 0
+                    ? round(($item->closed_opportunities / $item->total_opportunities) * 100, 2)
+                    : 0;
+
+                return $item;
+            });
+
+        $topClients = DB::table('opportunities')
+            ->join('clients', 'clients.id', '=', 'opportunities.client_id')
+            ->leftJoin('opportunity_product', 'opportunity_product.opportunity_id', '=', 'opportunities.id')
+            ->selectRaw("
+        clients.id,
+        clients.name as client_name,
+        COUNT(DISTINCT opportunities.id) as total_completed_opportunities,
+        COALESCE(SUM(opportunity_product.quantity * opportunity_product.unit_price), 0) as total_revenue
+    ")
+            ->where('opportunities.stage', 'Terminée')
+            ->groupBy('clients.id', 'clients.name')
+            ->orderByDesc('total_revenue')
+            ->take(5)
+            ->get();
+
+        $totalOpportunities = Opportunity::count();
+        $completedOpportunities = Opportunity::where('stage', 'Terminée')->count();
+        $ongoingOpportunities = Opportunity::where('stage', '!=', 'Terminée')->count();
+
         return view('sales_statistics.index', compact(
             'totalWonRevenue',
             'totalPipelineRevenue',
@@ -89,7 +135,12 @@ class SalesStatisticsController extends Controller
             'values',
             'stageStats',
             'upcomingClosings',
-            'topProducts'
+            'topProducts',
+            'salespeopleProfitability',
+            'totalOpportunities',
+            'completedOpportunities',
+            'ongoingOpportunities',
+            'topClients'
         ));
     }
 }
