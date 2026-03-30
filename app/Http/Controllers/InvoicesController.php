@@ -42,15 +42,15 @@ class InvoicesController extends Controller
 
         $invoice = Invoices::create($validated);
 
-        return redirect()->route('#', $invoice->id); // a rediriger
+        return redirect()->route('invoices.show', $invoice);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Invoices $invoice)
     {
-        $invoice = Invoices::with('client')->findOrFail($id);
+        $invoice->load('client');
 
         return view('invoices.show', compact('invoice'));
     }
@@ -58,9 +58,8 @@ class InvoicesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Invoices $invoice)
     {
-        $invoice = Invoices::findOrFail($id);
         $clients = Client::all();
 
         return view('invoices.edit', compact('invoice', 'clients'));
@@ -69,31 +68,27 @@ class InvoicesController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Invoices $invoice)
     {
-        $invoice = Invoices::findOrFail($id);
-
         $validated = $request->validate([
             'client_id' => 'required|exists:clients,id',
-            'number' => 'required|string|max:255|unique:invoices,number,' . $id,
+            'number' => 'required|string|max:255|unique:invoices,number,' . $invoice->id,
             'total' => 'required|numeric',
             'status' => 'nullable|string|max:255',
         ]);
 
         $invoice->update($validated);
 
-        return redirect()->route('invoices.show', $invoice->id);
+        return redirect()->route('invoices.show', $invoice);
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Invoices $invoice)
     {
-        $invoice = Invoices::findOrFail($id);
-
         $invoice->delete();
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('invoices.index');
     }
 }

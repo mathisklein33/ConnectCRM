@@ -39,7 +39,7 @@
                                 <td>{{ $contract->title }}</td>
                                 <td>{{ $contract->start_date ?? '-' }}</td>
                                 <td>{{ $contract->end_date ?? '-' }}</td>
-                                    <div class="d-flex gap-2 justify-content-end">
+                                    <td class="d-flex gap-2 justify-content-end">
                                         <a href="{{ route('contracts.show', $contract->id) }}"
                                            class="btn-info-custom">
                                             Voir
@@ -61,7 +61,7 @@
                                                 Suppr
                                             </button>
                                         </form>
-                                    </div>
+                                    </td>
                                 </td>
                             </tr>
                         @endforeach
