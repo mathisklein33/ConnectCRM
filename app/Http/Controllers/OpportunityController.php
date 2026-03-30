@@ -98,4 +98,54 @@ class OpportunityController extends Controller
 
         return response()->json(['message' => 'Progression mise à jour']);
     }
+    public function edit($id)
+    {
+        $opportunity = Opportunity::with(['client', 'user'])->findOrFail($id);
+        $clients = Client::all();
+        $users = User::all();
+        $Products = Product::all();
+        return view('opportunity.edit', compact('opportunity','clients', 'users', 'Products'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $opportunity = Opportunity::findOrFail($id);
+
+        // Validation
+        $validated = $request->validate([
+            'title' => 'required|string',
+            'client_id' => 'required|integer',
+            'stage' => 'required|string',
+            'probability' => 'required|numeric|min:0|max:100',
+            'expected_closing_date' => 'required|date',
+        ]);
+
+        // Mettre à jour l'opportunité
+        $opportunity->update([
+            'title' => $request->title,
+            'client_id' => $request->client_id,
+            'stage' => $request->stage,
+            'probability' => $request->probability,
+            'expected_closing_date' => $request->expected_closing_date,
+        ]);
+
+        // Mettre à jour les produits liés
+        if ($request->has('products')) {
+            $syncData = [];
+            foreach ($request->products as $index => $productId) {
+                $syncData[$productId] = [
+                    'quantity' => $request->quantities[$index] ?? 1,
+                    'unit_price' => $request->prices[$index] ?? 0,
+                ];
+            }
+            $opportunity->products()->sync($syncData);
+        } else {
+            // Si aucun produit sélectionné, détacher tous les produits
+            $opportunity->products()->detach();
+        }
+
+        return redirect()->route('opportunity.show', $opportunity->id)
+                         ->with('success', 'Opportunité mise à jour avec succès');
+    }
+
 }
