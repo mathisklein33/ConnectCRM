@@ -1,134 +1,325 @@
 @extends('layouts.app')
+
 @section('content')
+    <div class="container-fluid py-5 px-5 home-page">
 
-    <div class="container-fluid dashboard p-4">
-        <div class="row g-3 mb-4 dashboard-stats">
-            <div class="col-md-3">
-                <div class="card stat-card stat-green">
-                    <h2 class="stat-title">Prospects récents</h2>
-                    <hr>
-                    <div class="d-flex align-items-center justify-content-between stat-row">
-                    <p class="stat-value">12</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="67" height="67" fill="currentColor" class="dashboard-icon bi bi-people-fill" viewBox="0 0 16 16">
-                        <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
-                    </svg>
-                </div>
-                </div>
-            </div>
+        <!-- HEADER -->
+        <div class="card border-0 shadow-sm rounded-4 mb-5 welcome-card">
+            <div class="card-body p-5">
+                <div class="row align-items-center">
 
-            <div class="col-md-3">
-                <div class="card stat-card stat-blue">
-                    <h2 class="stat-title">Prospects ouverts</h2>
-                    <hr>
-                    <div class="d-flex align-items-center justify-content-between stat-row">
-                    <p class="stat-value">5</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="67" height="67" fill="currentColor" class="dashboard-icon bi bi-envelope-open-fill" viewBox="0 0 16 16">
-                            <path d="M8.941.435a2 2 0 0 0-1.882 0l-6 3.2A2 2 0 0 0 0 5.4v.314l6.709 3.932L8 8.928l1.291.718L16 5.714V5.4a2 2 0 0 0-1.059-1.765zM16 6.873l-5.693 3.337L16 13.372v-6.5Zm-.059 7.611L8 10.072.059 14.484A2 2 0 0 0 2 16h12a2 2 0 0 0 1.941-1.516M0 13.373l5.693-3.163L0 6.873z"/>
-                        </svg>
+                    <div class="col-lg-8">
+                        <h1 class="fw-bold mb-3 welcome-title">
+                            Bonjour {{ Auth::user()->name ?? 'Utilisateur' }} 👋
+                        </h1>
+
+                        <p class="fs-5 text-muted mb-4">
+                            Bienvenue sur <strong>ConnectCRM</strong>.
+                            Retrouvez rapidement toutes les actions importantes.
+                        </p>
+
+                        <a href="{{ route('clients.create') }}" class="btn btn-primary rounded-pill px-4 py-2">
+                            + Créer un client
+                        </a>
                     </div>
-                </div>
-            </div>
 
-            <div class="col-md-3">
-                <div class="card stat-card stat-orange">
-                    <h2 class="stat-title">Tâches du jour</h2>
-                    <hr>
-                    <div class="d-flex align-items-center justify-content-between stat-row">
-                    <p class="stat-value">5</p>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="67" height="67" fill="currentColor" class="dashboard-icon bi bi-card-checklist" viewBox="0 0 16 16">
-                        <path d="M14.5 3a.5.5 0 0 1 .5.5v9a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-9a.5.5 0 0 1 .5-.5zm-13-1A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2z"/>
-                        <path d="M7 5.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 1 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0M7 9.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5m-1.496-.854a.5.5 0 0 1 0 .708l-1.5 1.5a.5.5 0 0 1-.708 0l-.5-.5a.5.5 0 0 1 .708-.708l.146.147 1.146-1.147a.5.5 0 0 1 .708 0"/>
-                    </svg>
+                    <div class="col-lg-4 text-center">
+                        <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                             class="welcome-img">
                     </div>
-                </div>
-            </div>
 
-            <div class="col-md-3">
-                <div class="card stat-card stat-purple m-0">
-                    <h2 class="stat-title">Revenus ce mois-ci</h2>
-                    <hr>
-                    <div class="d-flex align-items-center justify-content-between stat-row">
-                        <p class="stat-value">67 €</p>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="67" height="67" fill="currentColor" class=" dashboard-icon bi bi-bar-chart-fill" viewBox="0 0 16 16">
-                            <path d="M1 11a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5-4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/>
-                        </svg>
-                    </div>
                 </div>
             </div>
         </div>
 
-        <div class="row g-4 mb-4">
-            <div class="col-md-8">
-                <div class="card dashboard-card">
-                    <h2 class="card-title">Vente de pipeline</h2>
-                    <hr>
-                    <div class="pipeline-bar"></div>
+        <!-- ETAPES -->
+        <h3 class="text-center mb-5 section-title">Par quoi commencer ?</h3>
+
+        <div class="row g-4 mb-5">
+
+            @php
+                $steps = [
+                    ['img' => 'https://cdn-icons-png.flaticon.com/512/747/747376.png', 'title' => 'Ajouter un client', 'text' => 'Créer une fiche client.'],
+                    ['img' => 'https://cdn-icons-png.flaticon.com/512/1828/1828919.png', 'title' => 'Suivre une opportunité', 'text' => 'Gérer vos ventes.'],
+                    ['img' => 'https://cdn-icons-png.flaticon.com/512/2991/2991112.png', 'title' => 'Créer un document', 'text' => 'Devis, contrats, factures.'],
+                    ['img' => 'https://cdn-icons-png.flaticon.com/512/190/190411.png', 'title' => 'Voir l’activité', 'text' => 'Analyser vos résultats.']
+                ];
+            @endphp
+
+            @foreach($steps as $step)
+                <div class="col-md-6 col-xl-3">
+                    <div class="step-box text-center">
+
+                        <img src="{{ $step['img'] }}" class="step-img mb-3">
+
+                        <h5 class="fw-bold">{{ $step['title'] }}</h5>
+
+                        <p class="text-muted mb-0">
+                            {{ $step['text'] }}
+                        </p>
+
+                    </div>
+                </div>
+            @endforeach
+
+        </div>
+
+        <div class="middle-dashboard-block mb-5">
+
+            <!-- En-tête -->
+            <div class="card border-0 shadow-sm rounded-4 mb-4 middle-header-card">
+                <div class="card-body p-4">
+                    <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-center gap-3">
+                        <div>
+                            <h3 class="fw-bold mb-1 middle-title">Votre espace de travail</h3>
+                            <p class="text-muted mb-0">
+                                Accédez rapidement à vos outils, à vos éléments récents et à vos modules principaux.
+                            </p>
+                        </div>
+
+                        <div class="middle-search-box">
+                            <input type="text" class="form-control middle-search-input"
+                                   placeholder="Rechercher un module, un document ou une action...">
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-md-4">
-                <div class="card dashboard-card">
-                    <h2 class="card-title">Tâches à venir</h2>
-                    <hr>
-                    <div class="task-item">
-                        <input type="checkbox"> Appel avec client A
+            <!-- Blocs principaux -->
+            <div class="row g-4 mb-4">
+
+                <!-- Colonne gauche -->
+                <div class="col-lg-3">
+                    <div class="card border-0 shadow-sm rounded-4 middle-panel h-100">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-3">Accès rapides</h5>
+
+                            <div class="d-grid gap-2">
+                                <a href="{{ route('clients.create') }}" class="btn btn-primary rounded-pill">Créer un client</a>
+                                <a href="{{ route('clients.index') }}" class="btn btn-outline-primary rounded-pill">Voir les clients</a>
+                                <a href="{{ route('sales_statistics.index') }}" class="btn btn-outline-primary rounded-pill">Voir l’activité</a>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <h6 class="fw-bold mb-3">Raccourcis utiles</h6>
+
+                            <ul class="list-unstyled middle-link-list mb-0">
+                                <li><a href="{{ route('quotes.index') }}">Devis</a></li>
+                                <li><a href="{{ route('contracts.index') }}">Contrats</a></li>
+                                <li><a href="{{ route('invoices.index') }}">Factures</a></li>
+                                <li><a href="{{ route('products.index') }}">Produits</a></li>
+                            </ul>
+                        </div>
                     </div>
-                    <div class="task-item">
-                        <input type="checkbox"> Suivi avec Sarah
+                </div>
+
+                <!-- Colonne centre -->
+                <div class="col-lg-4">
+                    <div class="card border-0 shadow-sm rounded-4 middle-panel h-100">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-3">Pour vous</h5>
+
+                            <div class="middle-mini-card mb-3">
+                                <div class="fw-semibold">Clients</div>
+                                <div class="text-muted small">Consulter et gérer les fiches clients.</div>
+                            </div>
+
+                            <div class="middle-mini-card mb-3">
+                                <div class="fw-semibold">Demandes</div>
+                                <div class="text-muted small">Suivre les demandes et leur traitement.</div>
+                            </div>
+
+                            <div class="middle-mini-card mb-3">
+                                <div class="fw-semibold">Planning</div>
+                                <div class="text-muted small">Voir les rendez-vous et horaires programmés.</div>
+                            </div>
+
+                            <div class="middle-mini-card">
+                                <div class="fw-semibold">Tickets</div>
+                                <div class="text-muted small">Retrouver les demandes d’assistance.</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="task-item">
-                        <input type="checkbox"> Préparer des choses
+                </div>
+
+                <!-- Colonne droite -->
+                <div class="col-lg-5">
+                    <div class="card border-0 shadow-sm rounded-4 middle-panel h-100">
+                        <div class="card-body p-4">
+                            <h5 class="fw-bold mb-3">Actions disponibles</h5>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="action-tile">
+                                        <div class="fw-semibold">Créer</div>
+                                        <div class="text-muted small">Ajoutez rapidement un nouvel élément.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="action-tile">
+                                        <div class="fw-semibold">Consulter</div>
+                                        <div class="text-muted small">Accédez à vos données existantes.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="action-tile">
+                                        <div class="fw-semibold">Suivre</div>
+                                        <div class="text-muted small">Contrôlez l’avancement des actions en cours.</div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="action-tile">
+                                        <div class="fw-semibold">Analyser</div>
+                                        <div class="text-muted small">Consultez les indicateurs d’activité.</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <hr class="my-4">
+
+                            <h6 class="fw-bold mb-3">Modules principaux</h6>
+
+                            <div class="d-flex flex-wrap gap-2">
+                                <span class="badge middle-badge">Clients</span>
+                                <span class="badge middle-badge">Contacts</span>
+                                <span class="badge middle-badge">Demandes</span>
+                                <span class="badge middle-badge">Produits</span>
+                                <span class="badge middle-badge">Équipe</span>
+                                <span class="badge middle-badge">Activité</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Tableau bas -->
+            <div class="card border-0 shadow-sm rounded-4 middle-table-card">
+                <div class="card-body p-4">
+                    <h5 class="fw-bold mb-3">Vue d’ensemble</h5>
+
+                    <div class="table-responsive">
+                        <table class="table align-middle middle-table mb-0">
+                            <thead>
+                            <tr>
+                                <th>Module</th>
+                                <th>Description</th>
+                                <th>Accès</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>Clients</td>
+                                <td>Gestion des fiches clients et de leurs informations.</td>
+                                <td><a href="{{ route('clients.index') }}" class="table-link">Ouvrir</a></td>
+                            </tr>
+                            <tr>
+                                <td>Devis</td>
+                                <td>Préparation des propositions commerciales.</td>
+                                <td><a href="{{ route('quotes.index') }}" class="table-link">Ouvrir</a></td>
+                            </tr>
+                            <tr>
+                                <td>Produits</td>
+                                <td>Consultation du catalogue de produits et services.</td>
+                                <td><a href="{{ route('products.index') }}" class="table-link">Ouvrir</a></td>
+                            </tr>
+                            <tr>
+                                <td>Activité</td>
+                                <td>Suivi des performances et statistiques commerciales.</td>
+                                <td><a href="{{ route('sales_statistics.index') }}" class="table-link">Ouvrir</a></td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
+
         </div>
 
-        <div class="row g-4 mb-4">
-            <div class="col-md-6">
-                <div class="card dashboard-card">
-                    <h2 class="card-title">Activités récentes</h2>
-                    <hr>
-                    <div class="activity-item">machine bidule trucmuche</div>
-                    <div class="activity-item">machine bidule trucmuche</div>
-                    <div class="activity-item">machine bidule trucmuche</div>
-                </div>
+        <!-- ACTIONS -->
+        <div class="card border-0 shadow-sm rounded-4 p-4 text-center">
+
+            <h4 class="mb-3">Accès rapide</h4>
+
+            <div class="d-flex flex-wrap justify-content-center gap-3">
+
+                <a href="{{ route('clients.create') }}" class="btn btn-primary">Créer un client</a>
+                <a href="{{ route('clients.index') }}" class="btn btn-outline-primary">Voir clients</a>
+                <a href="{{ route('sales_statistics.index') }}" class="btn btn-outline-primary">Statistiques</a>
+                <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">Produits</a>
+
             </div>
 
-            <div class="col-md-6">
-                <div class="card dashboard-card">
-                    <h2 class="card-title">Top offre actuelle</h2>
-                    <hr>
-                    <table class="table dashboard-table">
-                        <tr>
-                            <th>Offre</th>
-                            <th>Entreprise</th>
-                            <th>Montant</th>
-                            <th>Statut</th>
-                        </tr>
-                        <tr>
-                            <td>Mise à jour logiciel</td>
-                            <td>Renaud</td>
-                            <td>1230€</td>
-                            <td>Fini</td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
         </div>
-        <div class="row g-4">
-            <div class="col-md-6">
-                <div class="card dashboard-card">
-                    <h2 class="card-title">Chiffre d'affaires mensuel</h2>
-                    <div class="fake-chart"></div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <div class="card dashboard-card">
-                    <h2 class="card-title">Pipeline commercial</h2>
-                    <div class="fake-chart"></div>
-                </div>
-            </div>
-        </div>
+
     </div>
+
+    <style>
+        .home-page {
+            background: #f8fafc;
+        }
+
+        /* HEADER */
+        .welcome-card {
+            background: linear-gradient(135deg, #eef4ff, #f8fbff);
+        }
+
+        .welcome-img {
+            width: 120px;
+        }
+
+        /* TITRES */
+        .section-title {
+            color: #1f3b64;
+        }
+
+        /* STEPS */
+        .step-box {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            transition: 0.2s;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
+        }
+
+        .step-box:hover {
+            transform: translateY(-5px);
+        }
+
+        .step-img {
+            width: 60px;
+        }
+
+        /* MENU */
+        .menu-card {
+            border-radius: 16px;
+            transition: 0.2s;
+            padding: 15px;
+        }
+
+        .menu-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+
+        .menu-img {
+            width: 50px;
+        }
+
+        /* BOUTONS */
+        .btn {
+            border-radius: 999px;
+            padding: 8px 18px;
+        }
+
+        .btn-primary {
+            background: #2563eb;
+            border: none;
+        }
+    </style>
 
 @endsection
