@@ -12,7 +12,7 @@
                 <p class="dmd-subtitle">Détails de l'opportunité #{{ $opportunity->id }}</p>
             </div>
             <div class="dmd-actions-top">
-                <a href="/opportunity/edit/{{ $opportunity->id }}" class="dmd-btn-create btn-warning">Modifier le deal</a>
+                <a href="{{ route('opportunity.edit', $opportunity->id) }}" class="dmd-btn-create btn-warning">Modifier le deal</a>
             </div>
         </div>
 
