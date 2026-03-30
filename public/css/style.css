@@ -193,13 +193,6 @@ footer a:hover {
     flex-direction: column;
 }
 
-/* ===================== CARD CUSTOM ===================== */
-.card-custom {
-    background: white;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-}
 
 /* ===================== TICKET TABLE ===================== */
 .ticket-table {
@@ -1569,14 +1562,6 @@ input[type="checkbox"] { accent-color: #333; cursor: pointer; }
     }
     .avatar-circle {
         margin-bottom: 20px;
-    }
-    .profile-card {
-        max-width: 400px;
-        width: 100%;
-        background-color: #f8f9fa;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
 
 }
