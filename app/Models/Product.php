@@ -48,22 +48,7 @@ class Product extends Model
             ->withTimestamps();
     }
 
-    /**
-     * Scope pour filtrer uniquement les produits activés dans le catalogue.
-     */
-    public function scopeActive($query)
-    {
-        return $query->where('is_active', true);
-    }
 
-    /**
-     * Accessor pour calculer la marge théorique sur le produit.
-     * Utile pour les rapports du chef d'équipe.
-     */
-    public function getPotentialMarginAttribute(): float
-    {
-        return (float) $this->base_price - (float) $this->cost_price;
-    }
     public function client()
     {
         return $this->belongsTo(Client::class);

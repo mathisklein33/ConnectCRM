@@ -13,8 +13,9 @@
                  oninput="this.setCustomValidity('')">
             <option value=""> Choisir le chef d'équipe</option>
             @foreach($users as $user)
-                <option value="{{$user->id}}" {{ request('user_id') == $user->id ? 'selected' : '' }}>
-                    {{$user->name}}
+                <option value="{{ $user->id }}"
+                    {{ old('user_id', $team->user_id ?? '') == $user->id ? 'selected' : '' }}>
+                    {{ $user->name }}
                 </option>
             @endforeach
         </select>

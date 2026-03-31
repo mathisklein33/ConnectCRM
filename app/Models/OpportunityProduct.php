@@ -33,10 +33,7 @@ class OpportunityProduct extends Pivot
      * Calcul automatique du montant total pour cette ligne.
      * Très utile pour le Chef d'Équipe.
      */
-    public function getTotalLineAttribute(): float
-    {
-        return $this->quantity * $this->unit_price;
-    }
+
 
     /**
      * Relation inverse vers l'opportunité (Optionnel mais pratique)

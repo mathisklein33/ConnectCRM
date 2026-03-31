@@ -86,6 +86,7 @@ class TeamController extends Controller
 
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'user_id' => 'required|integer',
         ]);
 
         $team->update($validated);

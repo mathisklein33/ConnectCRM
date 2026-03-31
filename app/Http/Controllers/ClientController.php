@@ -43,7 +43,7 @@ class ClientController extends Controller
 
         Client::create($validated);
 
-        return redirect()->route('clients.index'); // a rediriger
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -87,7 +87,7 @@ class ClientController extends Controller
 
         $client->update($validated);
 
-        return redirect()->route('#');// a rediriger
+        return redirect()->route('clients.index');
     }
 
     /**
@@ -99,6 +99,6 @@ class ClientController extends Controller
 
         $client->delete();
 
-        return redirect()->route('#');// a rediriger
+        return redirect()->route('clients.index');
     }
 }
