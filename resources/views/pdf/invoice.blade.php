@@ -44,15 +44,16 @@
 
             <p>SIRET : 802 911 345 00021</p>
 
+            <p>N° TVA Intracommunautaire : FR 84 802911345</p>
+
+            <p>contact@connectcrm.test</p>
+
+            <p>01 40 12 34 56</p>
+
 
         </td>
         <td>
-
-    <p>Numéro de TVA Intracommunautaire : FR 84 802911345</p>
-
-    <p>contact@connectcrm.test</p>
-
-    <p>01 40 12 34 56</p>
+            <img src="{{ public_path('img/crm-logo.png') }}" class="align-to-right" alt="logo du site" style="height: 200px;">
 </td>
     </tr>
 </table>

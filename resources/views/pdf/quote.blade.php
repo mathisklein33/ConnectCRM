@@ -37,19 +37,19 @@
             margin-bottom: 20px;
         }
 
-        table {
+        .table-quote {
             width: 100%;
             border-collapse: collapse;
             margin-top: 15px;
         }
 
-        th, td {
+        .table-quote th, .table-quote td {
             border: 1px solid #444;
             padding: 8px;
             text-align: left;
         }
 
-        th {
+        .table-quote th {
             background: #f2f2f2;
         }
 
@@ -71,6 +71,31 @@
 <body>
 
 <div class="header">
+    <table>
+    <tr>
+        <td>
+            <p>ConnectCRM</p>
+
+            <p>SAS au capital de 15 000 €</p>
+
+            <p>42 Avenue des Horizons, 75008 Paris, France</p>
+
+            <p>SIRET : 802 911 345 00021</p>
+
+            <p>N° TVA Intracommunautaire : FR 84 802911345</p>
+
+            <p>contact@connectcrm.test</p>
+
+            <p>01 40 12 34 56</p>
+
+
+        </td>
+        <td>
+            <img src="{{ public_path('img/crm-logo.png') }}" class="align-to-right" alt="logo du site" style="height: 200px;">
+        </td>
+    </tr>
+    </table>
+
     <div class="title">Devis</div>
     <p><strong>Numéro :</strong> {{ $quote->number }}</p>
     <p><strong>Date :</strong> {{ $quote->created_at?->format('d/m/Y') }}</p>
@@ -91,7 +116,7 @@
     <div class="section-title">Détails du devis</div>
     <p><strong>Titre :</strong> {{ $quote->title }}</p>
 
-    <table>
+    <table class="table-quote">
         <thead>
         <tr>
             <th>Désignation</th>
