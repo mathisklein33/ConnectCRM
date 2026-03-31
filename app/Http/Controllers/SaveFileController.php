@@ -13,12 +13,12 @@ class SaveFileController extends Controller
     {
         $files = SaveFile::latest()->get();
 
-        return view('#', compact('files')); //rediriger
+        return view('documents.index', compact('files'));
     }
 
     public function form()
     {
-        return view('#'); //rediriger
+        return view('documents.create');
     }
 
     public function store(Request $request)
@@ -43,23 +43,24 @@ class SaveFileController extends Controller
             'size' => $file->getSize(),
             'share_token' => Str::random(40),
             'is_public' => false,
+            'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('#'); //rediriger
+        return redirect()->route('save-files.index');
     }
 
     public function show(string $id)
     {
         $saveFile = SaveFile::findOrFail($id);
 
-        return view('#', compact('saveFile'));//rediriger
+        return view('documents.show', compact('saveFile'));
     }
 
     public function edit(string $id)
     {
         $saveFile = SaveFile::findOrFail($id);
 
-        return view('#', compact('saveFile')); //rediriger
+        return view('documents.edit', compact('saveFile'));
     }
 
     public function update(Request $request, string $id)
@@ -72,7 +73,7 @@ class SaveFileController extends Controller
 
         $saveFile->update($validated);
 
-        return redirect()->route('#'); //rediriger
+        return redirect()->route('save-files.index');
     }
 
     public function destroy(string $id)
@@ -85,7 +86,7 @@ class SaveFileController extends Controller
 
         $saveFile->delete();
 
-        return redirect()->route('#'); //rediriger
+        return redirect()->route('save-files.index');
     }
 
     public function download(string $id)
@@ -111,7 +112,7 @@ class SaveFileController extends Controller
 
         $saveFile->save();
 
-        return redirect()->route('#', $saveFile->id);
+        return redirect()->route('save-files.show', $saveFile->id);
     }
 
     public function shared(string $token)
@@ -120,7 +121,7 @@ class SaveFileController extends Controller
             ->where('is_public', true)
             ->firstOrFail();
 
-        return view('#', compact('saveFile')); //rediriger
+        return view('documents.shared', compact('saveFile'));
     }
 
     public function sharedDownload(string $token)
