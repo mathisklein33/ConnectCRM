@@ -32,7 +32,7 @@
                         </td>
                         <td>
                             @if($team->leader)
-                                <span class="dmd-subject">{{ $team->leader }}</span>
+                                <span class="dmd-subject">{{ $team->leader->name }}</span>
                             @else
                                 <span >Non assigné</span>
                             @endif
@@ -46,6 +46,9 @@
                             <div style="display: flex; justify-content: flex-end; gap: 0.5rem;">
                                 <a href="{{ route('team.edit', $team->id) }}" class="btn-warning-custom" title="Modifier">
                                     <i class="fas fa-edit"></i> Modifier
+                                </a>
+                                <a href="{{ route('team.manage', $team->id) }}" class="btn-warning-custom" title="Gérer l'équipe">
+                                    <i class="fas fa-edit"></i> Gérer l'équipe
                                 </a>
 
                                 <form action="{{ route('team.destroy', $team->id) }}" method="POST"

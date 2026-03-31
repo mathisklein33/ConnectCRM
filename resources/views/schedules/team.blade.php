@@ -13,6 +13,17 @@
             <button class="tab-btn active" data-view="global" hidden="">Vue Globale</button>
             <button class="tab-btn" data-view="team" hidden>Vue par Équipe</button>
         </div>
+
+        <div class="dmd-crea-group" style="min-width: 280px; margin-bottom: 2rem;">
+            <select name="team_selector" class="dmd-crea-input" onchange="window.location.href='/team/show/' + this.value">
+                @foreach($teams as $t)
+                    <option value="{{ $t->id }}" {{ $team->id == $t->id ? 'selected' : '' }}>
+                        {{ $t->name }}
+                        @if(!$user->hasRole('admin')) (Votre équipe) @endif
+                    </option>
+                @endforeach
+            </select>
+        </div>
         <div class="calendar-card">
             <div id='calendar'></div>
         </div>
@@ -37,12 +48,14 @@
                     <div class="form-group">
                         <label class="schedule-label">Équipe / Type</label>
                         <select name="team_id" id="team_select" class="schedule-input">
-                                <option value="{{ $team->id }}" {{ request()->route('id') == $team->id ? 'selected' : '' }}>
-                                    {{ $team->name }}
-                                </option>
+                            <option value="">-- Événement GLOBAL (Toute l'entreprise) --</option>
 
+                            @foreach($teams as $team)
+                                <option value="{{ $team->id }}">{{ $team->name }}</option>
+                            @endforeach
                         </select>
                     </div>
+
                     <div class="form-group">
                         <label class="schedule-label">Utilisateur</label>
                         <select name="user_id" id="user_select" class="schedule-input" required disabled>
@@ -52,8 +65,8 @@
 
                     <template id="user_template">
                         @foreach($users as $user)
-                            @foreach($user->teams as $userTeam)  {{-- ✅ $userTeam --}}
-                            <option value="{{ $user->id }}" data-team="{{ $userTeam->id }}">
+                            @foreach($user->teams as $team) {{-- On boucle sur les équipes de l'utilisateur --}}
+                            <option value="{{ $user->id }}" data-team="{{ $team->id }}">
                                 {{ $user->name }}
                             </option>
                             @endforeach
@@ -83,14 +96,12 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
-    {{-- Remplacer le bloc script existant --}}
     <script>
         window.routes = {
-            data:  "{{ url('/api/schedules') }}",
+            data: "{{ url('/api/schedules') }}",
             store: "{{ url('/schedules/store') }}"
         };
-        window.csrfToken     = "{{ csrf_token() }}";
-        window.currentTeamId = {{ $team->id }};  {{-- ✅ $team est maintenant protégé --}}
+        window.csrfToken = "{{ csrf_token() }}";
     </script>
     <script src="{{ asset('js/schedules.js') }}"></script>
 @endsection

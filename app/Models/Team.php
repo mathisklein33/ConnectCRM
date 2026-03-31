@@ -30,4 +30,15 @@ class Team extends Model
     {
         return $this->hasMany(Client::class);
     }
+    // app/Models/Team.php
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'team_user');
+    }
+
+    public function leader()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

@@ -31,7 +31,6 @@ Route::get('/dashboard', function () {
 
 // Logout
 Route::get('/logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout.get');
-
 Route::middleware('auth')->group(function () {
 
     /*
@@ -68,7 +67,10 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::middleware('role:manager')->group(function () {
-        Route::get('/team-tracking', [OpportunityController::class, 'teamIndex'])->name('team.tracking');
+        Route::get('/team/manage/{id}', [TeamController::class, 'manage'])->name('team.manage');
+        Route::post('/team/add-user/', [TeamController::class, 'addUser'])->name('team.add-user');
+        Route::post('/team/update-role/{id}', [TeamController::class, 'updateRole'])->name('team.update-role');
+        Route::delete('/team/remove-user/{id}', [TeamController::class, 'removeUser'])->name('team.remove-user');
     });
 
     /*
@@ -141,6 +143,7 @@ Route::middleware('auth')->group(function () {
     |--------------------------------------------------------------------------
     */
     Route::get('/api/schedules', [WorkSchedulesController::class, 'getEvents'])->name('schedules.events');
+    Route::post('/schedules/store', [WorkSchedulesController::class, 'store'])->name('schedules.store');
 
     /*
     |--------------------------------------------------------------------------

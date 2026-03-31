@@ -56,8 +56,19 @@ class User extends Authenticatable
 
     public function teams()
     {
-        // On utilise belongsToMany car c'est une table pivot (team_user)
-        return $this->belongsToMany(Team::class, 'team_user');
+        return $this->belongsToMany(Team::class, 'team_user')
+            ->withPivot('role') // Permet d'accéder à $user->pivot->role
+            ->withTimestamps();
+    }
+    /**
+     * Vérifie si l'utilisateur est admin (chef) d'une équipe spécifique
+     */
+    public function isAdminOfTeam($teamId)
+    {
+        return $this->teams()
+            ->where('team_id', $teamId)
+            ->wherePivot('role', 'manager')
+            ->exists();
     }
 
 // Méthode utilitaire pour vérifier le rôle
