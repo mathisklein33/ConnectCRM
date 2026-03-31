@@ -81,6 +81,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:commercial')->group(function () {
         Route::resource('opportunity', OpportunityController::class);
         Route::patch('/opportunity/stage/{id}', [OpportunityController::class, 'updateStage'])->name('opportunity.updateStage');
+        Route::get('/clients/edit/{id}', [ClientController::class, 'edit'])->name('clients.edit');
 
         Route::resource('interactions', InteractionController::class);
         Route::get('/interactions/client/{client_id}', [InteractionController::class, 'byClient'])->name('interactions.byClient');
