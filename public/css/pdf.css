@@ -41,3 +41,17 @@ h2 {
     text-align: center;
     font-size: 12px;
 }
+.pdf-container {
+    width: 100%;
+}
+.pdf-left {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+}
+.pdf-right {
+    width: 49%;
+    display: inline-block;
+    vertical-align: top;
+    text-align: right;
+}
