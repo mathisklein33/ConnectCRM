@@ -272,10 +272,6 @@
             width: 120px;
         }
 
-        /* TITRES */
-        .section-title {
-            color: #1f3b64;
-        }
 
         /* STEPS */
         .step-box {
