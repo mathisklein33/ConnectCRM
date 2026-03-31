@@ -154,7 +154,38 @@
             </a>
         </li>
 
+
+        @auth
+            @if(auth()->user()->hasRole('admin'))
+                <li>
+                    <a href="{{ route('admin.users.index') }}" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-people-fill me-2" viewBox="0 0 16 16">
+                            <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.24 2.24 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.3 6.3 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                        </svg>
+                        Utilisateurs
+                    </a>
+                </li>
+            @endif
+        @endauth
+
+        @auth
+            @if(auth()->user()->hasRole('admin'))
+                <li>
+                    <a href="{{ route('admin.roles.index') }}" class="nav-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-shield-lock me-2" viewBox="0 0 16 16">
+                            <path d="M5.072.56C6.157.234 7.31 0 8 0s1.843.234 2.928.56C12.849 1.136 14 1.78 14 2.5c0 1.05-.27 2.406-.694 3.818-.833 2.772-2.432 5.874-5.306 7.41-2.874-1.536-4.473-4.638-5.306-7.41C2.27 4.906 2 3.55 2 2.5c0-.72 1.151-1.364 3.072-1.94"/>
+                            <path d="M8 5a1 1 0 0 0-1 1v1H6a1 1 0 0 0-1 1v2a1 1 0 0 0 1 1h4a1 1 0 0 0 1-1V8a1 1 0 0 0-1-1H9V6a1 1 0 0 0-1-1m0 1a.5.5 0 0 1 .5.5V7h-1v-.5A.5.5 0 0 1 8 6"/>
+                        </svg>
+                        Rôles
+                    </a>
+                </li>
+            @endif
+        @endauth
+
     </ul>
+
 
     <a href="{{ route('profile.edit') }}" class="nav-link mt-4">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-circle me-2" viewBox="0 0 16 16">
