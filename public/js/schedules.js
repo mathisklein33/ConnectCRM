@@ -71,9 +71,11 @@ document.addEventListener('DOMContentLoaded', function() {
                 openModal();
             },
 
-            eventClick: function(info) {
-                alert('Rendez-vous : ' + info.event.title + (info.event.extendedProps.description ? '\n' + info.event.extendedProps.description : ''));
-            }
+
+                eventClick: function(info) {
+                    const scheduleId = info.event.id; // Assure-toi que l'ID est bien défini
+                    window.location.href = '/schedules/show/' + scheduleId; // Redirection vers show.blade
+                }
         });
 
         window.calendar.render();

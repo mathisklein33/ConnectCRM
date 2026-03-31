@@ -125,8 +125,10 @@ class WorkSchedulesController extends Controller
     public function show(string $id)
     {
         $workSchedule = Work_schedules::with(['team', 'user'])->findOrFail($id);
+        $teams = Team::all();
+        $users = User::all();
 
-        return view('#', compact('workSchedule'));// a rediriger
+        return view('schedules.show', compact('workSchedule', 'teams', 'users'));
     }
 
     public function edit(string $id)
@@ -135,7 +137,7 @@ class WorkSchedulesController extends Controller
         $teams = Team::all();
         $users = User::all();
 
-        return view('#', compact('workSchedule', 'teams', 'users')); // a rediriger
+        return view('schedules.edit', compact('workSchedule', 'teams', 'users')); // a rediriger
     }
 
     public function update(Request $request, string $id)
