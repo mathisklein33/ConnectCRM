@@ -63,7 +63,7 @@ class ClientController extends Controller
     {
         $client = Client::findOrFail($id);
 
-        return view('#', compact('client')); // a rediriger
+        return view('clients.edit', compact('client'));
     }
 
     /**
