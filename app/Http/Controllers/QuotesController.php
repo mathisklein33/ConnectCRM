@@ -43,7 +43,7 @@ class QuotesController extends Controller
 
         $quote = Quotes::create($validated);
 
-        return redirect()->route('quotes.index', $quote->id); // a rediriger
+        return redirect()->route('quotes.index', $quote->id);
     }
 
     /**
@@ -84,7 +84,7 @@ class QuotesController extends Controller
 
         $quote->update($validated);
 
-        return redirect()->route('#', $quote->id); // a rediriger
+        return redirect()->route('quotes.index', $quote->id); // a rediriger
     }
 
     /**
@@ -96,7 +96,7 @@ class QuotesController extends Controller
 
         $quote->delete();
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('quotes.index');
     }
     public function convertToOrder($id)
     {

@@ -95,7 +95,7 @@ class InternalCollaborationController extends Controller
 
         $internalCollaboration->update($validated);
 
-        return redirect()->route('#');// a rediriger
+        return redirect()->route('InternalCollaboration.index');
     }
 
     public function destroy(string $id)
@@ -104,6 +104,6 @@ class InternalCollaborationController extends Controller
 
         $internalCollaboration->delete();
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('InternalCollaboration.index');
     }
 }

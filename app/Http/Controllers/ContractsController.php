@@ -25,7 +25,7 @@ class ContractsController extends Controller
     {
         $clients = Client::all();
 
-        return view('contracts.create', compact('clients')); // a rediriger
+        return view('contracts.create', compact('clients'));
     }
 
     /**
@@ -87,7 +87,7 @@ class ContractsController extends Controller
 
         $contract->update($validated);
 
-        return redirect()->route('#', $contract->id); // a rediriger
+        return redirect()->route('contracts.index', $contract->id);
     }
 
     /**

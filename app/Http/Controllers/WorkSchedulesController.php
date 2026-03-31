@@ -154,7 +154,7 @@ class WorkSchedulesController extends Controller
 
         $workSchedule->update($validated);
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('schedules.index');
     }
 
     public function destroy(string $id)
@@ -163,6 +163,6 @@ class WorkSchedulesController extends Controller
 
         $workSchedule->delete();
 
-        return redirect()->route('#'); // a rediriger
+        return redirect()->route('schedules.index');
     }
 }
