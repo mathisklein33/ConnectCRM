@@ -86,7 +86,10 @@ class WorkSchedulesController extends Controller
                 'id'    => $item->id,
                 'title' => $item->title,
                 'start' => substr($item->date, 0, 10) . 'T' . $item->start_time,
-                // ... reste du mapping
+                'end'   => substr($item->date, 0, 10) . 'T' . $item->end_time, // ← ajout
+                'extendedProps' => [
+                    'description' => $item->description,
+                ]
             ];
         }));
     }
