@@ -27,9 +27,9 @@
                         <td>{{ number_format($file->size / 1024, 2) }} KB</td>
                         <td>
                             @if($file->is_public)
-                                <span class="status status-valid">Public</span>
+                                <p class="status status-valid">Public</p>
                             @else
-                                <span class="status status-open">Privé</span>
+                                <p class="status status-open">Privé</p>
                             @endif
                         </td>
                         <td class="text-end d-flex gap-2">
@@ -45,16 +45,21 @@
                                class="btn-warning-custom">
                                 Modifier
                             </a>
-                            <form action="{{ route('save-files.destroy',$file->id) }}"
+
+                                <a href="{{ route('save-files.show', $file->id) }}" class="btn-warning-custom">
+                                    {{ $file->is_public ? 'Partager' : 'Privé' }}
+                                </a>
+                            <form action="{{ route('save-files.destroy', $file->id) }}"
                                   method="POST"
-                                  class="d-inline">
+                                  style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
-                                <button class="btn-danger-custom">
+                                <button type="submit"
+                                        class="btn btn-danger-custom"
+                                        onclick="return confirm('Supprimer cette commande ?')">
                                     Supprimer
                                 </button>
                             </form>
-
                         </td>
                     </tr>
                 @empty

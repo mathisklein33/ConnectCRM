@@ -121,6 +121,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/documents/{id}', [SaveFileController::class, 'destroy'])->name('save-files.destroy');
     Route::get('/documents/{id}/download', [SaveFileController::class, 'download'])->name('save-files.download');
     Route::post('/documents/{id}/toggle-share', [SaveFileController::class, 'toggleShare'])->name('save-files.toggle-share');
+    Route::get('/shared/{token}', [SaveFileController::class, 'shared'])
+        ->name('save-files.shared');
+
+    Route::get('/shared/{token}/download', [SaveFileController::class, 'sharedDownload'])
+        ->name('save-files.shared.download');
 
     /*
     |--------------------------------------------------------------------------
