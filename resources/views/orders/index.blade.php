@@ -75,7 +75,6 @@
                               style="display:inline-block;">
                             @csrf
                             @method('DELETE')
-
                             <button type="submit"
                                     class="btn btn-danger-custom"
                                     onclick="return confirm('Supprimer cette commande ?')">
