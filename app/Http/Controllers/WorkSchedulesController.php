@@ -133,11 +133,11 @@ class WorkSchedulesController extends Controller
 
     public function edit(string $id)
     {
-        $workSchedule = Work_schedules::findOrFail($id);
+        $schedule = Work_schedules::findOrFail($id);
         $teams = Team::all();
         $users = User::all();
 
-        return view('schedules.edit', compact('workSchedule', 'teams', 'users')); // a rediriger
+        return view('schedules.edit', compact('schedule', 'teams', 'users')); // a rediriger
     }
 
     public function update(Request $request, string $id)
