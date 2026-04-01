@@ -147,6 +147,8 @@ Route::middleware('auth')->group(function () {
     */
     Route::get('/api/schedules', [WorkSchedulesController::class, 'getEvents'])->name('schedules.events');
     Route::post('/schedules/store', [WorkSchedulesController::class, 'store'])->name('schedules.store');
+    Route::get('/schedules/show/{id}', [WorkSchedulesController::class, 'show'])->name('schedules.show');
+    Route::get('/schedules/edit/{id}', [WorkSchedulesController::class, 'edit'])->name('schedules.edit');
 
     /*
     |--------------------------------------------------------------------------

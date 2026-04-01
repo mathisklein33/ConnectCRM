@@ -48,6 +48,9 @@
                                     <a href="/interactions/client/{{$client->id}}" class="btn btn-sm btn-light border" title="Historique">
                                         🕒 <span class="d-lg-none d-xl-inline">Historique</span>
                                     </a>
+                                    <a href="/clients/edit/{{$client->id}}" class="btn btn-sm btn-light border" title="Historique">
+                                        ⚙️ <span class="d-lg-none d-xl-inline">Éditer</span>
+                                    </a>
                                     <a href="/interactions/create/{{$client->id}}" class="btn btn-sm btn-primary" title="Ajouter">
                                         + <span class="d-lg-none d-xl-inline">Interaction</span>
                                     </a>
