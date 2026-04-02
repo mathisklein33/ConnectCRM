@@ -65,11 +65,6 @@
                                 <input type="number" step="0.01" name="price" value="{{ old('price', $product->price) }}"
                                        class="dmd-input" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;" required>
                             </div>
-                            <div>
-                                <label class="dmd-info-label">Quantité en stock</label>
-                                <input type="number" name="quantity" value="{{ old('quantity', $product->quantity) }}"
-                                       class="dmd-input" style="width: 100%; padding: 10px; border: 1px solid #e2e8f0; border-radius: 6px;" required>
-                            </div>
                         </div>
                     </div>
                 </div>
