@@ -56,8 +56,6 @@
                         <label class="dmd-crea-label">Rôle</label>
                         <select name="role" class="dmd-crea-input" required>
                             <option value="member">Membre</option>
-                            <option value="editor">Éditeur</option>
-                            <option value="admin">Admin</option>
                         </select>
                     </div>
                     <div style="display: flex; align-items: flex-end;">
@@ -74,7 +72,6 @@
                 <thead>
                 <tr>
                     <th>Utilisateur</th>
-                    <th>Rôle</th>
                     <th>Date d'entrée</th>
                     <th class="dmd-actions">Actions</th>
                 </tr>
