@@ -52,8 +52,14 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="dmd-crea-flex-2 dmd-crea-group">
+                        <label class="dmd-crea-label">Rôle</label>
+                        <select name="role" class="dmd-crea-input" required>
+                            <option value="member">Membre</option>
+                        </select>
+                    </div>
                     <div style="display: flex; align-items: flex-end;">
-                        <button type="submit" class="dmd-crea-btn-submit" style="padding: 0.85rem 2rem;">
+                        <button type="submit" class="btn-primary-custom" style="padding: 0.85rem 2rem;">
                             Ajouter au groupe
                         </button>
                     </div>
@@ -66,7 +72,6 @@
                 <thead>
                 <tr>
                     <th>Utilisateur</th>
-                    <th>Rôle</th>
                     <th>Date d'entrée</th>
                     <th class="dmd-actions">Actions</th>
                 </tr>
