@@ -7,7 +7,7 @@
                 <h1 class="dmd-page-title">Suivi des Demandes</h1>
                 <p class="dmd-subtitle">Gestion et historique des requêtes clients</p>
             </div>
-            <a href="/demandes/create" class="dmd-btn-create">+ Nouvelle Demande</a>
+            <a href="{{route('demandes.create')}}" class="dmd-btn-create">+ Nouvelle Demande</a>
         </div>
 
         @if(session('success'))
@@ -102,8 +102,8 @@
                                 @endif
                             </td>
                             <td class="dmd-actions">
-                                <a href="/demandes/show/{{$demande->id}}" class="dmd-btn-icon dmd-btn-edit">Voir</a>
-                                <a href="/demandes/assignation/{{$demande->id}}" class="dmd-btn-icon dmd-btn-edit">Modifier/assigner</a>
+                                <a href="{{route('demandes.show', $demande->id)}}" class="dmd-btn-icon dmd-btn-edit">Voir</a>
+                                <a href="{{route('demandes.edit', $demande->id)}}" class="dmd-btn-icon dmd-btn-edit">Modifier/assigner</a>
                             </td>
                         </tr>
                     @empty

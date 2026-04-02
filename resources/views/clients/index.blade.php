@@ -3,7 +3,7 @@
     <div class="container py-4">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
             <h1 class="h3 mb-0">Répertoire Clients</h1>
-            <a href="/interactions" class="btn btn-outline-primary">
+            <a href="{{route('interactions.index')}}" class="btn btn-outline-primary">
                 <i class="bi bi-list-check"></i> Voir toutes les interactions
             </a>
         </div>
@@ -48,10 +48,10 @@
                                     <a href="/interactions/client/{{$client->id}}" class="btn btn-sm btn-light border" title="Historique">
                                         🕒 <span class="d-lg-none d-xl-inline">Historique</span>
                                     </a>
-                                    <a href="/clients/edit/{{$client->id}}" class="btn btn-sm btn-light border" title="Historique">
+                                    <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-sm btn-light border" title="Historique">
                                         ⚙️ <span class="d-lg-none d-xl-inline">Éditer</span>
                                     </a>
-                                    <a href="/interactions/create/{{$client->id}}" class="btn btn-sm btn-primary" title="Ajouter">
+                                    <a href="{{ route('interactions.create', $client->id) }}" class="btn btn-sm btn-primary" title="Ajouter">
                                         + <span class="d-lg-none d-xl-inline">Interaction</span>
                                     </a>
                                 </div>

@@ -3,7 +3,7 @@
 @section('content')
     <div class="container py-4">
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-4 gap-3">
-            <a href="/clients" class="text-decoration-none text-muted">
+            <a href="{{route('clients.index')}}" class="text-decoration-none text-muted">
                 <i class="bi bi-arrow-left"></i> ← Retour aux clients
             </a>
             <a href="/interactions/create/{{$client->id}}" class="btn btn-primary shadow-sm">

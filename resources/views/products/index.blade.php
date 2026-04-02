@@ -170,8 +170,8 @@
                                 @endif
                             </td>
                             <td class="dmd-actions">
-                                <a href="/products/show/{{$product->id}}" class="dmd-btn-icon">Voir</a>
-                                <a href="/products/edit/{{$product->id}}" class="dmd-btn-icon">Modifier</a>
+                                <a href="{{route('products.show', $product->id)}}" class="dmd-btn-icon">Voir</a>
+                                <a href="{{route('products.edit', $product->id)}}" class="dmd-btn-icon">Modifier</a>
                             </td>
                         </tr>
                     @empty

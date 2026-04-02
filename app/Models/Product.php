@@ -21,7 +21,6 @@ class Product extends Model
         'categorie',
         'price',
         'is_active',
-        'quantity',
         'unit_price',
         'created_at',
         'updated_at',
