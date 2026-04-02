@@ -52,6 +52,12 @@
                             @endforeach
                         </select>
                     </div>
+                    <div class="dmd-crea-flex-2 dmd-crea-group">
+                        <label class="dmd-crea-label">Rôle</label>
+                        <select name="role" class="dmd-crea-input" required>
+                            <option value="member">Membre</option>
+                        </select>
+                    </div>
                     <div style="display: flex; align-items: flex-end;">
                         <button type="submit" class="dmd-crea-btn-submit" style="padding: 0.85rem 2rem;">
                             Ajouter au groupe
