@@ -51,7 +51,7 @@
                                     <a href="{{ route('clients.edit', $client->id) }}" class="btn btn-sm btn-light border" title="Historique">
                                         ⚙️ <span class="d-lg-none d-xl-inline">Éditer</span>
                                     </a>
-                                    <a href="{{ route('interactions.create', $client->id) }}" class="btn btn-sm btn-primary" title="Ajouter">
+                                    <a href="/interactions/create/{{$client->id}}" class="btn btn-sm btn-primary" title="Ajouter">
                                         + <span class="d-lg-none d-xl-inline">Interaction</span>
                                     </a>
                                 </div>
